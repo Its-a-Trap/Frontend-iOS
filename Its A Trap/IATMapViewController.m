@@ -14,11 +14,25 @@
 
 @implementation IATMapViewController
 
+@synthesize mapView;
+
+/*
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    NSLog([locations lastObject]);
+}
+ */
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        /*
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.distanceFilter = kCLDistanceFilterNone;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [locationManager startUpdatingLocation];
+         */
     }
     return self;
 }
@@ -26,7 +40,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    mapView.showsUserLocation = YES;
+    
+    /*
+    MKUserLocation *userLocation = mapView.userLocation;
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
+            userLocation.location.coordinate, 200000, 200000);
+     */
+    
+    NSMutableArray *fakeTraps = [[NSMutableArray alloc]init];
+    
+    MKCoordinateRegion region;
+    region.center.latitude = 44.4604636;
+    region.center.longitude = -93.1535;
+    region.span.latitudeDelta = 0.0075;
+    region.span.longitudeDelta = 0.0075;
+    [mapView setRegion:region];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790D0697191F1B9C00399F14 /* MapKit.framework */; };
+		790D069B191F201100399F14 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
+		790D069E191F386200399F14 /* IATUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069D191F386200399F14 /* IATUser.m */; };
+		790D06A1191F388200399F14 /* IATTrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D06A0191F388200399F14 /* IATTrap.m */; };
 		79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DD191A97BC00FBC3DA /* Foundation.framework */; };
 		79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */; };
 		79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585E1191A97BC00FBC3DA /* UIKit.framework */; };
@@ -19,6 +23,7 @@
 		79B585F9191A97BC00FBC3DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585E1191A97BC00FBC3DA /* UIKit.framework */; };
 		79B58601191A97BC00FBC3DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79B585FF191A97BC00FBC3DA /* InfoPlist.strings */; };
 		79B58603191A97BC00FBC3DA /* Its_A_TrapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B58602191A97BC00FBC3DA /* Its_A_TrapTests.m */; };
+		79B5860D191A97E600FBC3DA /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79B5860C191A97E600FBC3DA /* Storyboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +37,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		790D0697191F1B9C00399F14 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		790D0699191F201100399F14 /* IATMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATMapViewController.h; sourceTree = "<group>"; };
+		790D069A191F201100399F14 /* IATMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATMapViewController.m; sourceTree = "<group>"; };
+		790D069C191F386200399F14 /* IATUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATUser.h; sourceTree = "<group>"; };
+		790D069D191F386200399F14 /* IATUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATUser.m; sourceTree = "<group>"; };
+		790D069F191F388200399F14 /* IATTrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATTrap.h; sourceTree = "<group>"; };
+		790D06A0191F388200399F14 /* IATTrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATTrap.m; sourceTree = "<group>"; };
 		79B585DA191A97BC00FBC3DA /* Its A Trap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Its A Trap.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B585DD191A97BC00FBC3DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +60,7 @@
 		79B585FE191A97BC00FBC3DA /* Its A TrapTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Its A TrapTests-Info.plist"; sourceTree = "<group>"; };
 		79B58600191A97BC00FBC3DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		79B58602191A97BC00FBC3DA /* Its_A_TrapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Its_A_TrapTests.m; sourceTree = "<group>"; };
+		79B5860C191A97E600FBC3DA /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +70,7 @@
 			files = (
 				79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */,
 				79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */,
+				790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */,
 				79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +110,7 @@
 		79B585DC191A97BC00FBC3DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				790D0697191F1B9C00399F14 /* MapKit.framework */,
 				79B585DD191A97BC00FBC3DA /* Foundation.framework */,
 				79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */,
 				79B585E1191A97BC00FBC3DA /* UIKit.framework */,
@@ -111,6 +126,13 @@
 				79B585ED191A97BC00FBC3DA /* IATAppDelegate.m */,
 				79B585EF191A97BC00FBC3DA /* Images.xcassets */,
 				79B585E4191A97BC00FBC3DA /* Supporting Files */,
+				79B5860C191A97E600FBC3DA /* Storyboard.storyboard */,
+				790D0699191F201100399F14 /* IATMapViewController.h */,
+				790D069A191F201100399F14 /* IATMapViewController.m */,
+				790D069C191F386200399F14 /* IATUser.h */,
+				790D069D191F386200399F14 /* IATUser.m */,
+				790D069F191F388200399F14 /* IATTrap.h */,
+				790D06A0191F388200399F14 /* IATTrap.m */,
 			);
 			path = "Its A Trap";
 			sourceTree = "<group>";
@@ -192,6 +214,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Its-A-Trap";
 				TargetAttributes = {
+					79B585D9191A97BC00FBC3DA = {
+						SystemCapabilities = {
+							com.apple.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					79B585F4191A97BC00FBC3DA = {
 						TestTargetID = 79B585D9191A97BC00FBC3DA;
 					};
@@ -222,6 +251,7 @@
 			files = (
 				79B585E8191A97BC00FBC3DA /* InfoPlist.strings in Resources */,
 				79B585F0191A97BC00FBC3DA /* Images.xcassets in Resources */,
+				79B5860D191A97E600FBC3DA /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +271,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				79B585EA191A97BC00FBC3DA /* main.m in Sources */,
+				790D069E191F386200399F14 /* IATUser.m in Sources */,
+				790D069B191F201100399F14 /* IATMapViewController.m in Sources */,
 				79B585EE191A97BC00FBC3DA /* IATAppDelegate.m in Sources */,
+				790D06A1191F388200399F14 /* IATTrap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +473,7 @@
 				79B58608191A97BC00FBC3DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		79B58609191A97BC00FBC3DA /* Build configuration list for PBXNativeTarget "Its A TrapTests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +482,7 @@
 				79B5860B191A97BC00FBC3DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
