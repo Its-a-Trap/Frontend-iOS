@@ -1,4 +1,4 @@
- //
+//
 //  IATMapViewController.h
 //  Its A Trap
 //
@@ -29,5 +29,7 @@
 
 -updateMyTraps;
 -updateAllTraps;
+
+//@property (weak, nonatomic) IBOutlet UIButton *sweepButton;
 
 @end

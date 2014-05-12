@@ -21,6 +21,14 @@
     NSLog([locations lastObject]);
 }
  */
+- (IBAction)manageSweepConfirmation:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm Sweep"
+                                                    message:@"Are you sure you want to sweep?"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"No!"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +45,10 @@
     return self;
 }
 
+- (IBAction)unwindToTitle:(UIStoryboardSegue*)unwindSegue{
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,9 +59,6 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
             userLocation.location.coordinate, 200000, 200000);
      */
-    
-    NSMutableArray *fakeTraps = [[NSMutableArray alloc]init];
-    
     MKCoordinateRegion region;
     region.center.latitude = 44.4604636;
     region.center.longitude = -93.1535;

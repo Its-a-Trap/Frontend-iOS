@@ -11,6 +11,7 @@
 		790D069B191F201100399F14 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
 		790D069E191F386200399F14 /* IATUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069D191F386200399F14 /* IATUser.m */; };
 		790D06A1191F388200399F14 /* IATTrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D06A0191F388200399F14 /* IATTrap.m */; };
+		790D06A7191F4DAF00399F14 /* IATSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D06A6191F4DAF00399F14 /* IATSignUpViewController.m */; };
 		79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DD191A97BC00FBC3DA /* Foundation.framework */; };
 		79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */; };
 		79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585E1191A97BC00FBC3DA /* UIKit.framework */; };
@@ -44,6 +45,8 @@
 		790D069D191F386200399F14 /* IATUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATUser.m; sourceTree = "<group>"; };
 		790D069F191F388200399F14 /* IATTrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATTrap.h; sourceTree = "<group>"; };
 		790D06A0191F388200399F14 /* IATTrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATTrap.m; sourceTree = "<group>"; };
+		790D06A5191F4DAF00399F14 /* IATSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATSignUpViewController.h; sourceTree = "<group>"; };
+		790D06A6191F4DAF00399F14 /* IATSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATSignUpViewController.m; sourceTree = "<group>"; };
 		79B585DA191A97BC00FBC3DA /* Its A Trap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Its A Trap.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B585DD191A97BC00FBC3DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -133,6 +136,8 @@
 				790D069D191F386200399F14 /* IATUser.m */,
 				790D069F191F388200399F14 /* IATTrap.h */,
 				790D06A0191F388200399F14 /* IATTrap.m */,
+				790D06A5191F4DAF00399F14 /* IATSignUpViewController.h */,
+				790D06A6191F4DAF00399F14 /* IATSignUpViewController.m */,
 			);
 			path = "Its A Trap";
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 				79B585EA191A97BC00FBC3DA /* main.m in Sources */,
 				790D069E191F386200399F14 /* IATUser.m in Sources */,
 				790D069B191F201100399F14 /* IATMapViewController.m in Sources */,
+				790D06A7191F4DAF00399F14 /* IATSignUpViewController.m in Sources */,
 				79B585EE191A97BC00FBC3DA /* IATAppDelegate.m in Sources */,
 				790D06A1191F388200399F14 /* IATTrap.m in Sources */,
 			);

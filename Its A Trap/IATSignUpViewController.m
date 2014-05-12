@@ -23,6 +23,10 @@
     return self;
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -93,6 +93,9 @@
                                 <state key="normal" title="G+">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="isl-1J-MFc" kind="push" id="lcT-fd-pbK"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDg-RU-OI5">
                                 <rect key="frame" x="191" y="480" width="30" height="30"/>
@@ -100,6 +103,9 @@
                                 <state key="normal" title="T">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="isl-1J-MFc" kind="push" id="y8r-7d-dDb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -132,6 +138,9 @@
                                 <state key="normal" title="Sweep">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="manageSweepConfirmation:" destination="YOi-kO-RpU" eventType="touchUpInside" id="TZH-HC-8Cy"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -145,10 +154,10 @@
             </objects>
             <point key="canvasLocation" x="372" y="459"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up View Controller-->
         <scene sceneID="R9j-f2-Qcz">
             <objects>
-                <viewController id="isl-1J-MFc" sceneMemberID="viewController">
+                <viewController id="isl-1J-MFc" customClass="IATSignUpViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ru5-d7-JmR"/>
                         <viewControllerLayoutGuide type="bottom" id="d98-Hf-fTy"/>
@@ -205,6 +214,9 @@
                                 <state key="normal" title="Sign Up">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="QkE-qJ-zXM" kind="unwind" identifier="unwindToTitle" unwindAction="unwindToTitle:" id="yGj-3z-RCs"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -212,6 +224,7 @@
                     <navigationItem key="navigationItem" id="lRX-Cy-Yir"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DgQ-hd-I1W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="QkE-qJ-zXM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="372" y="-251"/>
         </scene>
@@ -221,4 +234,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="DXf-w1-syA"/>
+    </inferredMetricsTieBreakers>
 </document>
