@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Its-A-Trap. All rights reserved.
 //
 
-#import "SWRevealViewController.h"
 #import "IATMapViewController.h"
+#import "SWRevealViewController.h"
+
 
 @interface IATMapViewController ()
 
@@ -53,6 +54,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     mapView.showsUserLocation = YES;
     
     /*
@@ -67,7 +70,7 @@
     region.span.longitudeDelta = 0.0075;
     [mapView setRegion:region];
     
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
     
     
 }
