@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05FD3CF819253B2B0002F957 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FD3CF719253B2B0002F957 /* SWRevealViewController.m */; };
+		05FD3CFA1925517E0002F957 /* menu-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FD3CF91925517E0002F957 /* menu-icon@2x.png */; };
 		790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790D0697191F1B9C00399F14 /* MapKit.framework */; };
 		790D069B191F201100399F14 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
 		790D069E191F386200399F14 /* IATUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069D191F386200399F14 /* IATUser.m */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		05FD3CF619253B2B0002F957 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		05FD3CF719253B2B0002F957 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		05FD3CF91925517E0002F957 /* menu-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu-icon@2x.png"; path = "../../socioville-hamburger-menu/menu-icon@2x.png"; sourceTree = "<group>"; };
 		790D0697191F1B9C00399F14 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		790D0699191F201100399F14 /* IATMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATMapViewController.h; sourceTree = "<group>"; };
 		790D069A191F201100399F14 /* IATMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATMapViewController.m; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		79B585E4191A97BC00FBC3DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05FD3CF91925517E0002F957 /* menu-icon@2x.png */,
 				79B585E5191A97BC00FBC3DA /* Its A Trap-Info.plist */,
 				79B585E6191A97BC00FBC3DA /* InfoPlist.strings */,
 				79B585E9191A97BC00FBC3DA /* main.m */,
@@ -259,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05FD3CFA1925517E0002F957 /* menu-icon@2x.png in Resources */,
 				79B585E8191A97BC00FBC3DA /* InfoPlist.strings in Resources */,
 				79B585F0191A97BC00FBC3DA /* Images.xcassets in Resources */,
 				79B5860D191A97E600FBC3DA /* Storyboard.storyboard in Resources */,
