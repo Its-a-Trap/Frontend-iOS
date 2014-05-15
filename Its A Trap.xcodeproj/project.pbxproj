@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05FD3CF819253B2B0002F957 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FD3CF719253B2B0002F957 /* SWRevealViewController.m */; };
 		790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790D0697191F1B9C00399F14 /* MapKit.framework */; };
 		790D069B191F201100399F14 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
 		790D069E191F386200399F14 /* IATUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069D191F386200399F14 /* IATUser.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05FD3CF619253B2B0002F957 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		05FD3CF719253B2B0002F957 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		790D0697191F1B9C00399F14 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		790D0699191F201100399F14 /* IATMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATMapViewController.h; sourceTree = "<group>"; };
 		790D069A191F201100399F14 /* IATMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATMapViewController.m; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 				790D06A0191F388200399F14 /* IATTrap.m */,
 				790D06A5191F4DAF00399F14 /* IATSignUpViewController.h */,
 				790D06A6191F4DAF00399F14 /* IATSignUpViewController.m */,
+				05FD3CF619253B2B0002F957 /* SWRevealViewController.h */,
+				05FD3CF719253B2B0002F957 /* SWRevealViewController.m */,
 			);
 			path = "Its A Trap";
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05FD3CF819253B2B0002F957 /* SWRevealViewController.m in Sources */,
 				79B585EA191A97BC00FBC3DA /* main.m in Sources */,
 				790D069E191F386200399F14 /* IATUser.m in Sources */,
 				790D069B191F201100399F14 /* IATMapViewController.m in Sources */,

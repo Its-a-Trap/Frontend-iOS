@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Its-A-Trap. All rights reserved.
 //
 
+#import "SWRevealViewController.h"
 #import "IATMapViewController.h"
 
 @interface IATMapViewController ()
@@ -65,6 +66,8 @@
     region.span.latitudeDelta = 0.0075;
     region.span.longitudeDelta = 0.0075;
     [mapView setRegion:region];
+    
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     
 }
