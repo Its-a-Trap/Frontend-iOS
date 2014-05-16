@@ -7,11 +7,14 @@
 //
 
 #import "IATAppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation IATAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [FBLoginView class];
+    
     [self.window addSubview:[navigationController view]];
     [self.window makeKeyAndVisible];
     return YES;
@@ -43,5 +46,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 @end
