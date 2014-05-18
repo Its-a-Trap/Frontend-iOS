@@ -59,14 +59,15 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
             userLocation.location.coordinate, 200000, 200000);
      */
+    // acquire initial location in another method
+    // if in dev mode, do this, otherwise do that
     MKCoordinateRegion region;
     region.center.latitude = 44.4604636;
     region.center.longitude = -93.1535;
     region.span.latitudeDelta = 0.0075;
     region.span.longitudeDelta = 0.0075;
     [mapView setRegion:region];
-    
-    
+
 }
 
 - (void)didReceiveMemoryWarning
