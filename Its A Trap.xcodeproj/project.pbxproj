@@ -80,9 +80,9 @@
 		054BB1D8192671590040391F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		054BB1DA192671610040391F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		054BB1DC192671710040391F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		054BB1DE1926720D0040391F /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = GoogleSDK/GoogleOpenSource.framework; sourceTree = "<group>"; };
+		054BB1DE1926720D0040391F /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "Its A Trap/GoogleSDK/GoogleOpenSource.framework"; sourceTree = "<group>"; };
 		054BB1DF1926720D0040391F /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Its A Trap/GoogleSDK/GooglePlus.bundle"; sourceTree = "<group>"; };
-		054BB1E01926720D0040391F /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = GoogleSDK/GooglePlus.framework; sourceTree = "<group>"; };
+		054BB1E01926720D0040391F /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "Its A Trap/GoogleSDK/GooglePlus.framework"; sourceTree = "<group>"; };
 		05FD3CF619253B2B0002F957 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		05FD3CF719253B2B0002F957 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		05FD3CF91925517E0002F957 /* menu-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu-icon@2x.png"; path = "../../socioville-hamburger-menu/menu-icon@2x.png"; sourceTree = "<group>"; };
@@ -173,6 +173,8 @@
 		79B585DC191A97BC00FBC3DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				054BB1DE1926720D0040391F /* GoogleOpenSource.framework */,
+				054BB1E01926720D0040391F /* GooglePlus.framework */,
 				054BB1DC192671710040391F /* SystemConfiguration.framework */,
 				054BB1DA192671610040391F /* Security.framework */,
 				054BB1D8192671590040391F /* MediaPlayer.framework */,
@@ -209,8 +211,6 @@
 				790D06A6191F4DAF00399F14 /* IATSignUpViewController.m */,
 				05FD3CF619253B2B0002F957 /* SWRevealViewController.h */,
 				05FD3CF719253B2B0002F957 /* SWRevealViewController.m */,
-				054BB1DE1926720D0040391F /* GoogleOpenSource.framework */,
-				054BB1E01926720D0040391F /* GooglePlus.framework */,
 			);
 			path = "Its A Trap";
 			sourceTree = "<group>";

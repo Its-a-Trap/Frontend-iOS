@@ -15,6 +15,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString * const kClientId = @"780610866037-tgfn7rpcjv34cedu1c21jvknatu344le.apps.googleusercontent.com";
+
 @interface IATAppDelegate : UIResponder <UIApplicationDelegate> {
     UIWindow *window;
     UINavigationController *navigationController;
