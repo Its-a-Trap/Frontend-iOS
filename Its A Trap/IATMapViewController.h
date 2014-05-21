@@ -18,6 +18,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "IATUser.h"
 #import "IATTrap.h"
+#import "IATTrapCountButton.h"
 
 @interface IATMapViewController : UIViewController <CLLocationManagerDelegate> {
     CLLocationManager *locationManager;
@@ -26,6 +27,7 @@
 
 @property NSMutableArray *myTraps;
 @property NSMutableArray *allTraps;
+@property IATTrapCountButton *trapCountButton;
 
 -updateMyTraps;
 -updateAllTraps;

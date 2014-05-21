@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		054BB1CD1925E55C0040391F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1CC1925E55C0040391F /* FacebookSDK.framework */; };
 		054BB1CF1926711F0040391F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1CE1926711F0040391F /* AddressBook.framework */; };
 		054BB1D11926712D0040391F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1D01926712D0040391F /* AssetsLibrary.framework */; };
 		054BB1D31926713B0040391F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1D21926713B0040391F /* CoreLocation.framework */; };
@@ -16,16 +15,16 @@
 		054BB1D9192671590040391F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1D8192671590040391F /* MediaPlayer.framework */; };
 		054BB1DB192671610040391F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DA192671610040391F /* Security.framework */; };
 		054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DC192671710040391F /* SystemConfiguration.framework */; };
-		054BB1E11926720D0040391F /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DE1926720D0040391F /* GoogleOpenSource.framework */; };
 		054BB1E21926720D0040391F /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 054BB1DF1926720D0040391F /* GooglePlus.bundle */; };
-		054BB1E31926720D0040391F /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1E01926720D0040391F /* GooglePlus.framework */; };
 		05FD3CF819253B2B0002F957 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FD3CF719253B2B0002F957 /* SWRevealViewController.m */; };
-		05FD3CFA1925517E0002F957 /* menu-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FD3CF91925517E0002F957 /* menu-icon@2x.png */; };
 		790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790D0697191F1B9C00399F14 /* MapKit.framework */; };
 		790D069B191F201100399F14 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
 		790D069E191F386200399F14 /* IATUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069D191F386200399F14 /* IATUser.m */; };
 		790D06A1191F388200399F14 /* IATTrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D06A0191F388200399F14 /* IATTrap.m */; };
 		790D06A7191F4DAF00399F14 /* IATSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D06A6191F4DAF00399F14 /* IATSignUpViewController.m */; };
+		791502DA192D073000AB9667 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791502D9192D073000AB9667 /* GooglePlus.framework */; };
+		791502DC192D083700AB9667 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791502DB192D083700AB9667 /* GoogleOpenSource.framework */; };
+		791502DF192D0D5600AB9667 /* IATTrapCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 791502DE192D0D5600AB9667 /* IATTrapCountButton.m */; };
 		79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DD191A97BC00FBC3DA /* Foundation.framework */; };
 		79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */; };
 		79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585E1191A97BC00FBC3DA /* UIKit.framework */; };
@@ -71,7 +70,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		054BB1CC1925E55C0040391F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		054BB1CE1926711F0040391F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		054BB1D01926712D0040391F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		054BB1D21926713B0040391F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -80,12 +78,9 @@
 		054BB1D8192671590040391F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		054BB1DA192671610040391F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		054BB1DC192671710040391F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		054BB1DE1926720D0040391F /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = GoogleSDK/GoogleOpenSource.framework; sourceTree = "<group>"; };
 		054BB1DF1926720D0040391F /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Its A Trap/GoogleSDK/GooglePlus.bundle"; sourceTree = "<group>"; };
-		054BB1E01926720D0040391F /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = GoogleSDK/GooglePlus.framework; sourceTree = "<group>"; };
 		05FD3CF619253B2B0002F957 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		05FD3CF719253B2B0002F957 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		05FD3CF91925517E0002F957 /* menu-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu-icon@2x.png"; path = "../../socioville-hamburger-menu/menu-icon@2x.png"; sourceTree = "<group>"; };
 		790D0697191F1B9C00399F14 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		790D0699191F201100399F14 /* IATMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATMapViewController.h; sourceTree = "<group>"; };
 		790D069A191F201100399F14 /* IATMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATMapViewController.m; sourceTree = "<group>"; };
@@ -95,6 +90,10 @@
 		790D06A0191F388200399F14 /* IATTrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATTrap.m; sourceTree = "<group>"; };
 		790D06A5191F4DAF00399F14 /* IATSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATSignUpViewController.h; sourceTree = "<group>"; };
 		790D06A6191F4DAF00399F14 /* IATSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATSignUpViewController.m; sourceTree = "<group>"; };
+		791502D9192D073000AB9667 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "Its A Trap/GoogleSDK/GooglePlus.framework"; sourceTree = "<group>"; };
+		791502DB192D083700AB9667 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "Its A Trap/GoogleSDK/GoogleOpenSource.framework"; sourceTree = "<group>"; };
+		791502DD192D0D5600AB9667 /* IATTrapCountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATTrapCountButton.h; sourceTree = "<group>"; };
+		791502DE192D0D5600AB9667 /* IATTrapCountButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATTrapCountButton.m; sourceTree = "<group>"; };
 		79B585DA191A97BC00FBC3DA /* Its A Trap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Its A Trap.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B585DD191A97BC00FBC3DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -119,6 +118,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791502DC192D083700AB9667 /* GoogleOpenSource.framework in Frameworks */,
+				791502DA192D073000AB9667 /* GooglePlus.framework in Frameworks */,
 				79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */,
 				054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */,
 				054BB1DB192671610040391F /* Security.framework in Frameworks */,
@@ -127,12 +128,9 @@
 				79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */,
 				054BB1D5192671430040391F /* CoreMotion.framework in Frameworks */,
 				054BB1D31926713B0040391F /* CoreLocation.framework in Frameworks */,
-				054BB1E11926720D0040391F /* GoogleOpenSource.framework in Frameworks */,
 				79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */,
-				054BB1E31926720D0040391F /* GooglePlus.framework in Frameworks */,
 				054BB1D11926712D0040391F /* AssetsLibrary.framework in Frameworks */,
 				054BB1CF1926711F0040391F /* AddressBook.framework in Frameworks */,
-				054BB1CD1925E55C0040391F /* FacebookSDK.framework in Frameworks */,
 				790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +171,8 @@
 		79B585DC191A97BC00FBC3DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				791502DB192D083700AB9667 /* GoogleOpenSource.framework */,
+				791502D9192D073000AB9667 /* GooglePlus.framework */,
 				054BB1DC192671710040391F /* SystemConfiguration.framework */,
 				054BB1DA192671610040391F /* Security.framework */,
 				054BB1D8192671590040391F /* MediaPlayer.framework */,
@@ -181,7 +181,6 @@
 				054BB1D21926713B0040391F /* CoreLocation.framework */,
 				054BB1D01926712D0040391F /* AssetsLibrary.framework */,
 				054BB1CE1926711F0040391F /* AddressBook.framework */,
-				054BB1CC1925E55C0040391F /* FacebookSDK.framework */,
 				790D0697191F1B9C00399F14 /* MapKit.framework */,
 				79B585DD191A97BC00FBC3DA /* Foundation.framework */,
 				79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */,
@@ -209,8 +208,8 @@
 				790D06A6191F4DAF00399F14 /* IATSignUpViewController.m */,
 				05FD3CF619253B2B0002F957 /* SWRevealViewController.h */,
 				05FD3CF719253B2B0002F957 /* SWRevealViewController.m */,
-				054BB1DE1926720D0040391F /* GoogleOpenSource.framework */,
-				054BB1E01926720D0040391F /* GooglePlus.framework */,
+				791502DD192D0D5600AB9667 /* IATTrapCountButton.h */,
+				791502DE192D0D5600AB9667 /* IATTrapCountButton.m */,
 			);
 			path = "Its A Trap";
 			sourceTree = "<group>";
@@ -218,7 +217,6 @@
 		79B585E4191A97BC00FBC3DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				05FD3CF91925517E0002F957 /* menu-icon@2x.png */,
 				79B585E5191A97BC00FBC3DA /* Its A Trap-Info.plist */,
 				79B585E6191A97BC00FBC3DA /* InfoPlist.strings */,
 				79B585E9191A97BC00FBC3DA /* main.m */,
@@ -330,7 +328,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05FD3CFA1925517E0002F957 /* menu-icon@2x.png in Resources */,
 				054BB1E21926720D0040391F /* GooglePlus.bundle in Resources */,
 				79B585E8191A97BC00FBC3DA /* InfoPlist.strings in Resources */,
 				79B585F0191A97BC00FBC3DA /* Images.xcassets in Resources */,
@@ -354,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05FD3CF819253B2B0002F957 /* SWRevealViewController.m in Sources */,
+				791502DF192D0D5600AB9667 /* IATTrapCountButton.m in Sources */,
 				79B585EA191A97BC00FBC3DA /* main.m in Sources */,
 				790D069E191F386200399F14 /* IATUser.m in Sources */,
 				790D069B191F201100399F14 /* IATMapViewController.m in Sources */,
@@ -480,13 +478,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Its",
-					A,
-					Trap,
-					"$(PROJECT_DIR)/Its",
-					A,
-					Trap,
-					/Users/AdamCanady/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/\"Its A Trap\"",
+					"$(PROJECT_DIR)/\"Its A Trap\"/GoogleSDK",
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap/GoogleSDK,
@@ -507,13 +500,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Its",
-					A,
-					Trap,
-					"$(PROJECT_DIR)/Its",
-					A,
-					Trap,
-					/Users/AdamCanady/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/\"Its A Trap\"",
+					"$(PROJECT_DIR)/\"Its A Trap\"/GoogleSDK",
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap/GoogleSDK,

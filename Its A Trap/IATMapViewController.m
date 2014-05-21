@@ -32,8 +32,7 @@
     [alert show];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         /*
@@ -47,24 +46,47 @@
     return self;
 }
 
-- (IBAction)unwindToTitle:(UIStoryboardSegue*)unwindSegue{
+- (IBAction)unwindToTitle:(UIStoryboardSegue*)unwindSegue {
     
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     mapView.showsUserLocation = YES;
     
+    self.myTraps = [[NSMutableArray alloc] init];
+    
+    [self setupTrapCountButton];
+    [self updateLocation];
+}
+
+- (void)setupTrapCountButton {
+    self.trapCountButton = [[IATTrapCountButton alloc] init];
+    self.trapCountButton.frame = CGRectMake(10, 30, 40, 40);
+    
+    [self updateTrapCount];
+    
+    [self.view addSubview:self.trapCountButton];
+    [self.trapCountButton drawCircleButton:[UIColor redColor]];
+}
+
+- (void)updateTrapCount {
+    int trapCount = [self.myTraps count];
+    NSString *trapCountString = [@(trapCount) stringValue];
+    [self.trapCountButton setTitle:trapCountString forState:UIControlStateNormal];
+}
+
+- (void)updateLocation {
     /*
-    MKUserLocation *userLocation = mapView.userLocation;
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
-            userLocation.location.coordinate, 200000, 200000);
+     MKUserLocation *userLocation = mapView.userLocation;
+     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
+     userLocation.location.coordinate, 200000, 200000);
      */
-    // acquire initial location in another method
-    // if in dev mode, do this, otherwise do that
+    
+    // get initial location in another method
+    // if in dev mode, do A, else do B
     MKCoordinateRegion region;
     region.center.latitude = 44.4604636;
     region.center.longitude = -93.1535;
@@ -73,8 +95,7 @@
     [mapView setRegion:region];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

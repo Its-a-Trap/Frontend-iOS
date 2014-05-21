@@ -7,13 +7,13 @@
 //
 
 #import "IATAppDelegate.h"
-#import <FacebookSDK/FacebookSDK.h>
+//#import <FacebookSDK/FacebookSDK.h>
 
 @implementation IATAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [FBLoginView class];
+    //[FBLoginView class];
     
     [self.window addSubview:[navigationController view]];
     [self.window makeKeyAndVisible];
