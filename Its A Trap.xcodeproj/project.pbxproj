@@ -38,6 +38,7 @@
 		79B58601191A97BC00FBC3DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79B585FF191A97BC00FBC3DA /* InfoPlist.strings */; };
 		79B58603191A97BC00FBC3DA /* Its_A_TrapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B58602191A97BC00FBC3DA /* Its_A_TrapTests.m */; };
 		79B5860D191A97E600FBC3DA /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79B5860C191A97E600FBC3DA /* Storyboard.storyboard */; };
+		79F49CED192FF82D00878F80 /* IATHighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F49CEC192FF82D00878F80 /* IATHighScoreViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -111,6 +112,8 @@
 		79B58600191A97BC00FBC3DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		79B58602191A97BC00FBC3DA /* Its_A_TrapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Its_A_TrapTests.m; sourceTree = "<group>"; };
 		79B5860C191A97E600FBC3DA /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		79F49CEB192FF82D00878F80 /* IATHighScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATHighScoreViewController.h; sourceTree = "<group>"; };
+		79F49CEC192FF82D00878F80 /* IATHighScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATHighScoreViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +213,8 @@
 				05FD3CF719253B2B0002F957 /* SWRevealViewController.m */,
 				791502DD192D0D5600AB9667 /* IATTrapCountButton.h */,
 				791502DE192D0D5600AB9667 /* IATTrapCountButton.m */,
+				79F49CEB192FF82D00878F80 /* IATHighScoreViewController.h */,
+				79F49CEC192FF82D00878F80 /* IATHighScoreViewController.m */,
 			);
 			path = "Its A Trap";
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 				790D069B191F201100399F14 /* IATMapViewController.m in Sources */,
 				790D06A7191F4DAF00399F14 /* IATSignUpViewController.m in Sources */,
 				79B585EE191A97BC00FBC3DA /* IATAppDelegate.m in Sources */,
+				79F49CED192FF82D00878F80 /* IATHighScoreViewController.m in Sources */,
 				790D06A1191F388200399F14 /* IATTrap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

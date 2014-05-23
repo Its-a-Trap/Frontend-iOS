@@ -27,11 +27,10 @@
 
 @property NSMutableArray *myTraps;
 @property NSMutableArray *allTraps;
+@property IBOutlet UIButton *sweepButton;
 @property IATTrapCountButton *trapCountButton;
 
--updateMyTraps;
--updateAllTraps;
-
-//@property (weak, nonatomic) IBOutlet UIButton *sweepButton;
+- (void)updateMyTraps;
+- (void)updateAllTraps;
 
 @end

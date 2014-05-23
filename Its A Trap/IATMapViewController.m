@@ -23,11 +23,12 @@
     NSLog([locations lastObject]);
 }
  */
+
 - (IBAction)manageSweepConfirmation:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm Sweep"
                                                     message:@"Are you sure you want to sweep?"
                                                    delegate:nil
-                                          cancelButtonTitle:@"No!"
+                                          cancelButtonTitle:@"No"
                                           otherButtonTitles:@"Yes", nil];
     [alert show];
 }
@@ -60,6 +61,14 @@
     
     [self setupTrapCountButton];
     [self updateLocation];
+}
+
+- (void)updateAllTraps {
+    //TO-DO: PUT SOMETHING HERE
+}
+
+- (void)updateMyTraps {
+    //TO-DO: PUT SOMETHING HERE
 }
 
 - (void)setupTrapCountButton {
@@ -101,11 +110,8 @@
 }
 
 /*
-#pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
