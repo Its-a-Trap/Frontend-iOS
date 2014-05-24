@@ -8,6 +8,7 @@
 
 #import "IATMapViewController.h"
 #import "SWRevealViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 
 @interface IATMapViewController ()
@@ -16,7 +17,8 @@
 
 @implementation IATMapViewController
 
-@synthesize mapView;
+//@synthesize mapView;
+GMSMapView *mapView_;
 
 /*
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -47,33 +49,52 @@
     return self;
 }
 
-- (IBAction)unwindToTitle:(UIStoryboardSegue*)unwindSegue{
-    
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
+                                                            longitude:151.20
+                                                                 zoom:6];
+    mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    mapView_.myLocationEnabled = YES;
+    self.view = mapView_;
+    
+    // Creates a marker in the center of the map.
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
+    marker.title = @"Sydney";
+    marker.snippet = @"Australia";
+    marker.map = mapView_;
+    
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    mapView.showsUserLocation = YES;
+    //mapView.showsUserLocation = YES;
     
     /*
     MKUserLocation *userLocation = mapView.userLocation;
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
             userLocation.location.coordinate, 200000, 200000);
      */
+    
+    /*
     MKCoordinateRegion region;
     region.center.latitude = 44.4604636;
     region.center.longitude = -93.1535;
     region.span.latitudeDelta = 0.0075;
     region.span.longitudeDelta = 0.0075;
     [mapView setRegion:region];
-    
-    
-    
+     */
     
 }
+
+/*
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.mapView.centerCoordinate, 200.0f, 200.0f);
+    [self.mapView setRegion:region animated:YES];
+}
+ */
 
 - (void)didReceiveMemoryWarning
 {

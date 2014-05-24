@@ -34,7 +34,8 @@
     FBLoginView *loginview = [[FBLoginView alloc] init];
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     
-    loginview.frame = CGRectOffset(loginview.frame, 5, 5);
+    //loginview.frame = CGRectOffset(loginview.frame, loginview.frame.size.width/2, loginview.frame.size/2);
+    loginview.frame = CGRectMake(self.view.frame.size.width/2 - loginview.frame.size.width/2, self.view.frame.size.height/2 - loginview.frame.size.height/2, loginview.frame.size.width, loginview.frame.size.height);
     loginview.delegate = self;
     
     [self.view addSubview:loginview];
@@ -57,7 +58,6 @@
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     [self performSegueWithIdentifier: @"loggedIn" sender: self];
 }
-
 
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
