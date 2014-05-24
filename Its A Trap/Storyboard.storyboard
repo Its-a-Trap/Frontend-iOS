@@ -19,10 +19,10 @@
             </objects>
             <point key="canvasLocation" x="-564" y="-251"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign In View Controller-->
         <scene sceneID="Ifc-hv-a0C">
             <objects>
-                <viewController id="0CE-w0-sid" sceneMemberID="viewController">
+                <viewController id="0CE-w0-sid" customClass="SignInViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TEe-a9-Yeq"/>
                         <viewControllerLayoutGuide type="bottom" id="oFa-Y2-npD"/>
@@ -63,15 +63,13 @@
                                     <segue destination="1jc-Xz-pH1" kind="push" id="tJf-3N-DQY"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG9-y2-p8W" customClass="FBLoginView">
-                                <rect key="frame" x="56" y="207" width="208" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ysj-lL-yAB"/>
+                    <connections>
+                        <segue destination="1jc-Xz-pH1" kind="push" identifier="loggedIn" id="o5k-fS-mua"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AAG-Mm-6X7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -156,23 +154,6 @@
             </objects>
             <point key="canvasLocation" x="947" y="-574"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="VlZ-5S-yL8">
-            <objects>
-                <viewController id="fWd-gA-Vmx" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="uqZ-wA-4nn"/>
-                        <viewControllerLayoutGuide type="bottom" id="k3j-2W-hBK"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="mXu-RD-MmE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5Wj-Cq-qGe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -180,6 +161,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="D3v-ak-lMq"/>
+        <segue reference="o5k-fS-mua"/>
     </inferredMetricsTieBreakers>
 </document>
