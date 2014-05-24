@@ -7,26 +7,16 @@
 //
 
 #import "IATAppDelegate.h"
-<<<<<<< HEAD
 #import <FacebookSDK/FacebookSDK.h>
-#import <GooglePlus/GooglePlus.h>
-=======
-//#import <FacebookSDK/FacebookSDK.h>
->>>>>>> FETCH_HEAD
 
 @implementation IATAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-<<<<<<< HEAD
-=======
-    //[FBLoginView class];
+    [FBLoginView class];
     
->>>>>>> FETCH_HEAD
     [self.window addSubview:[navigationController view]];
     [self.window makeKeyAndVisible];
-    
-    
     return YES;
 }
 
@@ -55,24 +45,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-
-
-- (BOOL)application: (UIApplication *)application
-            openURL: (NSURL *)url
-  sourceApplication: (NSString *)sourceApplication
-         annotation: (id)annotation {
-    
-    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    
-    // You can add your app-specific url handling code here if needed
-    
-    return wasHandled;
-    
-    return [GPPURLHandler handleURL:url
-                  sourceApplication:sourceApplication
-                         annotation:annotation];
 }
 
 
