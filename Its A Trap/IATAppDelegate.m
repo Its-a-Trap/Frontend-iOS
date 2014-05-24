@@ -7,13 +7,22 @@
 //
 
 #import "IATAppDelegate.h"
+<<<<<<< HEAD
 #import <FacebookSDK/FacebookSDK.h>
 #import <GooglePlus/GooglePlus.h>
+=======
+//#import <FacebookSDK/FacebookSDK.h>
+>>>>>>> FETCH_HEAD
 
 @implementation IATAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+<<<<<<< HEAD
+=======
+    //[FBLoginView class];
+    
+>>>>>>> FETCH_HEAD
     [self.window addSubview:[navigationController view]];
     [self.window makeKeyAndVisible];
     
