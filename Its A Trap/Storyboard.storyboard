@@ -22,7 +22,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="Ifc-hv-a0C">
             <objects>
-                <viewController id="0CE-w0-sid" customClass="SignInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signinviewcontroller" id="0CE-w0-sid" customClass="SignInViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TEe-a9-Yeq"/>
                         <viewControllerLayoutGuide type="bottom" id="oFa-Y2-npD"/>
@@ -43,18 +43,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z24-MQ-wul">
-                                <rect key="frame" x="137" y="468" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="G+">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="1jc-Xz-pH1" kind="push" id="D3v-ak-lMq"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDg-RU-OI5">
-                                <rect key="frame" x="183" y="468" width="30" height="30"/>
+                                <rect key="frame" x="137" y="476" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="T">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -73,7 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AAG-Mm-6X7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-108" y="-231"/>
+            <point key="canvasLocation" x="-64" y="-251"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="ghv-s4-zNr">
@@ -96,12 +86,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OAW-jr-Wrt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="432" y="-231"/>
+            <point key="canvasLocation" x="466" y="-251"/>
         </scene>
-        <!--View Controller-->
+        <!--Leader Board View Controller-->
         <scene sceneID="mu4-Pa-HRN">
             <objects>
-                <viewController id="pLd-9M-ZJ7" sceneMemberID="viewController">
+                <viewController id="pLd-9M-ZJ7" customClass="IATLeaderBoardViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7va-PM-tZz"/>
                         <viewControllerLayoutGuide type="bottom" id="AH7-Dh-IAD"/>
@@ -129,7 +119,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="CmC-ou-22D">
-                                <rect key="frame" x="5" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="6" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXj-8G-aee">
@@ -161,6 +151,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="o5k-fS-mua"/>
+        <segue reference="tJf-3N-DQY"/>
     </inferredMetricsTieBreakers>
 </document>

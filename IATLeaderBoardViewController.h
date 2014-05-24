@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
-@interface IATLeaderBoardViewController : UIViewController
+@interface IATLeaderBoardViewController : UIViewController <FBLoginViewDelegate>
+
+@property (weak, nonatomic) IBOutlet FBLoginView *loginView;
 
 @end

@@ -8,12 +8,14 @@
 
 #import "IATAppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation IATAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [FBLoginView class];
+    [GMSServices provideAPIKey:@"AIzaSyBgvNtaz50QaZOCt4RdaH5gaKeWLn2aBrY"];
     
     [self.window addSubview:[navigationController view]];
     [self.window makeKeyAndVisible];
