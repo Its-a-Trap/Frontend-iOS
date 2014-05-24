@@ -14,18 +14,23 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
+//#import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "IATUser.h"
 #import "IATTrap.h"
+#import <GoogleMaps/GoogleMaps.h>
 
-@interface IATMapViewController : UIViewController <CLLocationManagerDelegate> {
+@interface IATMapViewController : UIViewController <GMSMapViewDelegate>
+{
     CLLocationManager *locationManager;
+    
 }
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
+//@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property NSMutableArray *myTraps;
 @property NSMutableArray *allTraps;
+@property (nonatomic, strong, readonly) CLLocation *myLocation;
 
 -updateMyTraps;
 -updateAllTraps;

@@ -234,8 +234,6 @@
 				79B585EF191A97BC00FBC3DA /* Images.xcassets */,
 				05E3507C1930F0F700ADF732 /* Storyboard.storyboard */,
 				79B585E4191A97BC00FBC3DA /* Supporting Files */,
-				790D0699191F201100399F14 /* IATMapViewController.h */,
-				790D069A191F201100399F14 /* IATMapViewController.m */,
 				790D069C191F386200399F14 /* IATUser.h */,
 				790D069D191F386200399F14 /* IATUser.m */,
 				790D069F191F388200399F14 /* IATTrap.h */,
@@ -244,6 +242,8 @@
 				05FD3CF719253B2B0002F957 /* SWRevealViewController.m */,
 				050560591930242A00E20D59 /* SignInViewController.h */,
 				0505605A1930242A00E20D59 /* SignInViewController.m */,
+				790D0699191F201100399F14 /* IATMapViewController.h */,
+				790D069A191F201100399F14 /* IATMapViewController.m */,
 				05E3507919307E0C00ADF732 /* IATLeaderBoardViewController.h */,
 				05E3507A19307E0C00ADF732 /* IATLeaderBoardViewController.m */,
 			);

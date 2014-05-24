@@ -54,19 +54,28 @@ GMSMapView *mapView_;
 {
     [super viewDidLoad];
     
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:6];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:_myLocation.coordinate.latitude
+                                                            longitude:_myLocation.coordinate.longitude
+                                                                 zoom:2];
+    
     mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     mapView_.myLocationEnabled = YES;
     self.view = mapView_;
     
+    mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    mapView_.myLocationEnabled = YES;
+    
+    
+    
+    
     // Creates a marker in the center of the map.
+    /*
     GMSMarker *marker = [[GMSMarker alloc] init];
     marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
     marker.title = @"Sydney";
     marker.snippet = @"Australia";
     marker.map = mapView_;
+     */
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     //mapView.showsUserLocation = YES;
@@ -101,6 +110,8 @@ GMSMapView *mapView_;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation
