@@ -18,23 +18,22 @@
 #import <CoreLocation/CoreLocation.h>
 #import "IATUser.h"
 #import "IATTrap.h"
+#import "IATTrapCountButton.h"
 #import <GoogleMaps/GoogleMaps.h>
 
-@interface IATMapViewController : UIViewController <GMSMapViewDelegate>
-{
+@interface IATMapViewController : UIViewController <GMSMapViewDelegate> {
     CLLocationManager *locationManager;
-    
 }
 
 //@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property NSMutableArray *myTraps;
 @property NSMutableArray *allTraps;
+@property IBOutlet UIButton *sweepButton;
+@property IATTrapCountButton *trapCountButton;
 @property (nonatomic, strong, readonly) CLLocation *myLocation;
 
--updateMyTraps;
--updateAllTraps;
-
-//@property (weak, nonatomic) IBOutlet UIButton *sweepButton;
+- (void)updateMyTraps;
+- (void)updateAllTraps;
 
 @end

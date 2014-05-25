@@ -9,17 +9,13 @@
 #import "SignInViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-
-
 @interface SignInViewController ()
-
 
 @end
 
 @implementation SignInViewController 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -27,38 +23,29 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     FBLoginView *loginview = [[FBLoginView alloc] init];
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     
-    //loginview.frame = CGRectOffset(loginview.frame, loginview.frame.size.width/2, loginview.frame.size/2);
     loginview.frame = CGRectMake(self.view.frame.size.width/2 - loginview.frame.size.width/2, self.view.frame.size.height/2 - loginview.frame.size.height/2, loginview.frame.size.width, loginview.frame.size.height);
     loginview.delegate = self;
     
     [self.view addSubview:loginview];
-    
     [loginview sizeToFit];
-    
-    // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
 #pragma mark - Navigation
-
-
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     [self performSegueWithIdentifier: @"loggedIn" sender: self];
 }
-
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
@@ -66,7 +53,6 @@
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-    
     self.profilePictureView.profileID = nil;
     self.nameLabel.text = nil;
 }

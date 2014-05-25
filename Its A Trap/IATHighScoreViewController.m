@@ -46,11 +46,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    FBLoginView *loginview = [[FBLoginView alloc] init];
+    self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    
+    loginview.frame = CGRectMake(self.view.frame.size.width/2.45 - loginview.frame.size.width/2, self.view.frame.size.height/1.05 - loginview.frame.size.height/2, loginview.frame.size.width, loginview.frame.size.height);
+    
+    loginview.delegate = self;
+    
+    [self.view addSubview:loginview];
+    
+    [loginview sizeToFit];
+
     self.highScoreRecords = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
+    
+    [self performSegueWithIdentifier: @"loggedOut" sender: self];
+    
 }
 
 /*

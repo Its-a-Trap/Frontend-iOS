@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
-@interface IATHighScoreViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface IATHighScoreViewController : UIViewController <FBLoginViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property NSArray *highScoreRecords;
+@property (weak, nonatomic) IBOutlet FBLoginView *loginView;
 
 @end

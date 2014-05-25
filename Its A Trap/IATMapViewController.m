@@ -25,17 +25,32 @@ GMSMapView *mapView_;
     NSLog([locations lastObject]);
 }
  */
+
 - (IBAction)manageSweepConfirmation:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm Sweep"
-                                                    message:@"Are you sure you want to sweep?"
+    NSLog(@"managing sweep confirmation");
+    [self manageConfirmation:1];
+}
+
+- (void)manageConfirmation:(int)typeCode {
+    NSString *title;
+    NSString *message;
+    if (typeCode == 0) {
+        title = @"Confirm Trap Placement";
+        message = @"Are you sure you want to place a trap?";
+    } else if (typeCode == 1) {
+        title = @"Confirm Sweep";
+        message = @"Are you sure you want to sweep?";
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
                                                    delegate:nil
-                                          cancelButtonTitle:@"No!"
+                                          cancelButtonTitle:@"No"
                                           otherButtonTitles:@"Yes", nil];
     [alert show];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         /*
@@ -49,44 +64,35 @@ GMSMapView *mapView_;
     return self;
 }
 
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:_myLocation.coordinate.latitude
-                                                            longitude:_myLocation.coordinate.longitude
-                                                                 zoom:2];
+    GMSCameraPosition *camera = [GMSCameraPosition
+                                 cameraWithLatitude:_myLocation.coordinate.latitude
+                                          longitude:_myLocation.coordinate.longitude
+                                               zoom:6];
     
-    mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    mapView_ = [GMSMapView mapWithFrame:CGRectMake(10, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
     mapView_.myLocationEnabled = YES;
-    self.view = mapView_;
+    mapView_.delegate = self;
+    mapView_.layer.zPosition = -1;
+    [self.view addSubview:mapView_];
     
-    mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    mapView_.myLocationEnabled = YES;
-    
-    
-    
-    
-    // Creates a marker in the center of the map.
-    /*
     GMSMarker *marker = [[GMSMarker alloc] init];
     marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
     marker.title = @"Sydney";
     marker.snippet = @"Australia";
     marker.map = mapView_;
-     */
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
     //mapView.showsUserLocation = YES;
     
     /*
     MKUserLocation *userLocation = mapView.userLocation;
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
             userLocation.location.coordinate, 200000, 200000);
-     */
     
-    /*
     MKCoordinateRegion region;
     region.center.latitude = 44.4604636;
     region.center.longitude = -93.1535;
@@ -94,7 +100,13 @@ GMSMapView *mapView_;
     region.span.longitudeDelta = 0.0075;
     [mapView setRegion:region];
      */
-    
+    [self setupTrapCountButton];
+    [self setupSweepButton];
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    NSLog(@"managing didTapAtCoordinate confirmation");
+    [self manageConfirmation:0];
 }
 
 /*
@@ -105,20 +117,47 @@ GMSMapView *mapView_;
 }
  */
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)updateAllTraps {
+    //TO-DO: PUT SOMETHING HERE
 }
 
+- (void)updateMyTraps {
+    //TO-DO: PUT SOMETHING HERE
+}
 
+- (void)setupSweepButton {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button addTarget:self
+               action:@selector(manageSweepConfirmation:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Sweep" forState:UIControlStateNormal];
+    button.frame = CGRectMake(125, 30, self.view.frame.size.width, 30);
+    [self.view addSubview:button];
+}
+
+- (void)setupTrapCountButton {
+    self.trapCountButton = [[IATTrapCountButton alloc] init];
+    self.trapCountButton.frame = CGRectMake(10, 30, 40, 40);
+    
+    [self updateTrapCount];
+    
+    [self.view addSubview:self.trapCountButton];
+    [self.trapCountButton drawCircleButton:[UIColor redColor]];
+}
+
+- (void)updateTrapCount {
+    int trapCount = [self.myTraps count];
+    NSString *trapCountString = [@(trapCount) stringValue];
+    [self.trapCountButton setTitle:trapCountString forState:UIControlStateNormal];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+// In a storyboard-based application, you'll often want to prepare before navigation.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
