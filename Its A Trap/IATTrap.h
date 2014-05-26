@@ -37,8 +37,6 @@
 // time of expiration (long)
 // DEPRECATED: Expiration time derivable from time planted.
 
-// radius (float)
-@property float *radius;
 
 
 @end
