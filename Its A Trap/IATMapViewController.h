@@ -21,7 +21,7 @@
 #import "IATTrapCountButton.h"
 #import <GoogleMaps/GoogleMaps.h>
 
-@interface IATMapViewController : UIViewController <GMSMapViewDelegate, UIAlertViewDelegate> {
+@interface IATMapViewController : UIViewController <GMSMapViewDelegate, UIAlertViewDelegate, CLLocationManagerDelegate> {
     CLLocationManager *locationManager;
 }
 

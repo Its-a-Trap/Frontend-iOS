@@ -22,12 +22,6 @@ GMSMapView *mapView_;
 CLLocationCoordinate2D mostRecentCoordinate;
 int myMaxTrapCount = 5;
 
-/*
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    NSLog([locations lastObject]);
-}
- */
-
 - (IBAction)manageSweepConfirmation:(id)sender {
     NSLog(@"Managing sweep confirmation.");
     [self manageConfirmation:1];
@@ -47,7 +41,7 @@ int myMaxTrapCount = 5;
             return;
         }
         title = @"Confirm Trap Placement";
-        message = @"Are you sure you want to place a trap?";
+        message = @"Are you sure you want to place a trap? You won't be able to remove it!";
     } else if (typeCode == 1) {
         title = @"Confirm Sweep";
         message = @"Are you sure you want to sweep?";
@@ -78,12 +72,12 @@ int myMaxTrapCount = 5;
     // TO-DO: Get all nearby traps from DB.
     
     // TO-DO: Place marker for each nearby trap.
-    /*
-    for (IATTrap in *self.allTraps) {
-        GMSMarker *marker = [GMSMarker markerWithPosition:mostRecentCoordinate];
+    for (IATTrap *trap in self.allTraps) {
+        GMSMarker *marker = [GMSMarker markerWithPosition:trap.coordinate];
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor redColor]];
+        marker.title = trap.trapID;
         marker.map = mapView_;
     }
-     */
     
     // TO-DO: Get rid of markers at some point.
 }
@@ -111,57 +105,38 @@ int myMaxTrapCount = 5;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        /*
-        locationManager = [[CLLocationManager alloc] init];
-        locationManager.delegate = self;
-        locationManager.distanceFilter = kCLDistanceFilterNone;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [locationManager startUpdatingLocation];
-         */
     }
     return self;
 }
 
 - (void)viewDidLoad {
+    // Server Address: 107.170.182.13:3000
     [super viewDidLoad];
     self.myActiveTraps = [[NSMutableArray alloc] init];
     self.allTraps = [[NSMutableArray alloc] init];
     
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    [self setupGoogleMap];
+    [self setupTrapCountButton];
+    [self setupSweepButton];
+}
+
+- (void)setupGoogleMap {
+     // Middle of Campus:
+     // latitude = 44.4604636;
+     // longitude = -93.1535;
+    
     GMSCameraPosition *camera = [GMSCameraPosition
                                  cameraWithLatitude:_myLocation.coordinate.latitude
-                                          longitude:_myLocation.coordinate.longitude
-                                               zoom:6];
+                                 longitude:_myLocation.coordinate.longitude
+                                 zoom:6];
     
     mapView_ = [GMSMapView mapWithFrame:CGRectMake(10, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
     mapView_.myLocationEnabled = YES;
     mapView_.delegate = self;
     mapView_.layer.zPosition = -1;
     [self.view addSubview:mapView_];
-    
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    marker.title = @"Sydney";
-    marker.snippet = @"Australia";
-    marker.map = mapView_;
-    
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    
-    //mapView.showsUserLocation = YES;
-    
-    /*
-    MKUserLocation *userLocation = mapView.userLocation;
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
-            userLocation.location.coordinate, 200000, 200000);
-    
-    MKCoordinateRegion region;
-    region.center.latitude = 44.4604636;
-    region.center.longitude = -93.1535;
-    region.span.latitudeDelta = 0.0075;
-    region.span.longitudeDelta = 0.0075;
-    [mapView setRegion:region];
-     */
-    [self setupTrapCountButton];
-    [self setupSweepButton];
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
@@ -170,19 +145,12 @@ int myMaxTrapCount = 5;
     [self manageConfirmation:0];
 }
 
-/*
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.mapView.centerCoordinate, 200.0f, 200.0f);
-    [self.mapView setRegion:region animated:YES];
-}
- */
-
 - (void)updateAllTraps {
     //TO-DO: PUT SOMETHING HERE
 }
 
 - (void)updateMyTraps {
+    // DEPRECATE this method?
     //TO-DO: PUT SOMETHING HERE
 }
 
@@ -210,6 +178,49 @@ int myMaxTrapCount = 5;
     int trapCount = myMaxTrapCount - [self.myActiveTraps count];
     NSString *trapCountString = [@(trapCount) stringValue];
     [self.trapCountButton setTitle:trapCountString forState:UIControlStateNormal];
+}
+
+
+// LOCATION SERVICES ----------------------------------------------------------------
+- (void)startStandardUpdates {
+    // Create location manager if the object doesn't already have one.
+    if (nil == locationManager) {
+        locationManager = [[CLLocationManager alloc] init];
+    }
+    
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    //locationManager.distanceFilter = 1; // in meters
+    
+    [locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation* location = [locations lastObject];
+    
+    // TO-DO: Update self.allTraps
+    [self updateAllTraps];
+    
+    // Determine whether user has stumbled upon any traps
+    for (IATTrap *trap in self.allTraps) {
+        if ([self trapIsNear:trap location:location]) {
+            [self triggerTrap:trap];
+        }
+    }
+}
+
+- (BOOL)trapIsNear:(IATTrap *)trap location:(CLLocation *)location{
+    CLLocation* testLocation = [[CLLocation alloc] initWithLatitude:trap.coordinate.latitude longitude:trap.coordinate.longitude];
+    if ([testLocation distanceFromLocation:location] <= 2){
+        return YES;
+    };
+    return NO;
+}
+
+-(void)triggerTrap:(IATTrap *)trap{
+    // Let backend know that something has happened.
+    
 }
 
 - (void)didReceiveMemoryWarning {
