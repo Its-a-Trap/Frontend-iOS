@@ -28,12 +28,12 @@
 //@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property NSMutableArray *myActiveTraps;
-@property NSMutableArray *allTraps;
+@property NSMutableArray *enemyTraps;
 @property IBOutlet UIButton *sweepButton;
 @property IATTrapCountButton *trapCountButton;
-@property (nonatomic, strong, readonly) CLLocation *myLocation;
+@property (nonatomic, strong) CLLocation *myLocation;
 
 - (void)updateMyTraps;
-- (void)updateAllTraps;
+- (void)updateEnemyTraps;
 
 @end
