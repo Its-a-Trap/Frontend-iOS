@@ -15,5 +15,8 @@
 @property (weak, nonatomic) IBOutlet FBLoginView *loginView;
 
 @property NSMutableData *responseData;
+@property NSArray *playerList;
+@property NSDictionary *scoreList;
+@property (nonatomic, strong) id jsonObject;
 
 @end
