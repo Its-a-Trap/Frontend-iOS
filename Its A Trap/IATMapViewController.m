@@ -19,6 +19,8 @@
 
 //@synthesize mapView;
 GMSMapView *mapView_;
+CLLocationCoordinate2D mostRecentCoordinate;
+int myMaxTrapCount = 5;
 
 /*
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -27,7 +29,7 @@ GMSMapView *mapView_;
  */
 
 - (IBAction)manageSweepConfirmation:(id)sender {
-    NSLog(@"managing sweep confirmation");
+    NSLog(@"Managing sweep confirmation.");
     [self manageConfirmation:1];
 }
 
@@ -35,6 +37,15 @@ GMSMapView *mapView_;
     NSString *title;
     NSString *message;
     if (typeCode == 0) {
+        if (myMaxTrapCount - [self.myActiveTraps count] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You can't do that!"
+                                                            message:@"You don't have any traps."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"GRRR! OKAY!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
         title = @"Confirm Trap Placement";
         message = @"Are you sure you want to place a trap?";
     } else if (typeCode == 1) {
@@ -44,10 +55,57 @@ GMSMapView *mapView_;
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
-                                                   delegate:nil
+                                                   delegate:self
                                           cancelButtonTitle:@"No"
                                           otherButtonTitles:@"Yes", nil];
     [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        NSLog(@"Action canceled.");
+    } else if (buttonIndex == 1) {
+        if ([alertView.title isEqual:@"Confirm Sweep"]) {
+            NSLog(@"Sweep confirmed.");
+        } else {
+            NSLog(@"Trap placement confirmed.");
+            [self manageTrapPlacement];
+        }
+    }
+}
+
+- (void)manageSweep {
+    // TO-DO: Get all nearby traps from DB.
+    
+    // TO-DO: Place marker for each nearby trap.
+    /*
+    for (IATTrap in *self.allTraps) {
+        GMSMarker *marker = [GMSMarker markerWithPosition:mostRecentCoordinate];
+        marker.map = mapView_;
+    }
+     */
+    
+    // TO-DO: Get rid of markers at some point.
+}
+
+- (void)manageTrapPlacement {
+    IATTrap *newTrap = [[IATTrap alloc] init];
+    newTrap.trapID = @"222";
+    newTrap.ownerID = @"222";
+    newTrap.coordinate = mostRecentCoordinate;
+    newTrap.isActive = YES;
+    //newTrap.timePlanted = 222;
+    //newTrap.radius = 10;
+    
+    [self.myActiveTraps addObject:newTrap];
+    [self updateTrapCount];
+    
+    GMSMarker *marker = [GMSMarker markerWithPosition:mostRecentCoordinate];
+    marker.title = newTrap.trapID;
+    marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
+    marker.map = mapView_;
+    
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -66,6 +124,8 @@ GMSMapView *mapView_;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.myActiveTraps = [[NSMutableArray alloc] init];
+    self.allTraps = [[NSMutableArray alloc] init];
     
     GMSCameraPosition *camera = [GMSCameraPosition
                                  cameraWithLatitude:_myLocation.coordinate.latitude
@@ -105,7 +165,8 @@ GMSMapView *mapView_;
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
-    NSLog(@"managing didTapAtCoordinate confirmation");
+    NSLog(@"Managing didTapAtCoordinate confirmation");
+    mostRecentCoordinate = coordinate;
     [self manageConfirmation:0];
 }
 
@@ -146,7 +207,7 @@ GMSMapView *mapView_;
 }
 
 - (void)updateTrapCount {
-    int trapCount = [self.myTraps count];
+    int trapCount = myMaxTrapCount - [self.myActiveTraps count];
     NSString *trapCountString = [@(trapCount) stringValue];
     [self.trapCountButton setTitle:trapCountString forState:UIControlStateNormal];
 }

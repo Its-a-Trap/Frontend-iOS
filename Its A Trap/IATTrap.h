@@ -20,19 +20,16 @@
 @interface IATTrap : NSObject
 
 // ID (int): unique to traps table
-@property int *trapID;
+@property NSString* trapID;
  
 // owner (player ID): the player who set the trap
-@property int *ownerID;
+@property NSString* ownerID;
 
 // location (GPS coordinates)
-// QUESTION: HOW SHOULD WE STORE LOCATION?
-@property MKMapPoint *coordsA;
-@property CLLocationCoordinate2D *coordsB;
-// Store as a tuple of longs?
+@property CLLocationCoordinate2D coordinate;
 
 // isActive (boolean): set to false when a trap is triggered
-@property Boolean *isActive;
+@property Boolean isActive;
 
 // time planted (long)
 @property long *timePlanted;
