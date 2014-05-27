@@ -34,8 +34,8 @@
      */
     
     
-    cell.playerNameLabel.text = ;
-    cell.playerScoreLabel.text = highScores[0];
+    //cell.playerNameLabel.text = ;
+    //cell.playerScoreLabel.text = highScores[0];
     return cell;
 }
 
