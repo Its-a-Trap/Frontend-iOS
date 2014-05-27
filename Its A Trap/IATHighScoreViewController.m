@@ -34,8 +34,8 @@
      */
     
     
-    cell.playerNameLabel.text = _playerList[0];
-    cell.playerScoreLabel.text =@"bar";
+    cell.playerNameLabel.text = ;
+    cell.playerScoreLabel.text = highScores[0];
     return cell;
 }
 
@@ -60,45 +60,33 @@
     [self.view addSubview:loginview];
     
     [loginview sizeToFit];
-    /*
-    // Create the request.
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://107.170.182.13:3000/changeArea"]];
-    //POST request
-    request.HTTPMethod = @"POST";
     
-    //Set header fields
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    // Convert your data and set your request's HTTPBody property
-    //NSDictionary *dictionary = @{ @"location" : @{ @"lat" : @"42.930943", @"lon" : @"-23.8293874983" }, @"user" : @"537d2b4b221e2a193a385e3f"};
-    NSString *stringData = @"{'location: {'lat':-42.930943,'lon': 23.8293874983},'user': '537d2b4b221e2a193a385e3f'}";
-    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
-    
-    request.HTTPBody = requestBodyData;
-    
-    // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-     */
     
     //string for the URL request
-    NSString *myUrlString = @"http://107.170.182.13:3000/changeArea";
+    NSString *myUrlString = @"http://107.170.182.13:3000/API/changeArea";
     
-    //create object for parameters that we need to send in the HTTP POST body
-    NSDictionary *tmp = @{ @"location" : @{ @"lat" : @"42.930943", @"lon" : @"-23.8293874983" }, @"user" : @"537d2b4b221e2a193a385e3f"};
-    
-    NSData *postdata = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:nil];
+    NSString *stringData = @"{"
+                            @" \"location\": {"
+                            @" \"lat\": 42.930943,"
+                            @" \"lon\": 23.8293874983},"
+                            @" \"user\": "
+                            @"  \"537e48763511c15161a1ed9c\"}";
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+
     
     //create a NSURL object from the string data
     NSURL *myUrl = [NSURL URLWithString:myUrlString];
     
     //create a mutable HTTP request
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+
     //sets the receiver’s timeout interval, in seconds
-    //[urlRequest setTimeoutInterval:30.0f];
+    [urlRequest setTimeoutInterval:30.0f];
     //sets the receiver’s HTTP request method
     [urlRequest setHTTPMethod:@"POST"];
     //sets the request body of the receiver to the specified data.
-    [urlRequest setHTTPBody:postdata];
+    [urlRequest setHTTPBody:requestBodyData];
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     self.highScoreRecords = [[NSMutableArray alloc] init];
     
@@ -151,13 +139,15 @@
     NSString *myData = [[NSString alloc] initWithData:data
                                              encoding:NSUTF8StringEncoding];
     NSLog(@"JSON data = %@", myData);
-    NSError *error = nil;
     
-    //parsing the JSON response
-    id jsonObject = [NSJSONSerialization
-                     JSONObjectWithData:data
-                     options:NSJSONReadingAllowFragments
-                     error:nil];
+    
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    // Create a new array to hold the scores
+    NSMutableArray *highScores = [[NSMutableArray alloc] init];
+    NSArray *array = [jsonDictionary objectForKey:@"scores"];
+    
 }
+
 
 @end
