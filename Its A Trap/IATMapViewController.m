@@ -43,7 +43,7 @@ int myMaxTrapCount = 5;
             return;
         }
         title = @"Confirm Trap Placement";
-        message = @"Are you sure you want to place a trap? You won't be able to remove it!";
+        message = @"Are you sure you want to place a trap here?";
     } else if (typeCode == 1) {
         title = @"Confirm Sweep";
         message = @"Are you sure you want to sweep?";
@@ -161,6 +161,14 @@ int myMaxTrapCount = 5;
     return self;
 }
 
+- (void)setupTestEnemyTraps {
+    IATTrap *testEnemy = [[IATTrap alloc] init];
+    CLLocationDegrees latitude = 44.4604636;
+    CLLocationDegrees longitude = -93.1535;
+    testEnemy.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    [self.enemyTraps addObject:testEnemy];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -174,6 +182,7 @@ int myMaxTrapCount = 5;
     self.myActiveTraps = [[NSMutableArray alloc] init];
     self.enemyTraps = [[NSMutableArray alloc] init];
     
+    [self setupTestEnemyTraps];
     [self updateMyTraps];
     [self updateEnemyTraps];
     [self setupGoogleMap];
