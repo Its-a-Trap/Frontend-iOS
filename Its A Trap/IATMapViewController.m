@@ -119,6 +119,7 @@ int myMaxTrapCount = 5;
     // POST to http://107.170.182.13:3000/api/placemine
 }
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -162,6 +163,7 @@ int myMaxTrapCount = 5;
     mostRecentCoordinate = coordinate;
     [self manageConfirmation:0];
 }
+
 
 - (void)updateEnemyTraps {
     /*
