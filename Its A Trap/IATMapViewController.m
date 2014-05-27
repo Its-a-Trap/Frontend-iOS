@@ -19,6 +19,8 @@
 //@synthesize mapView;
 GMSMapView *mapView_;
 CLLocationCoordinate2D mostRecentCoordinate;
+GMSMarker *lastTouchedMarker;
+IATUser *testUser;
 int myMaxTrapCount = 5;
 
 - (IBAction)manageSweepConfirmation:(id)sender {
@@ -63,9 +65,12 @@ int myMaxTrapCount = 5;
         if ([alertView.title isEqual:@"Confirm Sweep"]) {
             NSLog(@"Sweep confirmed.");
             [self manageSweep];
-        } else {
+        } else if ([alertView.title isEqual:@"Confirm Trap Placement"]){
             NSLog(@"Trap placement confirmed.");
             [self manageTrapPlacement];
+        } else {
+            NSLog(@"Trap Delete confirmed.");
+            [self manageTrapRemoval];
         }
     }
 }
@@ -113,10 +118,39 @@ int myMaxTrapCount = 5;
     
     GMSMarker *marker = [GMSMarker markerWithPosition:mostRecentCoordinate];
     marker.title = newTrap.trapID;
+    marker.snippet = @"Tap to Delete";
     marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
     marker.map = mapView_;
     
     // POST to http://107.170.182.13:3000/api/placemine
+}
+
+- (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    mapView.selectedMarker = marker;
+    return TRUE;
+}
+
+-(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker{
+    lastTouchedMarker = marker;
+    if ([marker.snippet isEqual:@"Tap to Delete"]){
+        UIAlertView *deleteAlert = [[UIAlertView alloc]
+                                    initWithTitle:@"Delete?"
+                                    message:@"Remove this trap?"
+                                    delegate:self
+                                    cancelButtonTitle:@"No"
+                                    otherButtonTitles:@"Yes", nil];
+        [deleteAlert show];
+    }
+}
+
+-(void)manageTrapRemoval{
+    for (IATTrap *trap in self.myActiveTraps){
+        if (trap.coordinate.latitude == lastTouchedMarker.position.latitude && trap.coordinate.longitude == lastTouchedMarker.position.longitude){
+            [self.myActiveTraps removeObject:trap];
+            [self updateTrapCount];
+            lastTouchedMarker.map = nil;
+        }
+    }
 }
 
 
@@ -129,6 +163,11 @@ int myMaxTrapCount = 5;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    testUser = [[IATUser alloc] init];
+    testUser.userID = @"222";
+    
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
