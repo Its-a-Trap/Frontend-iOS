@@ -34,8 +34,8 @@
      */
     
     
-    cell.playerNameLabel.text = ;
-    cell.playerScoreLabel.text = highScores[0];
+    cell.playerNameLabel.text = @"foo";
+    cell.playerScoreLabel.text = @"bar";
     return cell;
 }
 
@@ -61,55 +61,6 @@
     
     [loginview sizeToFit];
     
-    
-    //string for the URL request
-    NSString *myUrlString = @"http://107.170.182.13:3000/API/changeArea";
-    
-    NSString *stringData = @"{"
-                            @" \"location\": {"
-                            @" \"lat\": 42.930943,"
-                            @" \"lon\": 23.8293874983},"
-                            @" \"user\": "
-                            @"  \"537e48763511c15161a1ed9c\"}";
-    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
-
-    
-    //create a NSURL object from the string data
-    NSURL *myUrl = [NSURL URLWithString:myUrlString];
-    
-    //create a mutable HTTP request
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
-    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
-    //sets the receiver’s timeout interval, in seconds
-    [urlRequest setTimeoutInterval:30.0f];
-    //sets the receiver’s HTTP request method
-    [urlRequest setHTTPMethod:@"POST"];
-    //sets the request body of the receiver to the specified data.
-    [urlRequest setHTTPBody:requestBodyData];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    self.highScoreRecords = [[NSMutableArray alloc] init];
-    
-    [NSURLConnection
-     sendAsynchronousRequest:urlRequest
-     queue:queue
-     completionHandler:^(NSURLResponse *response,
-                         NSData *data,
-                         NSError *error) {
-         if ([data length] >0 && error == nil){
-             //process the JSON response
-             //use the main queue so that we can interact with the screen
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self parseResponse:data];
-             });
-         }
-         else if ([data length] == 0 && error == nil){
-             return;
-         }
-         else if (error != nil){
-             return;
-         }
-     }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -133,21 +84,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-- (void) parseResponse:(NSData *) data {
-    
-    NSString *myData = [[NSString alloc] initWithData:data
-                                             encoding:NSUTF8StringEncoding];
-    NSLog(@"JSON data = %@", myData);
-    
-    
-    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    // Create a new array to hold the scores
-    NSMutableArray *highScores = [[NSMutableArray alloc] init];
-    NSArray *array = [jsonDictionary objectForKey:@"scores"];
-    
-}
-
 
 @end
