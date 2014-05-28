@@ -101,13 +101,13 @@ int myMaxTrapCount = 5;
 
 - (void)manageTrapPlacement {
     IATTrap *newTrap = [[IATTrap alloc] init];
-    newTrap.trapID = @"222";
-    newTrap.ownerID = @"222";
     newTrap.coordinate = mostRecentCoordinate;
     newTrap.isActive = YES;
+    
+    NSString *tmpLat = [NSString stringWithFormat:@"%f", mostRecentCoordinate.latitude];
+    NSString *tmpLong = [NSString stringWithFormat:@"%f", mostRecentCoordinate.longitude];
     //newTrap.timePlanted = 222;
     //newTrap.radius = 10;
-    
     [self.myActiveTraps addObject:newTrap];
     [self updateTrapCount];
     
@@ -117,6 +117,56 @@ int myMaxTrapCount = 5;
     marker.map = mapView_;
     
     // POST to http://107.170.182.13:3000/api/placemine
+    
+    NSString *myUrlString = @"http://107.170.182.13:3000/api/placemine";
+    
+    NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{"@" \"location\": {\"lat\":"];
+    
+    [stringData appendString:tmpLat];
+    [stringData appendString:@","];
+    [stringData appendString:@" \"lon\":"];
+    [stringData appendString:tmpLong];
+    [stringData appendString:@"},"];
+    [stringData appendString:@" \"user\": "@"  \"537e48763511c15161a1ed9c\"}"];
+    
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //create a NSURL object from the string data
+    NSURL *myUrl = [NSURL URLWithString:myUrlString];
+    
+    //create a mutable HTTP request
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    //sets the receiver’s timeout interval, in seconds
+    [urlRequest setTimeoutInterval:30.0f];
+    //sets the receiver’s HTTP request method
+    [urlRequest setHTTPMethod:@"POST"];
+    //sets the request body of the receiver to the specified data.
+    [urlRequest setHTTPBody:requestBodyData];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] >0 && error == nil){
+             //process the JSON response
+             //use the main queue so that we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self parseResponse:data];
+             });
+         }
+         else if ([data length] == 0 && error == nil){
+             return;
+         }
+         else if (error != nil){
+             return;
+         }
+     }];
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -133,6 +183,54 @@ int myMaxTrapCount = 5;
     
     self.myActiveTraps = [[NSMutableArray alloc] init];
     self.enemyTraps = [[NSMutableArray alloc] init];
+    
+    //string for the URL request
+    NSString *myUrlString = @"http://107.170.182.13:3000/API/changeArea";
+    
+    NSString *stringData = @"{"
+    @" \"location\": {"
+    @" \"lat\": 42.930943,"
+    @" \"lon\": 23.8293874983},"
+    @" \"user\": "
+    @"  \"537e48763511c15161a1ed9c\"}";
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    //create a NSURL object from the string data
+    NSURL *myUrl = [NSURL URLWithString:myUrlString];
+    
+    //create a mutable HTTP request
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    //sets the receiver’s timeout interval, in seconds
+    [urlRequest setTimeoutInterval:30.0f];
+    //sets the receiver’s HTTP request method
+    [urlRequest setHTTPMethod:@"POST"];
+    //sets the request body of the receiver to the specified data.
+    [urlRequest setHTTPBody:requestBodyData];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] >0 && error == nil){
+             //process the JSON response
+             //use the main queue so that we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self parseResponse:data];
+             });
+         }
+         else if ([data length] == 0 && error == nil){
+             return;
+         }
+         else if (error != nil){
+             return;
+         }
+     }];
     
     [self updateMyTraps];
     [self updateEnemyTraps];
@@ -309,6 +407,31 @@ int myMaxTrapCount = 5;
     [super didReceiveMemoryWarning];
 }
 
+- (void) parseResponse:(NSData *) data {
+    
+    NSString *myData = [[NSString alloc] initWithData:data
+                                             encoding:NSUTF8StringEncoding];
+    NSLog(@"JSON data = %@", myData);
+    
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    //Init myMines Dict and otherMines Dict
+    _myTraps = [jsonDictionary objectForKey:@"myMines"];
+    _otherTraps = [jsonDictionary objectForKey:@"mines"];
+    
+    // Put scores in it's own dictionary
+    _highScores= [jsonDictionary objectForKey:@"scores"];
+    
+    for (int i = 0; i <=[_highScores count]-1; i++){
+        _ID = _highScores[i];
+        NSString *tmpScore = [_ID objectForKey:@"score"];
+        NSString *tmpName = [_ID objectForKey:@"name"];
+        [_names addObject: tmpName];
+        [_scores addObject: tmpScore];
+    }
+}
+
+    
 /*
 // In a storyboard-based application, you'll often want to prepare before navigation.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

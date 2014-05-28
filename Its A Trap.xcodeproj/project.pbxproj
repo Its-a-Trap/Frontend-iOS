@@ -26,6 +26,8 @@
 		05E3508F19312FBE00ADF732 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3508E19312FBE00ADF732 /* libz.dylib */; };
 		05E3509119312FC800ADF732 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3509019312FC800ADF732 /* OpenGLES.framework */; };
 		05E3509319312FCF00ADF732 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3509219312FCF00ADF732 /* QuartzCore.framework */; };
+		05E350A41936368900ADF732 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E350A31936368900ADF732 /* GoogleMaps.framework */; };
+		05E350A61936369800ADF732 /* GoogleMaps.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E350A51936369800ADF732 /* GoogleMaps.bundle */; };
 		05FD3CF819253B2B0002F957 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FD3CF719253B2B0002F957 /* SWRevealViewController.m */; };
 		790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790D0697191F1B9C00399F14 /* MapKit.framework */; };
 		790D069B191F201100399F14 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
@@ -35,8 +37,6 @@
 		79246BE01931406300235527 /* IATTrapCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79246BDF1931406300235527 /* IATTrapCountButton.m */; };
 		79246BE31931407400235527 /* IATHighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79246BE21931407400235527 /* IATHighScoreViewController.m */; };
 		79246BE51931418E00235527 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79246BE41931418E00235527 /* FacebookSDK.framework */; };
-		796C150619330AA90053143E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C150519330AA90053143E /* GoogleMaps.framework */; };
-		796C150819330AB40053143E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 796C150719330AB40053143E /* GoogleMaps.bundle */; };
 		79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DD191A97BC00FBC3DA /* Foundation.framework */; };
 		79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */; };
 		79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585E1191A97BC00FBC3DA /* UIKit.framework */; };
@@ -101,6 +101,8 @@
 		05E3508E19312FBE00ADF732 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		05E3509019312FC800ADF732 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		05E3509219312FCF00ADF732 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		05E350A31936368900ADF732 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
+		05E350A51936369800ADF732 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		05FD3CF619253B2B0002F957 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		05FD3CF719253B2B0002F957 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		790D0697191F1B9C00399F14 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -117,8 +119,6 @@
 		79246BE11931407400235527 /* IATHighScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATHighScoreViewController.h; sourceTree = "<group>"; };
 		79246BE21931407400235527 /* IATHighScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATHighScoreViewController.m; sourceTree = "<group>"; };
 		79246BE41931418E00235527 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		796C150519330AA90053143E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
-		796C150719330AB40053143E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		79B585DA191A97BC00FBC3DA /* Its A Trap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Its A Trap.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B585DD191A97BC00FBC3DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -142,6 +142,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05E350A61936369800ADF732 /* GoogleMaps.bundle in Frameworks */,
+				05E350A41936368900ADF732 /* GoogleMaps.framework in Frameworks */,
 				79246BE51931418E00235527 /* FacebookSDK.framework in Frameworks */,
 				05E3509319312FCF00ADF732 /* QuartzCore.framework in Frameworks */,
 				05E3509119312FC800ADF732 /* OpenGLES.framework in Frameworks */,
@@ -164,7 +166,6 @@
 				054BB1D11926712D0040391F /* AssetsLibrary.framework in Frameworks */,
 				054BB1CF1926711F0040391F /* AddressBook.framework in Frameworks */,
 				790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */,
-				796C150619330AA90053143E /* GoogleMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,8 +204,8 @@
 		79B585DC191A97BC00FBC3DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				796C150719330AB40053143E /* GoogleMaps.bundle */,
-				796C150519330AA90053143E /* GoogleMaps.framework */,
+				05E350A51936369800ADF732 /* GoogleMaps.bundle */,
+				05E350A31936368900ADF732 /* GoogleMaps.framework */,
 				79246BE41931418E00235527 /* FacebookSDK.framework */,
 				05E3509219312FCF00ADF732 /* QuartzCore.framework */,
 				05E3509019312FC800ADF732 /* OpenGLES.framework */,
@@ -377,7 +378,6 @@
 				79B585E8191A97BC00FBC3DA /* InfoPlist.strings in Resources */,
 				79B585F0191A97BC00FBC3DA /* Images.xcassets in Resources */,
 				05E3507D1930F0F700ADF732 /* Storyboard.storyboard in Resources */,
-				796C150819330AB40053143E /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +558,15 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Its A Trap/Its A Trap-Prefix.pch";
@@ -604,6 +613,15 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap/GoogleSDK,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,

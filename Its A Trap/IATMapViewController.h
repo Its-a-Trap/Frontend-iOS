@@ -32,6 +32,15 @@
 @property IBOutlet UIButton *sweepButton;
 @property IATTrapCountButton *trapCountButton;
 @property (nonatomic, strong) CLLocation *myLocation;
+@property NSMutableData *responseData;
+@property NSArray *playerList;
+@property NSDictionary *scoreList;
+@property NSMutableArray *highScores;
+@property NSDictionary *ID;
+@property NSMutableArray *names;
+@property NSMutableArray *scores;
+@property NSDictionary *myTraps;
+@property NSDictionary *otherTraps;
 
 - (void)updateMyTraps;
 - (void)updateEnemyTraps;
