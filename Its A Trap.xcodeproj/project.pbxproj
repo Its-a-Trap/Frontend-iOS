@@ -26,8 +26,8 @@
 		05E3508F19312FBE00ADF732 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3508E19312FBE00ADF732 /* libz.dylib */; };
 		05E3509119312FC800ADF732 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3509019312FC800ADF732 /* OpenGLES.framework */; };
 		05E3509319312FCF00ADF732 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3509219312FCF00ADF732 /* QuartzCore.framework */; };
-		05E350A41936368900ADF732 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E350A31936368900ADF732 /* GoogleMaps.framework */; };
-		05E350A61936369800ADF732 /* GoogleMaps.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E350A51936369800ADF732 /* GoogleMaps.bundle */; };
+		05E350A81936442B00ADF732 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E350A71936442B00ADF732 /* GoogleMaps.framework */; };
+		05E350AA1936443C00ADF732 /* GoogleMaps.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E350A91936443C00ADF732 /* GoogleMaps.bundle */; };
 		05FD3CF819253B2B0002F957 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FD3CF719253B2B0002F957 /* SWRevealViewController.m */; };
 		790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790D0697191F1B9C00399F14 /* MapKit.framework */; };
 		790D069B191F201100399F14 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
@@ -101,8 +101,8 @@
 		05E3508E19312FBE00ADF732 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		05E3509019312FC800ADF732 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		05E3509219312FCF00ADF732 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		05E350A31936368900ADF732 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
-		05E350A51936369800ADF732 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		05E350A71936442B00ADF732 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
+		05E350A91936443C00ADF732 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		05FD3CF619253B2B0002F957 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		05FD3CF719253B2B0002F957 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		790D0697191F1B9C00399F14 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -142,8 +142,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05E350A61936369800ADF732 /* GoogleMaps.bundle in Frameworks */,
-				05E350A41936368900ADF732 /* GoogleMaps.framework in Frameworks */,
+				05E350AA1936443C00ADF732 /* GoogleMaps.bundle in Frameworks */,
+				05E350A81936442B00ADF732 /* GoogleMaps.framework in Frameworks */,
 				79246BE51931418E00235527 /* FacebookSDK.framework in Frameworks */,
 				05E3509319312FCF00ADF732 /* QuartzCore.framework in Frameworks */,
 				05E3509119312FC800ADF732 /* OpenGLES.framework in Frameworks */,
@@ -204,8 +204,8 @@
 		79B585DC191A97BC00FBC3DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				05E350A51936369800ADF732 /* GoogleMaps.bundle */,
-				05E350A31936368900ADF732 /* GoogleMaps.framework */,
+				05E350A91936443C00ADF732 /* GoogleMaps.bundle */,
+				05E350A71936442B00ADF732 /* GoogleMaps.framework */,
 				79246BE41931418E00235527 /* FacebookSDK.framework */,
 				05E3509219312FCF00ADF732 /* QuartzCore.framework */,
 				05E3509019312FC800ADF732 /* OpenGLES.framework */,
@@ -567,6 +567,9 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Its A Trap/Its A Trap-Prefix.pch";
@@ -613,6 +616,9 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap/GoogleSDK,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,

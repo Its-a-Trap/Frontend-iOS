@@ -18,7 +18,7 @@
 @interface IATUser : NSObject
 
 // ID: int (unique to trap)
-@property int *userID;
+@property NSString *userID;
 
 // Username: string
 @property NSString *username;

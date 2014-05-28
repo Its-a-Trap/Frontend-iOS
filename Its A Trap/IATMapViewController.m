@@ -19,6 +19,8 @@
 //@synthesize mapView;
 GMSMapView *mapView_;
 CLLocationCoordinate2D mostRecentCoordinate;
+GMSMarker *lastTouchedMarker;
+IATUser *testUser;
 int myMaxTrapCount = 5;
 
 - (IBAction)manageSweepConfirmation:(id)sender {
@@ -41,7 +43,7 @@ int myMaxTrapCount = 5;
             return;
         }
         title = @"Confirm Trap Placement";
-        message = @"Are you sure you want to place a trap? You won't be able to remove it!";
+        message = @"Are you sure you want to place a trap here?";
     } else if (typeCode == 1) {
         title = @"Confirm Sweep";
         message = @"Are you sure you want to sweep?";
@@ -63,9 +65,12 @@ int myMaxTrapCount = 5;
         if ([alertView.title isEqual:@"Confirm Sweep"]) {
             NSLog(@"Sweep confirmed.");
             [self manageSweep];
-        } else {
+        } else if ([alertView.title isEqual:@"Confirm Trap Placement"]){
             NSLog(@"Trap placement confirmed.");
             [self manageTrapPlacement];
+        } else {
+            NSLog(@"Trap Delete confirmed.");
+            [self manageTrapRemoval];
         }
     }
 }
@@ -113,6 +118,7 @@ int myMaxTrapCount = 5;
     
     GMSMarker *marker = [GMSMarker markerWithPosition:mostRecentCoordinate];
     marker.title = newTrap.trapID;
+    marker.snippet = @"Tap to Delete";
     marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
     marker.map = mapView_;
     
@@ -169,6 +175,35 @@ int myMaxTrapCount = 5;
 
 }
 
+- (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    mapView.selectedMarker = marker;
+    return TRUE;
+}
+
+-(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker{
+    lastTouchedMarker = marker;
+    if ([marker.snippet isEqual:@"Tap to Delete"]){
+        UIAlertView *deleteAlert = [[UIAlertView alloc]
+                                    initWithTitle:@"Delete?"
+                                    message:@"Remove this trap?"
+                                    delegate:self
+                                    cancelButtonTitle:@"No"
+                                    otherButtonTitles:@"Yes", nil];
+        [deleteAlert show];
+    }
+}
+
+-(void)manageTrapRemoval{
+    for (IATTrap *trap in self.myActiveTraps){
+        if (trap.coordinate.latitude == lastTouchedMarker.position.latitude && trap.coordinate.longitude == lastTouchedMarker.position.longitude){
+            [self.myActiveTraps removeObject:trap];
+            [self updateTrapCount];
+            lastTouchedMarker.map = nil;
+        }
+    }
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -176,8 +211,21 @@ int myMaxTrapCount = 5;
     return self;
 }
 
+- (void)setupTestEnemyTraps {
+    IATTrap *testEnemy = [[IATTrap alloc] init];
+    CLLocationDegrees latitude = 44.4604636;
+    CLLocationDegrees longitude = -93.1535;
+    testEnemy.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    [self.enemyTraps addObject:testEnemy];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    testUser = [[IATUser alloc] init];
+    testUser.userID = @"222";
+    
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
@@ -231,7 +279,8 @@ int myMaxTrapCount = 5;
              return;
          }
      }];
-    
+
+    [self setupTestEnemyTraps];
     [self updateMyTraps];
     [self updateEnemyTraps];
     [self setupGoogleMap];
@@ -260,6 +309,7 @@ int myMaxTrapCount = 5;
     mostRecentCoordinate = coordinate;
     [self manageConfirmation:0];
 }
+
 
 - (void)updateEnemyTraps {
     /*
