@@ -79,7 +79,7 @@ int myMaxTrapCount = 5;
     // Get all nearby traps from DB.
     [self updateEnemyTraps];
     
-    // TO-DO: Place a marker for each nearby trap.
+    // Place a marker for each nearby trap.
     NSMutableArray *markers = [[NSMutableArray alloc]init];
     
     for (IATTrap *trap in self.enemyTraps) {
@@ -105,51 +105,59 @@ int myMaxTrapCount = 5;
 }
 
 - (void)manageTrapPlacement {
+    // Make a new trap; set its coordinate, activeness, time planted, radius
     IATTrap *newTrap = [[IATTrap alloc] init];
     newTrap.coordinate = mostRecentCoordinate;
     newTrap.isActive = YES;
-    
-    NSString *tmpLat = [NSString stringWithFormat:@"%f", mostRecentCoordinate.latitude];
-    NSString *tmpLong = [NSString stringWithFormat:@"%f", mostRecentCoordinate.longitude];
-    //newTrap.timePlanted = 222;
+    newTrap.timePlanted = 222;
     //newTrap.radius = 10;
+    
     [self.myActiveTraps addObject:newTrap];
     [self updateTrapCount];
     
+    // Place a marker on the map for the new trap.
     GMSMarker *marker = [GMSMarker markerWithPosition:mostRecentCoordinate];
     marker.title = newTrap.trapID;
     marker.snippet = @"Tap to Delete";
     marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
     marker.map = mapView_;
     
-    // POST to http://107.170.182.13:3000/api/placemine
-    
+    [self postNewTrapToBackend];
+}
+
+- (void)postNewTrapToBackend {
+    // make an NSURL from a string of the backend's URL
     NSString *myUrlString = @"http://107.170.182.13:3000/api/placemine";
-    
-    NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{"@" \"location\": {\"lat\":"];
-    
-    [stringData appendString:tmpLat];
-    [stringData appendString:@","];
-    [stringData appendString:@" \"lon\":"];
-    [stringData appendString:tmpLong];
-    [stringData appendString:@"},"];
-    [stringData appendString:@" \"user\": "@"  \"537e48763511c15161a1ed9c\"}"];
-    
-    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //create a NSURL object from the string data
     NSURL *myUrl = [NSURL URLWithString:myUrlString];
     
-    //create a mutable HTTP request
+    // make a mutable HTTP request from the new NSURL
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
     [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    //sets the receiver’s timeout interval, in seconds
-    [urlRequest setTimeoutInterval:30.0f];
-    //sets the receiver’s HTTP request method
-    [urlRequest setHTTPMethod:@"POST"];
-    //sets the request body of the receiver to the specified data.
+    /* make a string of JSON data to be posted, like so:
+     {
+        "location": {
+            "lat":"<latitude>",
+            "lon":"<longitude>"
+        },
+        "user":"<userID>"
+     } */
+    NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{"@" \"location\": {\"lat\":"];
+    NSString *latStr = [NSString stringWithFormat:@"%f", mostRecentCoordinate.latitude];
+    NSString *lonStr = [NSString stringWithFormat:@"%f", mostRecentCoordinate.longitude];
+    [stringData appendString:latStr];
+    [stringData appendString:@", \"lon\":"];
+    [stringData appendString:lonStr];
+    [stringData appendString:@"}, \"user\": " @"  \""]; //orig: @" \"user\": "@"  \"537e48763511c15161a1ed9c\"}"
+    [stringData appendString:testUser.userID];
+    [stringData appendString:@"\"}"];
+    
+    // set the receiver’s request body, timeout interval (seconds), and HTTP request method
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
     [urlRequest setHTTPBody:requestBodyData];
+    [urlRequest setTimeoutInterval:30.0f];
+    [urlRequest setHTTPMethod:@"POST"];
+    
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
     [NSURLConnection
@@ -158,21 +166,22 @@ int myMaxTrapCount = 5;
      completionHandler:^(NSURLResponse *response,
                          NSData *data,
                          NSError *error) {
-         if ([data length] >0 && error == nil){
+         if ([data length] > 0 && error == nil){
              //process the JSON response
-             //use the main queue so that we can interact with the screen
+             //use the main queue so we can interact with the screen
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self parseResponse:data];
              });
-         }
-         else if ([data length] == 0 && error == nil){
+         } else if ([data length] == 0 && error == nil){
+             NSLog(@"Problem posting new trap to backend:");
+             NSLog(@"data length == 0 && error == nil");
              return;
-         }
-         else if (error != nil){
+         } else if (error != nil){
+             NSLog(@"Problem posting new trap to backend:");
+             NSLog(@"error != nil");
              return;
          }
      }];
-
 }
 
 - (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
@@ -203,14 +212,6 @@ int myMaxTrapCount = 5;
     }
 }
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
-
 - (void)setupTestEnemyTraps {
     IATTrap *testEnemy = [[IATTrap alloc] init];
     CLLocationDegrees latitude = 44.4604636;
@@ -222,41 +223,45 @@ int myMaxTrapCount = 5;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    // TO-DO: Get new user ID upon initial login.
+    // TO-DO: Get old user ID on subsequent logins.
     testUser = [[IATUser alloc] init];
     testUser.userID = @"222";
     
-    
+    // Carlton's curiosity: What's this for?
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     self.myActiveTraps = [[NSMutableArray alloc] init];
     self.enemyTraps = [[NSMutableArray alloc] init];
     
-    //string for the URL request
-    NSString *myUrlString = @"http://107.170.182.13:3000/API/changeArea";
-    
-    NSString *stringData = @"{"
-    @" \"location\": {"
-    @" \"lat\": 42.930943,"
-    @" \"lon\": 23.8293874983},"
-    @" \"user\": "
-    @"  \"537e48763511c15161a1ed9c\"}";
-    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
-    
+    // Change area to get all traps that exist before launch?
+    // ENCAPSULATE EVERYTHING BELOW THIS INTO - (void)postChangeArea {}.
+    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
+    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
+    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
+    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
     
     //create a NSURL object from the string data
+    NSString *myUrlString = @"http://107.170.182.13:3000/API/changeArea";
     NSURL *myUrl = [NSURL URLWithString:myUrlString];
     
     //create a mutable HTTP request
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
     [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    //sets the receiver’s timeout interval, in seconds
+    NSString *stringData = @"{"
+    @" \"location\": {"
+    @" \"lat\": 42.930943,"
+    @" \"lon\": 23.8293874983},"
+    @" \"user\": "
+    @"  \"537e48763511c15161a1ed9c\"}"; // TO-DO: use testUser.userID
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // set the receiver’s timeout interval (seconds), HTTP request method, and request body
     [urlRequest setTimeoutInterval:30.0f];
-    //sets the receiver’s HTTP request method
     [urlRequest setHTTPMethod:@"POST"];
-    //sets the request body of the receiver to the specified data.
     [urlRequest setHTTPBody:requestBodyData];
+    
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
     [NSURLConnection
@@ -271,15 +276,14 @@ int myMaxTrapCount = 5;
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self parseResponse:data];
              });
-         }
-         else if ([data length] == 0 && error == nil){
+         } else if ([data length] == 0 && error == nil){
              return;
-         }
-         else if (error != nil){
+         } else if (error != nil){
              return;
          }
      }];
 
+    //[self postChangeArea];
     [self setupTestEnemyTraps];
     [self updateMyTraps];
     [self updateEnemyTraps];
@@ -290,8 +294,8 @@ int myMaxTrapCount = 5;
 
 - (void)setupGoogleMap {
      // Middle of Campus:
-     // latitude = 44.4604636;
-     // longitude = -93.1535;
+     // lat = 44.4604636;
+     // lon = -93.1535;
     
     GMSCameraPosition *camera = [GMSCameraPosition
                                  cameraWithLatitude:_myLocation.coordinate.latitude
@@ -312,75 +316,8 @@ int myMaxTrapCount = 5;
 
 
 - (void)updateEnemyTraps {
-    /*
-    NSString *myUrlString = @"http://107.170.182.13:3000/api/changeArea";
-    
-    // make object for parameters we need to send in HTTP POST body
-    NSDictionary *tmp = @{ @"location" : @{ @"lat" : @"42.930943", @"lon" : @"-23.8293874983" }, @"user" : @"537d2b4b221e2a193a385e3f"};
-    
-    NSData *postdata = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:nil];
-    
-    //create a NSURL object from the string data
-    NSURL *myUrl = [NSURL URLWithString:myUrlString];
-    
-    //create a mutable HTTP request
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
-    [urlRequest setTimeoutInterval:30.0f];
-    [urlRequest setHTTPMethod:@"POST"];
-    [urlRequest setHTTPBody:postdata];
-    
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection
-     sendAsynchronousRequest:urlRequest
-     queue:queue
-     completionHandler:^(NSURLResponse *response,
-                         NSData *data,
-                         NSError *error) {
-         if ([data length] >0 && error == nil){
-             //process the JSON response
-             //use the main queue so that we can interact with the screen
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self parseResponse:data];
-             });
-         }
-         else if ([data length] == 0 && error == nil){
-             return;
-         }
-         else if (error != nil){
-             return;
-         }
-     }];
-     */
-    /*
-    NSURL *url =  [NSURL URLWithString:@"http://107.170.182.13:3000/api/changearea"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url
-                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                         timeoutInterval:30.0];
-    NSURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSMutableArray *mines = [jsonDictionary objectForKey:@"mines"];
-    [mines firstObject]
-     */
     NSLog(@"Made it through updateAllTraps");
 }
-
-/*
-- (void) parseResponse:(NSData *) data {
-    
-    NSString *myData = [[NSString alloc] initWithData:data
-                                             encoding:NSUTF8StringEncoding];
-    NSLog(@"JSON data = %@", myData);
-    NSError *error = nil;
-    
-    //parsing the JSON response
-    id jsonObject = [NSJSONSerialization
-                     JSONObjectWithData:data
-                     options:NSJSONReadingAllowFragments
-                     error:nil];
-}
- */
  
 - (void)updateMyTraps {
     // DEPRECATE?
@@ -415,14 +352,13 @@ int myMaxTrapCount = 5;
 
 // LOCATION SERVICES ----------------------------------------------------------------
 - (void)startStandardUpdates {
-    // Create location manager if the object doesn't already have one.
+    // Make location manager if there isn't one already.
     if (nil == locationManager) {
         locationManager = [[CLLocationManager alloc] init];
     }
     
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
     //locationManager.distanceFilter = 1; // in meters
     
     [locationManager startUpdatingLocation];
@@ -453,26 +389,20 @@ int myMaxTrapCount = 5;
     // POST to http://107.170.182.13:3000/api/explodemine
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 - (void) parseResponse:(NSData *) data {
     
     NSString *myData = [[NSString alloc] initWithData:data
                                              encoding:NSUTF8StringEncoding];
-    NSLog(@"JSON data = %@", myData);
+    NSLog(@"JSON data: %@", myData);
     
     NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
-    //Init myMines Dict and otherMines Dict
+    // init myTraps, otherTraps, and highScores dictionaries
     _myTraps = [jsonDictionary objectForKey:@"myMines"];
     _otherTraps = [jsonDictionary objectForKey:@"mines"];
-    
-    // Put scores in it's own dictionary
     _highScores= [jsonDictionary objectForKey:@"scores"];
     
-    for (int i = 0; i <=[_highScores count]-1; i++){
+    for (int i = 0; i < [_highScores count]; i++){
         _ID = _highScores[i];
         NSString *tmpScore = [_ID objectForKey:@"score"];
         NSString *tmpName = [_ID objectForKey:@"name"];
@@ -481,6 +411,15 @@ int myMaxTrapCount = 5;
     }
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {}
+    return self;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
     
 /*
 // In a storyboard-based application, you'll often want to prepare before navigation.

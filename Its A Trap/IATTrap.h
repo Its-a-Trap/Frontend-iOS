@@ -32,7 +32,7 @@
 @property Boolean isActive;
 
 // time planted (long)
-@property long *timePlanted;
+@property long timePlanted;
 
 // time of expiration (long)
 // DEPRECATED: Expiration time derivable from time planted.

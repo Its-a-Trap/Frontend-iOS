@@ -105,7 +105,7 @@
 		05FD3CF719253B2B0002F957 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		790D0697191F1B9C00399F14 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		790D0699191F201100399F14 /* IATMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATMapViewController.h; sourceTree = "<group>"; };
-		790D069A191F201100399F14 /* IATMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATMapViewController.m; sourceTree = "<group>"; };
+		790D069A191F201100399F14 /* IATMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATMapViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		790D069C191F386200399F14 /* IATUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATUser.h; sourceTree = "<group>"; };
 		790D069D191F386200399F14 /* IATUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATUser.m; sourceTree = "<group>"; };
 		790D069F191F388200399F14 /* IATTrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATTrap.h; sourceTree = "<group>"; };
