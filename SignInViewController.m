@@ -132,16 +132,10 @@
     }
 }
 
-
 - (void) parseResponse:(NSData *) data {
     NSString *myData = [[NSString alloc] initWithData:data
                                              encoding:NSUTF8StringEncoding];
 }
 
-
-
-
-
-
-
 @end
+

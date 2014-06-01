@@ -593,6 +593,8 @@ int myMaxTrapCount = 5;
         [_names addObject: tmpName];
         [_scores addObject: tmpScore];
     }
+    
+    //add mines to myActiveTraps and otherTraps
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
