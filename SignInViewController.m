@@ -54,6 +54,7 @@
 
 #pragma mark - Navigation
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
+    /*
     NSString *myUrlString = @"http://107.170.182.13:3000/api/getuserid";
     
     //create object for parameters that we need to send in the HTTP POST body
@@ -101,6 +102,7 @@
              return;
          }
      }];
+     */
 
     [self performSegueWithIdentifier: @"loggedIn" sender: self];
 }
