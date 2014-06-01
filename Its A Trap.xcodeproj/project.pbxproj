@@ -16,6 +16,10 @@
 		054BB1D9192671590040391F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1D8192671590040391F /* MediaPlayer.framework */; };
 		054BB1DB192671610040391F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DA192671610040391F /* Security.framework */; };
 		054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DC192671710040391F /* SystemConfiguration.framework */; };
+		0583700019392E090000AF84 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05836FFF19392E090000AF84 /* GoogleOpenSource.framework */; };
+		0583700219392E180000AF84 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0583700119392E180000AF84 /* GooglePlus.framework */; };
+		0583700419392E2C0000AF84 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0583700319392E2C0000AF84 /* GooglePlus.bundle */; };
+		05837005193A951C0000AF84 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
 		05E3507D1930F0F700ADF732 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05E3507C1930F0F700ADF732 /* Storyboard.storyboard */; };
 		05E3508319312F7900ADF732 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3508219312F7900ADF732 /* AVFoundation.framework */; };
 		05E3508519312F8000ADF732 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3508419312F8000ADF732 /* CoreData.framework */; };
@@ -35,8 +39,6 @@
 		79246BE01931406300235527 /* IATTrapCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79246BDF1931406300235527 /* IATTrapCountButton.m */; };
 		79246BE31931407400235527 /* IATHighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79246BE21931407400235527 /* IATHighScoreViewController.m */; };
 		79246BE51931418E00235527 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79246BE41931418E00235527 /* FacebookSDK.framework */; };
-		796C485A19384B1F001AC914 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C485919384B1F001AC914 /* GoogleMaps.framework */; };
-		796C485C19384B33001AC914 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 796C485B19384B33001AC914 /* GoogleMaps.bundle */; };
 		79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DD191A97BC00FBC3DA /* Foundation.framework */; };
 		79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */; };
 		79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B585E1191A97BC00FBC3DA /* UIKit.framework */; };
@@ -91,6 +93,9 @@
 		054BB1D8192671590040391F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		054BB1DA192671610040391F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		054BB1DC192671710040391F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		05836FFF19392E090000AF84 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "Its A Trap/GoogleSDK/GoogleOpenSource.framework"; sourceTree = "<group>"; };
+		0583700119392E180000AF84 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "Its A Trap/GoogleSDK/GooglePlus.framework"; sourceTree = "<group>"; };
+		0583700319392E2C0000AF84 /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Its A Trap/GoogleSDK/GooglePlus.bundle"; sourceTree = "<group>"; };
 		05E3507C1930F0F700ADF732 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		05E3508219312F7900ADF732 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		05E3508419312F8000ADF732 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -117,8 +122,6 @@
 		79246BE11931407400235527 /* IATHighScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATHighScoreViewController.h; sourceTree = "<group>"; };
 		79246BE21931407400235527 /* IATHighScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATHighScoreViewController.m; sourceTree = "<group>"; };
 		79246BE41931418E00235527 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		796C485919384B1F001AC914 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
-		796C485B19384B33001AC914 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		79B585DA191A97BC00FBC3DA /* Its A Trap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Its A Trap.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B585DD191A97BC00FBC3DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -142,6 +145,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */,
+				054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */,
+				054BB1DB192671610040391F /* Security.framework in Frameworks */,
+				054BB1D9192671590040391F /* MediaPlayer.framework in Frameworks */,
+				054BB1D7192671520040391F /* CoreText.framework in Frameworks */,
+				79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */,
+				054BB1D5192671430040391F /* CoreMotion.framework in Frameworks */,
+				054BB1D31926713B0040391F /* CoreLocation.framework in Frameworks */,
+				79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */,
+				054BB1D11926712D0040391F /* AssetsLibrary.framework in Frameworks */,
+				054BB1CF1926711F0040391F /* AddressBook.framework in Frameworks */,
+				0583700219392E180000AF84 /* GooglePlus.framework in Frameworks */,
+				0583700019392E090000AF84 /* GoogleOpenSource.framework in Frameworks */,
 				79246BE51931418E00235527 /* FacebookSDK.framework in Frameworks */,
 				05E3509319312FCF00ADF732 /* QuartzCore.framework in Frameworks */,
 				05E3509119312FC800ADF732 /* OpenGLES.framework in Frameworks */,
@@ -150,21 +166,9 @@
 				05E3508B19312FAD00ADF732 /* libc++.dylib in Frameworks */,
 				05E3508919312F9B00ADF732 /* ImageIO.framework in Frameworks */,
 				05E3508719312F9300ADF732 /* GLKit.framework in Frameworks */,
-				054BB1D7192671520040391F /* CoreText.framework in Frameworks */,
-				054BB1D31926713B0040391F /* CoreLocation.framework in Frameworks */,
 				05E3508519312F8000ADF732 /* CoreData.framework in Frameworks */,
 				05E3508319312F7900ADF732 /* AVFoundation.framework in Frameworks */,
-				79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */,
-				054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */,
-				054BB1DB192671610040391F /* Security.framework in Frameworks */,
-				054BB1D9192671590040391F /* MediaPlayer.framework in Frameworks */,
-				79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */,
-				054BB1D5192671430040391F /* CoreMotion.framework in Frameworks */,
-				79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */,
-				054BB1D11926712D0040391F /* AssetsLibrary.framework in Frameworks */,
-				054BB1CF1926711F0040391F /* AddressBook.framework in Frameworks */,
 				790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */,
-				796C485A19384B1F001AC914 /* GoogleMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,8 +207,9 @@
 		79B585DC191A97BC00FBC3DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				796C485B19384B33001AC914 /* GoogleMaps.bundle */,
-				796C485919384B1F001AC914 /* GoogleMaps.framework */,
+				0583700319392E2C0000AF84 /* GooglePlus.bundle */,
+				0583700119392E180000AF84 /* GooglePlus.framework */,
+				05836FFF19392E090000AF84 /* GoogleOpenSource.framework */,
 				79246BE41931418E00235527 /* FacebookSDK.framework */,
 				05E3509219312FCF00ADF732 /* QuartzCore.framework */,
 				05E3509019312FC800ADF732 /* OpenGLES.framework */,
@@ -243,18 +248,18 @@
 				790D069D191F386200399F14 /* IATUser.m */,
 				790D069F191F388200399F14 /* IATTrap.h */,
 				790D06A0191F388200399F14 /* IATTrap.m */,
-				05FD3CF619253B2B0002F957 /* SWRevealViewController.h */,
-				05FD3CF719253B2B0002F957 /* SWRevealViewController.m */,
 				050560591930242A00E20D59 /* SignInViewController.h */,
 				0505605A1930242A00E20D59 /* SignInViewController.m */,
 				790D0699191F201100399F14 /* IATMapViewController.h */,
 				790D069A191F201100399F14 /* IATMapViewController.m */,
+				79246BE11931407400235527 /* IATHighScoreViewController.h */,
+				79246BE21931407400235527 /* IATHighScoreViewController.m */,
 				79246BDB1931404000235527 /* IATHighScoreCell.h */,
 				79246BDC1931404000235527 /* IATHighScoreCell.m */,
 				79246BDE1931406300235527 /* IATTrapCountButton.h */,
 				79246BDF1931406300235527 /* IATTrapCountButton.m */,
-				79246BE11931407400235527 /* IATHighScoreViewController.h */,
-				79246BE21931407400235527 /* IATHighScoreViewController.m */,
+				05FD3CF619253B2B0002F957 /* SWRevealViewController.h */,
+				05FD3CF719253B2B0002F957 /* SWRevealViewController.m */,
 			);
 			path = "Its A Trap";
 			sourceTree = "<group>";
@@ -375,9 +380,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				79B585E8191A97BC00FBC3DA /* InfoPlist.strings in Resources */,
+				0583700419392E2C0000AF84 /* GooglePlus.bundle in Resources */,
 				79B585F0191A97BC00FBC3DA /* Images.xcassets in Resources */,
 				05E3507D1930F0F700ADF732 /* Storyboard.storyboard in Resources */,
-				796C485C19384B33001AC914 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05837005193A951C0000AF84 /* IATMapViewController.m in Sources */,
 				79B58603191A97BC00FBC3DA /* Its_A_TrapTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,6 +582,15 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap/GoogleSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Its A Trap/Its A Trap-Prefix.pch";
@@ -643,6 +658,15 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap/GoogleSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Its A Trap/Its A Trap-Prefix.pch";
