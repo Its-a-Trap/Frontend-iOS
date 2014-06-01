@@ -8,6 +8,8 @@
 
 #import "IATHighScoreViewController.h"
 #import "IATHighScoreCell.h"
+#import "IATAppDelegateProtocol.h"
+#import "IATDataObject.h"
 
 
 @interface IATHighScoreViewController ()
@@ -15,6 +17,15 @@
 @end
 
 @implementation IATHighScoreViewController
+
+- (IATDataObject*) theAppDataObject;
+{
+	id<IATAppDelegateProtocol> theDelegate = (id<IATAppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	IATDataObject* theDataObject;
+	theDataObject = (IATDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -35,8 +46,13 @@
     cell.playerScoreLabel.text = highScoreRecord.playerScore;
      */
     
-    cell.playerNameLabel.text = @"foo";
-    cell.playerScoreLabel.text = @"bar";
+    IATDataObject* theDataObject = [self theAppDataObject];
+    
+    NSString *tmpPlayName = [theDataObject.names objectAtIndex:1];
+    NSString *tmpPlayScore = [theDataObject.scores objectAtIndex:1];
+    
+    cell.playerNameLabel.text = tmpPlayName;
+    cell.playerScoreLabel.text = tmpPlayScore;
     return cell;
 }
 
@@ -76,6 +92,10 @@
     
     [self performSegueWithIdentifier: @"loggedOut" sender: self];
 }
+
+
+
+
 
 /*
 // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -9,6 +9,8 @@
 #import "IATMapViewController.h"
 #import "SWRevealViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "IATAppDelegateProtocol.h"
+#import "IATDataObject.h"
 
 @interface IATMapViewController ()
 
@@ -22,6 +24,14 @@ CLLocationCoordinate2D mostRecentCoordinate;
 GMSMarker *lastTouchedMarker;
 IATUser *testUser;
 int myMaxTrapCount = 5;
+
+- (IATDataObject*) theAppDataObject;
+{
+	id<IATAppDelegateProtocol> theDelegate = (id<IATAppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	IATDataObject* theDataObject;
+	theDataObject = (IATDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -155,8 +165,8 @@ int myMaxTrapCount = 5;
     NSString *stringData = [NSString stringWithFormat:
     @"{"
     @" \"location\": {"
-    @" \"lat\": 42.930943,"
-    @" \"lon\": 23.8293874983},"
+    @" \"lat\": 0.930943,"
+    @" \"lon\": 0.8293874983},"
     @" \"user\": "
     @" %@}", testUser.userID];
     
@@ -564,9 +574,9 @@ int myMaxTrapCount = 5;
 }
 
 - (void)parseResponse:(NSData *) data {
-    //NSString *myData = [[NSString alloc] initWithData:data
-    //                                         encoding:NSUTF8StringEncoding];
-    //NSLog(@"JSON data: %@", myData);
+    NSString *myData = [[NSString alloc] initWithData:data
+                                             encoding:NSUTF8StringEncoding];
+    NSLog(@"JSON data: %@", myData);
     
     NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
@@ -575,15 +585,22 @@ int myMaxTrapCount = 5;
     _otherTraps = [jsonDictionary objectForKey:@"mines"];
     _highScores= [jsonDictionary objectForKey:@"scores"];
     
-    _names = [[NSMutableArray alloc] initWithArray:_names];
-    _scores = [[NSMutableArray alloc] initWithArray:_scores];
+    IATDataObject* theDataObject = [self theAppDataObject];
     
+    NSMutableArray* tmpNamesArray = [[NSMutableArray alloc] initWithObjects: nil];
+    NSMutableArray* tmpScoresArray = [[NSMutableArray alloc] initWithObjects: nil];
+    
+
     for (int i = 0; i < [_highScores count]; i++){
         NSString *tmpScore = [[_highScores objectAtIndex:i]  objectForKey:@"score"];
         NSString *tmpName = [[_highScores objectAtIndex:i] objectForKey:@"name"];
-        [_names addObject: tmpName];
-        [_scores addObject: tmpScore];
+        
+        [tmpNamesArray addObject: tmpName];
+        [tmpScoresArray addObject: tmpScore];
     }
+    
+    theDataObject.names = tmpNamesArray;
+    theDataObject.scores = tmpScoresArray;
     
     //add mines to myActiveTraps and otherTraps
 }
@@ -597,5 +614,7 @@ int myMaxTrapCount = 5;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+
 
 @end
