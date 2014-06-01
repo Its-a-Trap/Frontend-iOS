@@ -8,6 +8,8 @@
 
 #import "IATHighScoreCell.h"
 
+
+
 @implementation IATHighScoreCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

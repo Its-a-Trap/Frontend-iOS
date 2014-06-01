@@ -17,7 +17,7 @@
 @implementation IATMapViewController
 
 //@synthesize mapView;
-GMSMapView *mapView_;
+GMSMapView *mapView;
 CLLocationCoordinate2D mostRecentCoordinate;
 GMSMarker *lastTouchedMarker;
 IATUser *testUser;
@@ -89,7 +89,7 @@ int myMaxTrapCount = 5;
             GMSMarker *marker = [GMSMarker markerWithPosition:trap.coordinate];
             marker.icon = [GMSMarker markerImageWithColor:[UIColor redColor]];
             marker.title = trap.trapID;
-            marker.map = mapView_;
+            marker.map = mapView;
             [markers addObject:marker];
         }
     }
@@ -120,7 +120,7 @@ int myMaxTrapCount = 5;
     marker.title = newTrap.trapID;
     marker.snippet = @"Tap to Delete";
     marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
-    marker.map = mapView_;
+    marker.map = mapView;
     
     [self postNewTrapToBackend];
 }
@@ -145,6 +145,8 @@ int myMaxTrapCount = 5;
     NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{"@" \"location\": {\"lat\":"];
     NSString *latStr = [NSString stringWithFormat:@"%f", mostRecentCoordinate.latitude];
     NSString *lonStr = [NSString stringWithFormat:@"%f", mostRecentCoordinate.longitude];
+    
+    
     [stringData appendString:latStr];
     [stringData appendString:@", \"lon\":"];
     [stringData appendString:lonStr];
@@ -228,7 +230,7 @@ int myMaxTrapCount = 5;
     testUser = [[IATUser alloc] init];
     testUser.userID = @"222";
     
-    // Carlton's curiosity: What's this for?
+    // Carlton's curiosity: What's this for? (Jiatao's answer, this one is for the slide out drawer)
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     self.myActiveTraps = [[NSMutableArray alloc] init];
@@ -302,11 +304,12 @@ int myMaxTrapCount = 5;
                                  longitude:_myLocation.coordinate.longitude
                                  zoom:6];
     
-    mapView_ = [GMSMapView mapWithFrame:CGRectMake(10, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
-    mapView_.myLocationEnabled = YES;
-    mapView_.delegate = self;
-    mapView_.layer.zPosition = -1;
-    [self.view addSubview:mapView_];
+    mapView = [GMSMapView mapWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
+    //mapView = [GMSMapView mapWithFrame:CGRectMake(10, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
+    //mapView.myLocationEnabled = YES;
+    //mapView.delegate = self;
+    //mapView.layer.zPosition = -1;
+    [self.view addSubview:mapView];
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
@@ -402,16 +405,18 @@ int myMaxTrapCount = 5;
     _otherTraps = [jsonDictionary objectForKey:@"mines"];
     _highScores= [jsonDictionary objectForKey:@"scores"];
     
+    _names = [[NSMutableArray alloc] initWithArray:_names];
+    _scores = [[NSMutableArray alloc] initWithArray:_scores];
+    
     for (int i = 0; i < [_highScores count]; i++){
-        _ID = _highScores[i];
-        NSString *tmpScore = [_ID objectForKey:@"score"];
-        NSString *tmpName = [_ID objectForKey:@"name"];
+        NSString *tmpScore = [[_highScores objectAtIndex:i]  objectForKey:@"score"];
+        NSString *tmpName = [[_highScores objectAtIndex:i] objectForKey:@"name"];
         [_names addObject: tmpName];
         [_scores addObject: tmpScore];
     }
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {}
     return self;

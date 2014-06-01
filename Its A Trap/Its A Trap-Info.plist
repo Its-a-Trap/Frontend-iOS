@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Its-A-Trap</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -20,7 +20,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>Its-A-Trap.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>Its-A-Trap.Its-A-Trap</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -34,7 +34,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleURLName</key>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string></string>
+			</array>
+			<key>Item 0 </key>
 			<string>fb549817945135117</string>
 		</dict>
 	</array>
@@ -43,7 +47,7 @@
 	<key>FacebookAppID</key>
 	<string>549817945135117</string>
 	<key>FacebookDisplayName</key>
-	<string>It's A Trap</string>
+	<string>It&apos;s A Trap</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MKDirectionsApplicationSupportedModes</key>

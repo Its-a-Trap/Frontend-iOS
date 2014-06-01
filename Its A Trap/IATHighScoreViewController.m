@@ -25,6 +25,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     IATHighScoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HighScoreCell" forIndexPath:indexPath];
     /*
      TO-DO: FIGURE OUT HOW THIS SHOULD WORK
@@ -32,7 +34,6 @@
     cell.playerNameLabel.text = highScoreRecord.playerName;
     cell.playerScoreLabel.text = highScoreRecord.playerScore;
      */
-    
     
     cell.playerNameLabel.text = @"foo";
     cell.playerScoreLabel.text = @"bar";

@@ -32,7 +32,7 @@
 @property NSMutableData *responseData;
 @property NSArray *playerList;
 @property NSDictionary *scoreList;
-@property NSMutableArray *highScores;
+@property NSArray *highScores;
 @property NSDictionary *ID;
 @property NSMutableArray *names;
 @property NSMutableArray *scores;
