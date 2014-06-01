@@ -39,8 +39,11 @@
 @property NSDictionary *myTraps;
 @property NSDictionary *otherTraps;
 
+<<<<<<< HEAD
 
 - (void)updateMyTraps;
 - (void)updateEnemyTraps;
 
+=======
+>>>>>>> b89f38b078016c1ec5e8e5eabfcd8f693b3dd4c3
 @end

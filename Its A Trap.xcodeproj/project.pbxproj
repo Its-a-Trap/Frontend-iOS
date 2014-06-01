@@ -16,8 +16,6 @@
 		054BB1D9192671590040391F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1D8192671590040391F /* MediaPlayer.framework */; };
 		054BB1DB192671610040391F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DA192671610040391F /* Security.framework */; };
 		054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DC192671710040391F /* SystemConfiguration.framework */; };
-		05836FFA193924F00000AF84 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05836FF9193924F00000AF84 /* GoogleMaps.framework */; };
-		05836FFE193925E20000AF84 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 05836FFD193925E20000AF84 /* GoogleMaps.bundle */; };
 		0583700019392E090000AF84 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05836FFF19392E090000AF84 /* GoogleOpenSource.framework */; };
 		0583700219392E180000AF84 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0583700119392E180000AF84 /* GooglePlus.framework */; };
 		0583700419392E2C0000AF84 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0583700319392E2C0000AF84 /* GooglePlus.bundle */; };
@@ -95,8 +93,6 @@
 		054BB1D8192671590040391F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		054BB1DA192671610040391F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		054BB1DC192671710040391F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		05836FF9193924F00000AF84 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
-		05836FFD193925E20000AF84 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		05836FFF19392E090000AF84 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "Its A Trap/GoogleSDK/GoogleOpenSource.framework"; sourceTree = "<group>"; };
 		0583700119392E180000AF84 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "Its A Trap/GoogleSDK/GooglePlus.framework"; sourceTree = "<group>"; };
 		0583700319392E2C0000AF84 /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Its A Trap/GoogleSDK/GooglePlus.bundle"; sourceTree = "<group>"; };
@@ -162,7 +158,6 @@
 				054BB1CF1926711F0040391F /* AddressBook.framework in Frameworks */,
 				0583700219392E180000AF84 /* GooglePlus.framework in Frameworks */,
 				0583700019392E090000AF84 /* GoogleOpenSource.framework in Frameworks */,
-				05836FFA193924F00000AF84 /* GoogleMaps.framework in Frameworks */,
 				79246BE51931418E00235527 /* FacebookSDK.framework in Frameworks */,
 				05E3509319312FCF00ADF732 /* QuartzCore.framework in Frameworks */,
 				05E3509119312FC800ADF732 /* OpenGLES.framework in Frameworks */,
@@ -215,8 +210,6 @@
 				0583700319392E2C0000AF84 /* GooglePlus.bundle */,
 				0583700119392E180000AF84 /* GooglePlus.framework */,
 				05836FFF19392E090000AF84 /* GoogleOpenSource.framework */,
-				05836FFD193925E20000AF84 /* GoogleMaps.bundle */,
-				05836FF9193924F00000AF84 /* GoogleMaps.framework */,
 				79246BE41931418E00235527 /* FacebookSDK.framework */,
 				05E3509219312FCF00ADF732 /* QuartzCore.framework */,
 				05E3509019312FC800ADF732 /* OpenGLES.framework */,
@@ -390,7 +383,6 @@
 				0583700419392E2C0000AF84 /* GooglePlus.bundle in Resources */,
 				79B585F0191A97BC00FBC3DA /* Images.xcassets in Resources */,
 				05E3507D1930F0F700ADF732 /* Storyboard.storyboard in Resources */,
-				05836FFE193925E20000AF84 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
