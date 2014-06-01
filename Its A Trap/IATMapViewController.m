@@ -23,6 +23,25 @@ GMSMarker *lastTouchedMarker;
 IATUser *testUser;
 int myMaxTrapCount = 5;
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    testUser = [[IATUser alloc] init];
+    testUser.userID = @"test_user_id_222";
+    //testUser.UserID = [self postGetUserIDToBackend];
+    
+    // Carlton's curiosity: What's this for?
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    self.myActiveTraps = [[NSMutableArray alloc] init];
+    self.enemyTraps = [[NSMutableArray alloc] init];
+    
+    [self postChangeAreaToBackend];
+    [self setupTestEnemyTraps];
+    [self setupGoogleMap];
+    [self setupTrapCountButton];
+    [self setupSweepButton];
+}
+
 - (IBAction)manageSweepConfirmation:(id)sender {
     NSLog(@"Managing sweep confirmation.");
     [self manageConfirmation:1];
@@ -76,8 +95,8 @@ int myMaxTrapCount = 5;
 }
 
 - (void)manageSweep {
-    // Get all nearby traps from DB.
-    [self updateEnemyTraps];
+    // Get enemy traps from DB.
+    [self postChangeAreaToBackend];
     
     // Place a marker for each nearby trap.
     NSMutableArray *markers = [[NSMutableArray alloc]init];
@@ -125,6 +144,49 @@ int myMaxTrapCount = 5;
     [self postNewTrapToBackend];
 }
 
+- (void)postChangeAreaToBackend {
+    // make an NSURL object from the API's URL
+    NSString *myUrlString = @"http://107.170.182.13:3000/API/changeArea";
+    NSURL *myUrl = [NSURL URLWithString:myUrlString];
+    
+    // make a mutable HTTP request from the NSURL
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    // make a string of JSON data, including user's lat, lon, and ID
+    NSString *myString = @"{\"location\": {\"lat\": 42.930943,\"lon\": 23.8293874983},\"user\":\"";
+    NSMutableString *stringData = [[NSMutableString alloc] initWithString:myString];
+    [stringData appendString:testUser.userID];
+    [stringData appendString:@"\"}"];
+    
+    // set the receiver’s request body, timeout interval (seconds), and HTTP request method
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+    [urlRequest setHTTPBody:requestBodyData];
+    [urlRequest setTimeoutInterval:30.0f];
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] > 0 && error == nil){
+             //process the JSON response
+             //use the main queue so that we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self parseResponse:data];
+             });
+         } else if ([data length] == 0 && error == nil){
+             return;
+         } else if (error != nil){
+             return;
+         }
+     }];
+}
+
 - (void)postNewTrapToBackend {
     // make an NSURL from a string of the backend's URL
     NSString *myUrlString = @"http://107.170.182.13:3000/api/placemine";
@@ -142,13 +204,13 @@ int myMaxTrapCount = 5;
         },
         "user":"<userID>"
      } */
-    NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{"@" \"location\": {\"lat\":"];
+    NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{\"location\":{\"lat\":"];
     NSString *latStr = [NSString stringWithFormat:@"%f", mostRecentCoordinate.latitude];
     NSString *lonStr = [NSString stringWithFormat:@"%f", mostRecentCoordinate.longitude];
     [stringData appendString:latStr];
     [stringData appendString:@", \"lon\":"];
     [stringData appendString:lonStr];
-    [stringData appendString:@"}, \"user\": " @"  \""]; //orig: @" \"user\": "@"  \"537e48763511c15161a1ed9c\"}"
+    [stringData appendString:@"}, \"user\":\""]; //orig: @" \"user\": "@"\"537e48763511c15161a1ed9c\"}"
     [stringData appendString:testUser.userID];
     [stringData appendString:@"\"}"];
     
@@ -184,12 +246,168 @@ int myMaxTrapCount = 5;
      }];
 }
 
+// NOTE: WE DO NOT YET CALL ANY OF THE NEXT THREE METHODS ANYWHERE.
+
+- (void)postRemoveTrapToBackend:(NSString *)trapID {
+    // make an NSURL from a string of the backend's URL
+    NSString *myUrlString = @"http://107.170.182.13:3000/api/removemine";
+    NSURL *myUrl = [NSURL URLWithString:myUrlString];
+    
+    // make a mutable HTTP request from the new NSURL
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    /* make a string of JSON data to be posted, like so: { "id":"5382c04acd5f5d9268872246" }*/
+    NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{\"id\":\""];
+    [stringData appendString:trapID];
+    [stringData appendString:@"\" }"];
+    
+    // set the receiver’s request body, timeout interval (seconds), and HTTP request method
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+    [urlRequest setHTTPBody:requestBodyData];
+    [urlRequest setTimeoutInterval:30.0f];
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] > 0 && error == nil){
+             //process the JSON response
+             //use the main queue so we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self parseResponse:data];
+             });
+         } else if ([data length] == 0 && error == nil){
+             NSLog(@"Problem posting trap removal to backend:");
+             NSLog(@"data length == 0 && error == nil");
+             return;
+         } else if (error != nil){
+             NSLog(@"Problem posting trap removal to backend:");
+             NSLog(@"error != nil");
+             return;
+         }
+     }];
+}
+
+- (void)postTriggerTrapToBackend:(NSString *)trapID {
+    // make an NSURL from a string of the backend's URL
+    NSString *myUrlString = @"http://107.170.182.13:3000/api/explodemine";
+    NSURL *myUrl = [NSURL URLWithString:myUrlString];
+    
+    // make a mutable HTTP request from the new NSURL
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    /* make a string of JSON data to be posted, like so:
+     {
+        "id":"5382c04acd5f5d9268872246",
+        "user":"<my_awesome_name_which_is_Steve>"
+     } */
+    NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{\"id\":\""];
+    [stringData appendString:trapID];
+    [stringData appendString:@"\",\"user\":\""];
+    [stringData appendString:testUser.username];
+    [stringData appendString:@"\"}"];
+    
+    // set the receiver’s request body, timeout interval (seconds), and HTTP request method
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+    [urlRequest setHTTPBody:requestBodyData];
+    [urlRequest setTimeoutInterval:30.0f];
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] > 0 && error == nil){
+             //process the JSON response
+             //use the main queue so we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self parseResponse:data];
+             });
+         } else if ([data length] == 0 && error == nil){
+             NSLog(@"Problem posting trap trigger to backend:");
+             NSLog(@"data length == 0 && error == nil");
+             return;
+         } else if (error != nil){
+             NSLog(@"Problem posting trap trigger to backend:");
+             NSLog(@"error != nil");
+             return;
+         }
+     }];
+}
+
+- (NSString *)postGetUserIDToBackend {
+    // make an NSURL from a string of the backend's URL
+    NSString *myUrlString = @"http://107.170.182.13:3000/api/getuserid";
+    NSURL *myUrl = [NSURL URLWithString:myUrlString];
+    
+    // make a mutable HTTP request from the new NSURL
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    /* make a string of JSON data to be posted, like so:
+     {
+        "email":"maegereg@gmail.com",
+        “name”:”<my_awesome_name>”
+     } */
+    
+    NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{\"email\":\""];
+    [stringData appendString:testUser.emailAddr];
+    [stringData appendString:@"\",\"name\":\""];
+    [stringData appendString:testUser.username];
+    [stringData appendString:@"\"}"];
+    
+    // set the receiver’s request body, timeout interval (seconds), and HTTP request method
+    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+    [urlRequest setHTTPBody:requestBodyData];
+    [urlRequest setTimeoutInterval:30.0f];
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] > 0 && error == nil){
+             //process the JSON response
+             //use the main queue so we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 // NSString *userID = [self parseResponse:data];
+                 // return userID;
+                 return;
+                 //[self parseResponse:data];
+             });
+         } else if ([data length] == 0 && error == nil){
+             NSLog(@"Problem posting userID request to backend:");
+             NSLog(@"data length == 0 && error == nil");
+             return;
+         } else if (error != nil){
+             NSLog(@"Problem posting userID request to backend:");
+             NSLog(@"error != nil");
+             return;
+         }
+     }];
+}
+
 - (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
     mapView.selectedMarker = marker;
     return TRUE;
 }
 
--(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker{
+-(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
     lastTouchedMarker = marker;
     if ([marker.snippet isEqual:@"Tap to Delete"]){
         UIAlertView *deleteAlert = [[UIAlertView alloc]
@@ -202,12 +420,18 @@ int myMaxTrapCount = 5;
     }
 }
 
--(void)manageTrapRemoval{
+- (BOOL)manageTrapRemoval {
     for (IATTrap *trap in self.myActiveTraps){
-        if (trap.coordinate.latitude == lastTouchedMarker.position.latitude && trap.coordinate.longitude == lastTouchedMarker.position.longitude){
-            [self.myActiveTraps removeObject:trap];
-            [self updateTrapCount];
-            lastTouchedMarker.map = nil;
+        if (trap.coordinate.latitude == lastTouchedMarker.position.latitude && trap.coordinate.longitude == lastTouchedMarker.position.longitude) {
+            BOOL succeeded = [self postRemoveTrapToBackend:trap.id];
+            if (!succeeded) {
+                // TO-DO: Handle failure by showing user popup?
+                NSLog(@"Failed to post trap removal from backend.");
+            } else {
+                [self.myActiveTraps removeObject:trap];
+                [self updateTrapCount];
+                lastTouchedMarker.map = nil;
+            }
         }
     }
 }
@@ -220,82 +444,9 @@ int myMaxTrapCount = 5;
     [self.enemyTraps addObject:testEnemy];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // TO-DO: Get new user ID upon initial login.
-    // TO-DO: Get old user ID on subsequent logins.
-    testUser = [[IATUser alloc] init];
-    testUser.userID = @"222";
-    
-    // Carlton's curiosity: What's this for?
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    
-    self.myActiveTraps = [[NSMutableArray alloc] init];
-    self.enemyTraps = [[NSMutableArray alloc] init];
-    
-    // Change area to get all traps that exist before launch?
-    // ENCAPSULATE EVERYTHING BELOW THIS INTO - (void)postChangeArea {}.
-    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
-    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
-    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
-    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
-    
-    //create a NSURL object from the string data
-    NSString *myUrlString = @"http://107.170.182.13:3000/API/changeArea";
-    NSURL *myUrl = [NSURL URLWithString:myUrlString];
-    
-    //create a mutable HTTP request
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
-    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSString *stringData = @"{"
-    @" \"location\": {"
-    @" \"lat\": 42.930943,"
-    @" \"lon\": 23.8293874983},"
-    @" \"user\": "
-    @"  \"537e48763511c15161a1ed9c\"}"; // TO-DO: use testUser.userID
-    NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
-    
-    // set the receiver’s timeout interval (seconds), HTTP request method, and request body
-    [urlRequest setTimeoutInterval:30.0f];
-    [urlRequest setHTTPMethod:@"POST"];
-    [urlRequest setHTTPBody:requestBodyData];
-    
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection
-     sendAsynchronousRequest:urlRequest
-     queue:queue
-     completionHandler:^(NSURLResponse *response,
-                         NSData *data,
-                         NSError *error) {
-         if ([data length] >0 && error == nil){
-             //process the JSON response
-             //use the main queue so that we can interact with the screen
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self parseResponse:data];
-             });
-         } else if ([data length] == 0 && error == nil){
-             return;
-         } else if (error != nil){
-             return;
-         }
-     }];
-
-    //[self postChangeArea];
-    [self setupTestEnemyTraps];
-    [self updateMyTraps];
-    [self updateEnemyTraps];
-    [self setupGoogleMap];
-    [self setupTrapCountButton];
-    [self setupSweepButton];
-}
-
 - (void)setupGoogleMap {
-     // Middle of Campus:
-     // lat = 44.4604636;
-     // lon = -93.1535;
+     // Middle of Campus: lat = 44.4604636;
+     //                   lon = -93.1535;
     
     GMSCameraPosition *camera = [GMSCameraPosition
                                  cameraWithLatitude:_myLocation.coordinate.latitude
@@ -312,15 +463,6 @@ int myMaxTrapCount = 5;
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
     mostRecentCoordinate = coordinate;
     [self manageConfirmation:0];
-}
-
-
-- (void)updateEnemyTraps {
-    NSLog(@"Made it through updateAllTraps");
-}
- 
-- (void)updateMyTraps {
-    // DEPRECATE?
 }
 
 - (void)setupSweepButton {
@@ -349,10 +491,8 @@ int myMaxTrapCount = 5;
     [self.trapCountButton setTitle:trapCountString forState:UIControlStateNormal];
 }
 
-
 // LOCATION SERVICES ----------------------------------------------------------------
 - (void)startStandardUpdates {
-    // Make location manager if there isn't one already.
     if (nil == locationManager) {
         locationManager = [[CLLocationManager alloc] init];
     }
@@ -365,8 +505,8 @@ int myMaxTrapCount = 5;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    self.myLocation = [locations lastObject];
     [self updateEnemyTraps];
+    self.myLocation = [locations lastObject];
     
     // Determine whether user has stumbled upon any traps
     for (IATTrap *trap in self.enemyTraps) {
@@ -384,13 +524,24 @@ int myMaxTrapCount = 5;
     return NO;
 }
 
--(void)triggerTrap:(IATTrap *)trap{
-    // Let backend know that something has happened.
-    // POST to http://107.170.182.13:3000/api/explodemine
+- (void)triggerTrap:(IATTrap *)trap{
+    // Let backend know something has happened.
+    BOOL triggerSucceeded = [self postTriggerTrapToBackend:trap.trapID];
+    if (!triggerSucceeded) {
+        NSLog(@"ERROR: Failed to trigger trap within triggering range.");
+    } else {
+        // Notify user that he or she tripped a trap.
+        UILocalNotification *notif = [[UILocalNotification alloc] init];
+        notif.alertBody = @"You've been trapped!";
+        notif.alertAction = @"View Details";
+        notif.soundName = UILocalNotificationDefaultSoundName;
+        notif.applicationIconBadgeNumber = 1;
+        
+        [[UIApplication sharedApplication] prsentLocalNotifiationNow:notif];
+    }
 }
 
-- (void) parseResponse:(NSData *) data {
-    
+- (void)parseResponse:(NSData *) data {
     NSString *myData = [[NSString alloc] initWithData:data
                                              encoding:NSUTF8StringEncoding];
     NSLog(@"JSON data: %@", myData);
@@ -420,13 +571,5 @@ int myMaxTrapCount = 5;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-    
-/*
-// In a storyboard-based application, you'll often want to prepare before navigation.
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

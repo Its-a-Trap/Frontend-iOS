@@ -39,7 +39,4 @@
 @property NSDictionary *myTraps;
 @property NSDictionary *otherTraps;
 
-- (void)updateMyTraps;
-- (void)updateEnemyTraps;
-
 @end
