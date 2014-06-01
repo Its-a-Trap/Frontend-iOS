@@ -25,11 +25,11 @@ int myMaxTrapCount = 5;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     testUser = [[IATUser alloc] init];
     testUser.userID = @"test_user_id_222";
     //testUser.UserID = [self postGetUserIDToBackend];
     
-    // Carlton's curiosity: What's this for?
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     self.myActiveTraps = [[NSMutableArray alloc] init];
@@ -124,6 +124,7 @@ int myMaxTrapCount = 5;
 }
 
 - (void)manageTrapPlacement {
+    NSLog(@"managing trap placement");
     // Make a new trap; set its coordinate, activeness, time planted, radius
     IATTrap *newTrap = [[IATTrap alloc] init];
     newTrap.coordinate = mostRecentCoordinate;
@@ -154,11 +155,28 @@ int myMaxTrapCount = 5;
     [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     // make a string of JSON data, including user's lat, lon, and ID
-    NSString *myString = @"{\"location\": {\"lat\": 42.930943,\"lon\": 23.8293874983},\"user\":\"";
-    NSMutableString *stringData = [[NSMutableString alloc] initWithString:myString];
-    [stringData appendString:testUser.userID];
-    [stringData appendString:@"\"}"];
     
+    //NSString *stringData = @"{\"location\": {\"lat\":42.930943,\"lon\":23.8293874983},\"user\":\"";
+    //NSMutableString *stringData = [[NSMutableString alloc] initWithString:myString];
+    //stringData = [stringData stringByAppendingString:testUser.userID];
+    //stringData = [stringData stringByAppendingString:@"\"}"];
+    
+    /*
+    NSString *stringData = @"{"
+    @" \"location\": {"
+    @" \"lat\": 42.930943,"
+    @" \"lon\": 23.8293874983},"
+    @" \"user\": "
+    @" \"537e48763511c15161a1ed9c\"}";
+    */
+    
+    NSString *stringData =  @"{"
+    @" \"location\": {"
+    @" \"lat\": 42.930943,"
+    @" \"lon\": 23.8293874983},"
+    @" \"user\": "
+    @" \"537e48763511c15161a1ed9\"}";
+     
     // set the receiver’s request body, timeout interval (seconds), and HTTP request method
     NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
     [urlRequest setHTTPBody:requestBodyData];
@@ -350,7 +368,9 @@ int myMaxTrapCount = 5;
      }];
 }
 
-- (NSString *)postGetUserIDToBackend {
+// NOTE: THIS METHOD NEEDS TO RETURN AN NSSTRING, BUT CARLTON
+// DOESN'T KNOW HOW TO TELL THE BLOCK WHAT TYPE TO EXPECT.
+- (void)postGetUserIDToBackend {
     // make an NSURL from a string of the backend's URL
     NSString *myUrlString = @"http://107.170.182.13:3000/api/getuserid";
     NSURL *myUrl = [NSURL URLWithString:myUrlString];
@@ -392,6 +412,7 @@ int myMaxTrapCount = 5;
                  // NSString *userID = [self parseResponse:data];
                  // return userID;
                  return;
+                 //return @"Foo bar baz";
                  //[self parseResponse:data];
              });
          } else if ([data length] == 0 && error == nil){
@@ -427,17 +448,21 @@ int myMaxTrapCount = 5;
 - (BOOL)manageTrapRemoval {
     for (IATTrap *trap in self.myActiveTraps){
         if (trap.coordinate.latitude == lastTouchedMarker.position.latitude && trap.coordinate.longitude == lastTouchedMarker.position.longitude) {
-            BOOL succeeded = [self postRemoveTrapToBackend:trap.id];
+            BOOL succeeded = YES;
+            //BOOL succeeded = [self postRemoveTrapToBackend:trap.trapID];
             if (!succeeded) {
                 // TO-DO: Handle failure by showing user popup?
                 NSLog(@"Failed to post trap removal from backend.");
+                return NO;
             } else {
                 [self.myActiveTraps removeObject:trap];
                 [self updateTrapCount];
                 lastTouchedMarker.map = nil;
+                return YES;
             }
         }
     }
+    return YES;
 }
 
 - (void)setupTestEnemyTraps {
@@ -457,11 +482,11 @@ int myMaxTrapCount = 5;
                                  longitude:_myLocation.coordinate.longitude
                                  zoom:6];
     
-    mapView = [GMSMapView mapWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
-    //mapView = [GMSMapView mapWithFrame:CGRectMake(10, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
-    //mapView.myLocationEnabled = YES;
-    //mapView.delegate = self;
-    //mapView.layer.zPosition = -1;
+    //mapView = [GMSMapView mapWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
+    mapView = [GMSMapView mapWithFrame:CGRectMake(10, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
+    mapView.myLocationEnabled = YES;
+    mapView.delegate = self;
+    mapView.layer.zPosition = -1;
     [self.view addSubview:mapView];
 }
 
@@ -510,7 +535,8 @@ int myMaxTrapCount = 5;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    [self updateEnemyTraps];
+    //[self updateEnemyTraps];
+    [self postChangeAreaToBackend];
     self.myLocation = [locations lastObject];
     
     // Determine whether user has stumbled upon any traps
@@ -531,7 +557,7 @@ int myMaxTrapCount = 5;
 
 - (void)triggerTrap:(IATTrap *)trap{
     // Let backend know something has happened.
-    BOOL triggerSucceeded = [self postTriggerTrapToBackend:trap.trapID];
+    BOOL triggerSucceeded = YES;//[self postTriggerTrapToBackend:trap.trapID];
     if (!triggerSucceeded) {
         NSLog(@"ERROR: Failed to trigger trap within triggering range.");
     } else {
@@ -542,7 +568,7 @@ int myMaxTrapCount = 5;
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.applicationIconBadgeNumber = 1;
         
-        [[UIApplication sharedApplication] prsentLocalNotifiationNow:notif];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notif];
     }
 }
 

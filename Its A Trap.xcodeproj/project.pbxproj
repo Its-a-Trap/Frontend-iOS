@@ -17,8 +17,6 @@
 		054BB1DB192671610040391F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DA192671610040391F /* Security.framework */; };
 		054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DC192671710040391F /* SystemConfiguration.framework */; };
 		0583700019392E090000AF84 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05836FFF19392E090000AF84 /* GoogleOpenSource.framework */; };
-		0583700219392E180000AF84 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0583700119392E180000AF84 /* GooglePlus.framework */; };
-		0583700419392E2C0000AF84 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0583700319392E2C0000AF84 /* GooglePlus.bundle */; };
 		05837005193A951C0000AF84 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
 		05E3507D1930F0F700ADF732 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05E3507C1930F0F700ADF732 /* Storyboard.storyboard */; };
 		05E3508319312F7900ADF732 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3508219312F7900ADF732 /* AVFoundation.framework */; };
@@ -35,6 +33,10 @@
 		790D069B191F201100399F14 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
 		790D069E191F386200399F14 /* IATUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069D191F386200399F14 /* IATUser.m */; };
 		790D06A1191F388200399F14 /* IATTrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D06A0191F388200399F14 /* IATTrap.m */; };
+		791475D9193ABAFF00F70C8E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791475D8193ABAFF00F70C8E /* GoogleMaps.framework */; };
+		791475DB193ABB2600F70C8E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 791475DA193ABB2600F70C8E /* GoogleMaps.bundle */; };
+		791475DD193ABB8100F70C8E /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791475DC193ABB8100F70C8E /* GooglePlus.framework */; };
+		791475DF193ABB9100F70C8E /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 791475DE193ABB9100F70C8E /* GooglePlus.bundle */; };
 		79246BDD1931404000235527 /* IATHighScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79246BDC1931404000235527 /* IATHighScoreCell.m */; };
 		79246BE01931406300235527 /* IATTrapCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79246BDF1931406300235527 /* IATTrapCountButton.m */; };
 		79246BE31931407400235527 /* IATHighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79246BE21931407400235527 /* IATHighScoreViewController.m */; };
@@ -94,8 +96,6 @@
 		054BB1DA192671610040391F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		054BB1DC192671710040391F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05836FFF19392E090000AF84 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "Its A Trap/GoogleSDK/GoogleOpenSource.framework"; sourceTree = "<group>"; };
-		0583700119392E180000AF84 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "Its A Trap/GoogleSDK/GooglePlus.framework"; sourceTree = "<group>"; };
-		0583700319392E2C0000AF84 /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Its A Trap/GoogleSDK/GooglePlus.bundle"; sourceTree = "<group>"; };
 		05E3507C1930F0F700ADF732 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		05E3508219312F7900ADF732 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		05E3508419312F8000ADF732 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -115,6 +115,10 @@
 		790D069D191F386200399F14 /* IATUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATUser.m; sourceTree = "<group>"; };
 		790D069F191F388200399F14 /* IATTrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATTrap.h; sourceTree = "<group>"; };
 		790D06A0191F388200399F14 /* IATTrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATTrap.m; sourceTree = "<group>"; };
+		791475D8193ABAFF00F70C8E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
+		791475DA193ABB2600F70C8E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		791475DC193ABB8100F70C8E /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "Its A Trap/GoogleSDK/GooglePlus.framework"; sourceTree = "<group>"; };
+		791475DE193ABB9100F70C8E /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Its A Trap/GoogleSDK/GooglePlus.bundle"; sourceTree = "<group>"; };
 		79246BDB1931404000235527 /* IATHighScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATHighScoreCell.h; sourceTree = "<group>"; };
 		79246BDC1931404000235527 /* IATHighScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATHighScoreCell.m; sourceTree = "<group>"; };
 		79246BDE1931406300235527 /* IATTrapCountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATTrapCountButton.h; sourceTree = "<group>"; };
@@ -126,7 +130,7 @@
 		79B585DD191A97BC00FBC3DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79B585DF191A97BC00FBC3DA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		79B585E1191A97BC00FBC3DA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		79B585E5191A97BC00FBC3DA /* Its A Trap-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Its A Trap-Info.plist"; sourceTree = "<group>"; };
+		79B585E5191A97BC00FBC3DA /* Its A Trap-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Its A Trap-Info.plist"; path = "/Users/carltonkeedy/Desktop/Mobile Apps/My-Face-iOS/Its A Trap/Its A Trap-Info.plist"; sourceTree = "<absolute>"; };
 		79B585E7191A97BC00FBC3DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		79B585E9191A97BC00FBC3DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		79B585EB191A97BC00FBC3DA /* Its A Trap-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Its A Trap-Prefix.pch"; sourceTree = "<group>"; };
@@ -148,7 +152,9 @@
 				79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */,
 				054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */,
 				054BB1DB192671610040391F /* Security.framework in Frameworks */,
+				791475D9193ABAFF00F70C8E /* GoogleMaps.framework in Frameworks */,
 				054BB1D9192671590040391F /* MediaPlayer.framework in Frameworks */,
+				791475DD193ABB8100F70C8E /* GooglePlus.framework in Frameworks */,
 				054BB1D7192671520040391F /* CoreText.framework in Frameworks */,
 				79B585E0191A97BC00FBC3DA /* CoreGraphics.framework in Frameworks */,
 				054BB1D5192671430040391F /* CoreMotion.framework in Frameworks */,
@@ -156,7 +162,6 @@
 				79B585DE191A97BC00FBC3DA /* Foundation.framework in Frameworks */,
 				054BB1D11926712D0040391F /* AssetsLibrary.framework in Frameworks */,
 				054BB1CF1926711F0040391F /* AddressBook.framework in Frameworks */,
-				0583700219392E180000AF84 /* GooglePlus.framework in Frameworks */,
 				0583700019392E090000AF84 /* GoogleOpenSource.framework in Frameworks */,
 				79246BE51931418E00235527 /* FacebookSDK.framework in Frameworks */,
 				05E3509319312FCF00ADF732 /* QuartzCore.framework in Frameworks */,
@@ -207,8 +212,10 @@
 		79B585DC191A97BC00FBC3DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0583700319392E2C0000AF84 /* GooglePlus.bundle */,
-				0583700119392E180000AF84 /* GooglePlus.framework */,
+				791475DE193ABB9100F70C8E /* GooglePlus.bundle */,
+				791475DC193ABB8100F70C8E /* GooglePlus.framework */,
+				791475DA193ABB2600F70C8E /* GoogleMaps.bundle */,
+				791475D8193ABAFF00F70C8E /* GoogleMaps.framework */,
 				05836FFF19392E090000AF84 /* GoogleOpenSource.framework */,
 				79246BE41931418E00235527 /* FacebookSDK.framework */,
 				05E3509219312FCF00ADF732 /* QuartzCore.framework */,
@@ -380,9 +387,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				79B585E8191A97BC00FBC3DA /* InfoPlist.strings in Resources */,
-				0583700419392E2C0000AF84 /* GooglePlus.bundle in Resources */,
+				791475DF193ABB9100F70C8E /* GooglePlus.bundle in Resources */,
 				79B585F0191A97BC00FBC3DA /* Images.xcassets in Resources */,
 				05E3507D1930F0F700ADF732 /* Storyboard.storyboard in Resources */,
+				791475DB193ABB2600F70C8E /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +599,12 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap/GoogleSDK,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap/GoogleSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Its A Trap/Its A Trap-Prefix.pch";
@@ -661,6 +675,12 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap/GoogleSDK,
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,

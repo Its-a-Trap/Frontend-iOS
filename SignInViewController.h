@@ -24,5 +24,4 @@ static NSString * const kClientId = @"780610866037";
 @property (strong, nonatomic) IBOutlet IATUser *mainUser;
 @property (retain, nonatomic) IBOutlet GPPSignInButton *signInButton;
 
-
 @end
