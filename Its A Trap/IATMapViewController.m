@@ -237,12 +237,17 @@ int myMaxTrapCount = 5;
     self.enemyTraps = [[NSMutableArray alloc] init];
     
     // Change area to get all traps that exist before launch?
-    // ENCAPSULATE EVERYTHING BELOW THIS INTO - (void)postChangeArea {}.
-    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
-    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
-    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
-    // ENCAPSULATE ENCAPSULATE ENCAPSULATE ENCAPSUALTE ENCAPSULATE ENCAPSULATE
-    
+
+    [self postChangeArea];
+    [self setupTestEnemyTraps];
+    [self updateMyTraps];
+    [self updateEnemyTraps];
+    [self setupGoogleMap];
+    [self setupTrapCountButton];
+    [self setupSweepButton];
+}
+
+-(void)postChangeArea {
     //create a NSURL object from the string data
     NSString *myUrlString = @"http://107.170.182.13:3000/API/changeArea";
     NSURL *myUrl = [NSURL URLWithString:myUrlString];
@@ -284,14 +289,7 @@ int myMaxTrapCount = 5;
              return;
          }
      }];
-
-    //[self postChangeArea];
-    [self setupTestEnemyTraps];
-    [self updateMyTraps];
-    [self updateEnemyTraps];
-    [self setupGoogleMap];
-    [self setupTrapCountButton];
-    [self setupSweepButton];
+    
 }
 
 - (void)setupGoogleMap {
@@ -390,6 +388,47 @@ int myMaxTrapCount = 5;
 -(void)triggerTrap:(IATTrap *)trap{
     // Let backend know that something has happened.
     // POST to http://107.170.182.13:3000/api/explodemine
+    
+    NSString *myUrlString = @"http://107.170.182.13:3000/API/explodemine";
+    NSURL *myUrl = [NSURL URLWithString:myUrlString];
+    
+    //create a mutable HTTP request
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableString *tmp = [[NSMutableString alloc] initWithString:@"{\"id\":\""];
+    
+    [tmp appendString:@"\"userID\","];
+    [tmp appendString:@"\"user\":\""];
+    [tmp appendString:@"\"userName\"}"];
+    
+    // TO-DO: use testUser.userID
+    NSData *requestBodyData = [tmp dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // set the receiver’s timeout interval (seconds), HTTP request method, and request body
+    [urlRequest setTimeoutInterval:30.0f];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody:requestBodyData];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] >0 && error == nil){
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 //
+             });
+         } else if ([data length] == 0 && error == nil){
+             return;
+         } else if (error != nil){
+             return;
+         }
+     }];
+
 }
 
 - (void) parseResponse:(NSData *) data {
@@ -414,6 +453,8 @@ int myMaxTrapCount = 5;
         [_names addObject: tmpName];
         [_scores addObject: tmpScore];
     }
+    
+    //add mines to myActiveTraps and otherTraps
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{

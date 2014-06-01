@@ -33,11 +33,12 @@
 @property NSArray *playerList;
 @property NSDictionary *scoreList;
 @property NSArray *highScores;
-@property NSDictionary *ID;
 @property NSMutableArray *names;
 @property NSMutableArray *scores;
+
 @property NSDictionary *myTraps;
 @property NSDictionary *otherTraps;
+
 
 - (void)updateMyTraps;
 - (void)updateEnemyTraps;
