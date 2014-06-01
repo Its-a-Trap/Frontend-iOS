@@ -22,6 +22,8 @@ CLLocationCoordinate2D mostRecentCoordinate;
 GMSMarker *lastTouchedMarker;
 IATUser *testUser;
 int myMaxTrapCount = 5;
+NSMutableArray *names;
+NSMutableArray *scores;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,6 +42,7 @@ int myMaxTrapCount = 5;
     [self setupGoogleMap];
     [self setupTrapCountButton];
     [self setupSweepButton];
+    [self setupMyTrapMarkers];
 }
 
 - (IBAction)manageSweepConfirmation:(id)sender {
@@ -234,6 +237,9 @@ int myMaxTrapCount = 5;
              //process the JSON response
              //use the main queue so we can interact with the screen
              dispatch_async(dispatch_get_main_queue(), ^{
+                 trap.TrapID = [[NSString alloc] initWithData:data
+                                                     encoding:NSUTF8StringEncoding];
+                 
                  [self.myActiveTraps addObject:trap];
                  [self updateTrapCount];
                  NSLog(@"Posted new trap to backend.");
@@ -486,6 +492,17 @@ int myMaxTrapCount = 5;
     [self manageConfirmation:0];
 }
 
+- (void)setupMyTrapMarkers {
+    for (IATTrap *trap in self.myActiveTraps) {
+        // Place a marker on the map for the new trap.
+        GMSMarker *marker = [GMSMarker markerWithPosition:trap.coordinate];
+        marker.title = trap.trapID;
+        marker.snippet = @"Tap to Delete";
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
+        marker.map = mapView;
+    }
+}
+
 - (void)setupSweepButton {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button addTarget:self
@@ -564,9 +581,9 @@ int myMaxTrapCount = 5;
 }
 
 - (void)parseResponse:(NSData *) data {
-    //NSString *myData = [[NSString alloc] initWithData:data
-    //                                         encoding:NSUTF8StringEncoding];
-    //NSLog(@"JSON data: %@", myData);
+    NSString *myData = [[NSString alloc] initWithData:data
+                                             encoding:NSUTF8StringEncoding];
+    NSLog(@"JSON data: %@", myData);
     
     NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
@@ -575,14 +592,22 @@ int myMaxTrapCount = 5;
     _otherTraps = [jsonDictionary objectForKey:@"mines"];
     _highScores= [jsonDictionary objectForKey:@"scores"];
     
-    _names = [[NSMutableArray alloc] initWithArray:_names];
-    _scores = [[NSMutableArray alloc] initWithArray:_scores];
+    // myTraps
+    //for (NSDictionary *trapDict in _myTraps) {
+    //
+    //}
+    
+    //NSLog(@"%@",[[_myTraps objectAtIndex:0] class]);
+    
+    // Scores
+    names = [[NSMutableArray alloc] initWithArray:_names];
+    scores = [[NSMutableArray alloc] initWithArray:_scores];
     
     for (int i = 0; i < [_highScores count]; i++){
         NSString *tmpScore = [[_highScores objectAtIndex:i]  objectForKey:@"score"];
         NSString *tmpName = [[_highScores objectAtIndex:i] objectForKey:@"name"];
-        [_names addObject: tmpName];
-        [_scores addObject: tmpScore];
+        [names addObject: tmpName];
+        [scores addObject: tmpScore];
     }
     
     //add mines to myActiveTraps and otherTraps

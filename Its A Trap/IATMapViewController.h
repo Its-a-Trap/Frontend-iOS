@@ -36,7 +36,7 @@
 @property NSMutableArray *names;
 @property NSMutableArray *scores;
 
-@property NSDictionary *myTraps;
-@property NSDictionary *otherTraps;
+@property NSArray *myTraps;
+@property NSArray *otherTraps;
 
 @end
