@@ -36,6 +36,8 @@
     signIn.shouldFetchGooglePlusUser = YES;
     signIn.shouldFetchGoogleUserEmail = YES;
     
+    signIn.scopes = @[ @"profile" ];
+    
     signIn.clientID = kClientId;
     
     
@@ -58,63 +60,32 @@
 
 #pragma mark - Navigation
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
-    /*
-    NSString *myUrlString = @"http://107.170.182.13:3000/api/getuserid";
-    
-    //create object for parameters that we need to send in the HTTP POST body
-    NSMutableString *tmp = [[NSMutableString alloc] initWithString:@"{\"email\":"];
-    
-    [tmp appendString:@"jiataocheng@yahoo.com\""];
-    [tmp appendString:@","];
-    [tmp appendString:@"\"name\":"];
-    [tmp appendString:@"\"jiataocheng\"}"];
-    
-    //create a NSURL object from the string data
-    NSURL *myUrl = [NSURL URLWithString:myUrlString];
-    
-    NSData *requestBodyData = [tmp dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //create a mutable HTTP request
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:myUrl];
-    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    //sets the receiver’s timeout interval, in seconds
-    //[urlRequest setTimeoutInterval:30.0f];
-    //sets the receiver’s HTTP request method
-    [urlRequest setHTTPMethod:@"POST"];
-    //sets the request body of the receiver to the specified data.
-    [urlRequest setHTTPBody:requestBodyData];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection
-     sendAsynchronousRequest:urlRequest
-     queue:queue
-     completionHandler:^(NSURLResponse *response,
-                         NSData *data,
-                         NSError *error) {
-         if ([data length] >0 && error == nil){
-             //process the JSON response
-             //use the main queue so that we can interact with the screen
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self parseResponse:data];
-             });
-         }
-         else if ([data length] == 0 && error == nil){
-             return;
-         }
-         else if (error != nil){
-             return;
-         }
-     }];
-     */
 
     [self performSegueWithIdentifier: @"loggedIn" sender: self];
 }
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
-    _mainUser.emailAddr = [user objectForKey:@"email"];
-    self.profilePictureView.profileID = user.objectID;
+    if (FBSession.activeSession.isOpen) {
+        
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection,
+           NSDictionary<FBGraphUser> *user,
+           NSError *error) {
+             if (!error) {
+                
+                 NSString *tmpUsername = [[NSString alloc] init];
+                 tmpUsername = user.first_name;
+
+                 NSString *tmpEmail = [[NSString alloc] init];
+                 tmpEmail = [user objectForKey:@"email"];
+                 
+                 _mainUser = [[IATUser alloc] init];
+                 _mainUser.username = tmpUsername;
+                 _mainUser.emailAddr = tmpEmail;
+             }
+         }];
+    }
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
@@ -138,10 +109,6 @@
     }
 }
 
-- (void) parseResponse:(NSData *) data {
-    NSString *myData = [[NSString alloc] initWithData:data
-                                             encoding:NSUTF8StringEncoding];
-}
 
 @end
 
