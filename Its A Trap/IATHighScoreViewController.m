@@ -46,17 +46,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;//[self.highScoreRecords count];
+    IATDataObject* theDataObject = [self theAppDataObject];
+    return [theDataObject.names count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     IATHighScoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HighScoreCell" forIndexPath:indexPath];
-    /*
-     TO-DO: FIGURE OUT HOW THIS SHOULD WORK
-    Class highScoreRecord = [self.highScoreRecords objectAtIndex:indexPath.row];
-    cell.playerNameLabel.text = highScoreRecord.playerName;
-    cell.playerScoreLabel.text = highScoreRecord.playerScore;
-     */
     
     IATDataObject* theDataObject = [self theAppDataObject];
     
@@ -67,8 +62,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
+    if (self) {}
     return self;
 }
 
