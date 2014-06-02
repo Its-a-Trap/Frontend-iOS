@@ -605,7 +605,7 @@ NSMutableArray *scores;
 
     //sort _highScores
     NSSortDescriptor *sortByScore = [NSSortDescriptor sortDescriptorWithKey:@"score"
-                                                                  ascending:YES];
+                                                                  ascending:NO];
     NSArray *sortedHighScores = [NSArray arrayWithObject:sortByScore];
     NSArray *sortedArray = [_highScores sortedArrayUsingDescriptors:sortedHighScores];
  
