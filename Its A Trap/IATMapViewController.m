@@ -605,11 +605,20 @@ NSMutableArray *scores;
     _myTraps = [jsonDictionary objectForKey:@"myMines"];
     _otherTraps = [jsonDictionary objectForKey:@"mines"];
     _highScores= [jsonDictionary objectForKey:@"scores"];
+
+    //sort _highScores
+    NSSortDescriptor *sortByScore = [NSSortDescriptor sortDescriptorWithKey:@"score"
+                                                                  ascending:YES];
+    NSArray *sortedHighScores = [NSArray arrayWithObject:sortByScore];
+    NSArray *sortedArray = [_highScores sortedArrayUsingDescriptors:sortedHighScores];
+ 
     
     IATDataObject* theDataObject = [self theAppDataObject];
     
     NSMutableArray* tmpNamesArray = [[NSMutableArray alloc] initWithObjects: nil];
     NSMutableArray* tmpScoresArray = [[NSMutableArray alloc] initWithObjects: nil];
+    
+
     
 
     for (int i = 0; i < [_highScores count]; i++){
