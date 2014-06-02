@@ -448,7 +448,6 @@ NSMutableArray *scores;
 - (void)manageTrapRemoval {
     for (IATTrap *trap in self.myActiveTraps){
         if (trap.coordinate.latitude == lastTouchedMarker.position.latitude && trap.coordinate.longitude == lastTouchedMarker.position.longitude) {
-            NSLog(@"%@", trap.trapID);
             [self postRemoveTrapToBackend:trap.trapID];
             [self.myActiveTraps removeObject:trap];
             [self updateTrapCount];
@@ -626,6 +625,27 @@ NSMutableArray *scores;
     theDataObject.names = tmpNamesArray;
     theDataObject.scores = tmpScoresArray;
     
+    [self.enemyTraps removeAllObjects];
+    //add mines to enemyTraps
+    for (int i = 0; i < [_otherTraps count]; i++){
+        NSDictionary *trapToAdd = [_otherTraps objectAtIndex:i];
+        
+        IATTrap *addThisTrap = [[IATTrap alloc] init];
+        addThisTrap.trapID = [trapToAdd objectForKey:@"id"];
+        addThisTrap.ownerID = [trapToAdd objectForKey:@"owner"];
+        
+        NSDictionary *locationCoordinatesToAdd = [trapToAdd objectForKey:@"location"];
+        double tempLat = [[locationCoordinatesToAdd objectForKey:@"lat"] doubleValue];
+        double tempLong = [[locationCoordinatesToAdd objectForKey:@"lon"] doubleValue];
+        
+        CLLocationDegrees lat = tempLat;
+        CLLocationDegrees lon = tempLong;
+        addThisTrap.coordinate = CLLocationCoordinate2DMake(lat, lon);
+        
+        [self.enemyTraps addObject:addThisTrap];
+    }
+    
+    
     [self.myActiveTraps removeAllObjects];
     //add mines to myActiveTraps and otherTraps
     for (int i = 0; i < [_myTraps count]; i++){
@@ -647,6 +667,7 @@ NSMutableArray *scores;
     }
     
     [self setupMyTrapMarkers];
+    [self updateTrapCount];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
