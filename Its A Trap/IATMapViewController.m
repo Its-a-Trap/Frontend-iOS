@@ -118,7 +118,7 @@ NSMutableArray *scores;
     for (IATTrap *trap in self.enemyTraps) {
         CLLocation* trapLocation = [[CLLocation alloc] initWithLatitude:trap.coordinate.latitude longitude:trap.coordinate.longitude];
         // Only show traps within a hard-coded radius of 10m.
-        if ([trapLocation distanceFromLocation:self.myLocation] <= 10) {
+        if ([trapLocation distanceFromLocation:self.myLocation] <= 1000) {
             GMSMarker *marker = [GMSMarker markerWithPosition:trap.coordinate];
             marker.icon = [GMSMarker markerImageWithColor:[UIColor redColor]];
             marker.title = trap.trapID;
@@ -553,10 +553,10 @@ NSMutableArray *scores;
     [self postChangeAreaToBackend];
     self.myLocation = [locations lastObject];
     
-    //GMSCameraPosition *whereIAm = [GMSCameraPosition cameraWithLatitude:_myLocation.coordinate.latitude
-    //                                                        longitude:_myLocation.coordinate.longitude
-    //                                                             zoom:16];
-    //[mapView setCamera:whereIAm];
+    GMSCameraPosition *whereIAm = [GMSCameraPosition cameraWithLatitude:_myLocation.coordinate.latitude
+                                                            longitude:_myLocation.coordinate.longitude
+                                                                 zoom:16];
+    [mapView setCamera:whereIAm];
     
     // Determine whether user has stumbled upon any traps
     for (IATTrap *trap in self.enemyTraps) {

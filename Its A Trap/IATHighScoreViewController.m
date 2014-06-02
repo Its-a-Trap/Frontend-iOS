@@ -60,6 +60,14 @@
     return cell;
 }
 
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
+                            user:(id<FBGraphUser>)user {
+}
+
+- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
+    [self performSegueWithIdentifier: @"loggedOut" sender: self];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {}
@@ -68,14 +76,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
-                            user:(id<FBGraphUser>)user {
-}
-
-- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-    [self performSegueWithIdentifier: @"loggedOut" sender: self];
 }
 
 @end
