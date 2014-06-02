@@ -48,6 +48,7 @@ NSMutableArray *scores;
     self.myActiveTraps = [[NSMutableArray alloc] init];
     self.enemyTraps = [[NSMutableArray alloc] init];
     
+    [self startStandardUpdates];
     [self setupTestEnemyTraps];
     [self setupGoogleMap];
     [self setupTrapCountButton];
@@ -66,7 +67,7 @@ NSMutableArray *scores;
     if (typeCode == 0) {
         if (myMaxTrapCount - [self.myActiveTraps count] == 0) {
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"You can't do that!"
+                                  initWithTitle:@"Can't do that!"
                                         message:@"You don't have any traps."
                                        delegate:self
                               cancelButtonTitle:@"GRRR! OKAY!"
@@ -75,7 +76,7 @@ NSMutableArray *scores;
             return;
         }
         title = @"Confirm Trap Placement";
-        message = @"Are you sure you want to place a trap here?";
+        message = @"Do you really wanna put a trap here?";
     } else if (typeCode == 1) {
         title = @"Confirm Sweep";
         message = @"Are you sure you want to sweep?";
@@ -436,7 +437,7 @@ NSMutableArray *scores;
     if ([marker.snippet isEqual:@"Tap to Delete"]){
         UIAlertView *deleteAlert = [[UIAlertView alloc]
                                     initWithTitle:@"Confirm Trap Removal"
-                                    message:@"Remove this trap?"
+                                    message:@"You really wanna remove this trap?"
                                     delegate:self
                                     cancelButtonTitle:@"No"
                                     otherButtonTitles:@"Yes", nil];
@@ -482,13 +483,10 @@ NSMutableArray *scores;
 }
 
 - (void)setupGoogleMap {
-     // Middle of Campus: lat = 44.4604636;
-     //                   lon = -93.1535;
-    
     GMSCameraPosition *camera = [GMSCameraPosition
-                                 cameraWithLatitude:_myLocation.coordinate.latitude
-                                 longitude:_myLocation.coordinate.longitude
-                                 zoom:6];
+                                 cameraWithLatitude:44.4604636
+                                 longitude:-93.1535
+                                 zoom:14];
     
     mapView = [GMSMapView mapWithFrame:CGRectMake(10, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
     mapView.myLocationEnabled = YES;
@@ -547,7 +545,7 @@ NSMutableArray *scores;
     
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    //locationManager.distanceFilter = 1; // in meters
+    locationManager.distanceFilter = 1; // in meters
     
     [locationManager startUpdatingLocation];
 }
@@ -556,6 +554,11 @@ NSMutableArray *scores;
     //[self updateEnemyTraps];
     [self postChangeAreaToBackend];
     self.myLocation = [locations lastObject];
+    
+    GMSCameraPosition *whereIAm = [GMSCameraPosition cameraWithLatitude:_myLocation.coordinate.latitude
+                                                            longitude:_myLocation.coordinate.longitude
+                                                                 zoom:16];
+    [mapView setCamera:whereIAm];
     
     // Determine whether user has stumbled upon any traps
     for (IATTrap *trap in self.enemyTraps) {

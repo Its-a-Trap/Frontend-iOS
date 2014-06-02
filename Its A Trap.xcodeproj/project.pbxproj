@@ -126,6 +126,7 @@
 		791475E2193BF61D00F70C8E /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Its A Trap/GoogleSDK/GooglePlus.bundle"; sourceTree = "<group>"; };
 		791475E4193BF64300F70C8E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
 		791475E6193BF65200F70C8E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		791475E8193C0C0F00F70C8E /* Carleton.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Carleton.gpx; sourceTree = "<group>"; };
 		79246BDB1931404000235527 /* IATHighScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATHighScoreCell.h; sourceTree = "<group>"; };
 		79246BDC1931404000235527 /* IATHighScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATHighScoreCell.m; sourceTree = "<group>"; };
 		79246BDE1931406300235527 /* IATTrapCountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATTrapCountButton.h; sourceTree = "<group>"; };
@@ -286,6 +287,7 @@
 		79B585E4191A97BC00FBC3DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				791475E8193C0C0F00F70C8E /* Carleton.gpx */,
 				05E3507C1930F0F700ADF732 /* Storyboard.storyboard */,
 				79B585E5191A97BC00FBC3DA /* Its A Trap-Info.plist */,
 				79B585E6191A97BC00FBC3DA /* InfoPlist.strings */,
