@@ -138,7 +138,7 @@ NSMutableArray *scores;
 }
 
 - (void)manageTrapPlacement {
-    NSLog(@"managing trap placement");
+    NSLog(@"Managing trap placement.");
     // Make a new trap; set its coordinate, activeness, time planted, radius
     IATTrap *newTrap = [[IATTrap alloc] init];
     newTrap.coordinate = mostRecentCoordinate;
@@ -226,9 +226,9 @@ NSMutableArray *scores;
     [stringData appendString:latStr];
     [stringData appendString:@", \"lon\":"];
     [stringData appendString:lonStr];
-    [stringData appendString:@"}, \"user\":\""];
+    [stringData appendString:@"}, \"user\":"];
     [stringData appendString:testUser.userID];
-    [stringData appendString:@"\"}"];
+    [stringData appendString:@"}"];
     
     // set the receiver’s request body, timeout interval (seconds), and HTTP request method
     NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
@@ -248,8 +248,10 @@ NSMutableArray *scores;
              //process the JSON response
              //use the main queue so we can interact with the screen
              dispatch_async(dispatch_get_main_queue(), ^{
-                 trap.TrapID = [[NSString alloc] initWithData:data
-                                                     encoding:NSUTF8StringEncoding];
+                 NSDictionary *trapIDDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                 
+                 // init myTraps, otherTraps, and highScores dictionaries
+                 trap.trapID = [trapIDDictionary objectForKey:@"id"];
                  
                  [self.myActiveTraps addObject:trap];
                  [self updateTrapCount];
@@ -279,7 +281,6 @@ NSMutableArray *scores;
     
     /* make a string of JSON data to be posted, like so: { "id":"5382c04acd5f5d9268872246" }*/
     NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{\"id\":\""];
-    NSLog(@"");
     [stringData appendString:trapID];
     [stringData appendString:@"\" }"];
     
