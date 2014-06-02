@@ -31,9 +31,6 @@
 // isActive (boolean): set to false when a trap is triggered
 @property Boolean isActive;
 
-// time planted (long)
-@property long timePlanted;
-
 // time of expiration (long)
 // DEPRECATED: Expiration time derivable from time planted.
 

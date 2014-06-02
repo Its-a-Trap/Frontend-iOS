@@ -48,12 +48,12 @@ NSMutableArray *scores;
     self.myActiveTraps = [[NSMutableArray alloc] init];
     self.enemyTraps = [[NSMutableArray alloc] init];
     
-    [self startStandardUpdates];
-    [self setupTestEnemyTraps];
     [self setupGoogleMap];
     [self setupTrapCountButton];
     [self setupSweepButton];
-    [self setupMyTrapMarkers];
+    [self setupTestEnemyTraps];
+    [self startStandardUpdates];
+    //[self setupMyTrapMarkers];
 }
 
 - (IBAction)manageSweepConfirmation:(id)sender {
@@ -143,12 +143,10 @@ NSMutableArray *scores;
     IATTrap *newTrap = [[IATTrap alloc] init];
     newTrap.coordinate = mostRecentCoordinate;
     newTrap.isActive = YES;
-    newTrap.timePlanted = 222;
     //newTrap.radius = 10;
     
     // Place a marker on the map for the new trap.
     GMSMarker *marker = [GMSMarker markerWithPosition:mostRecentCoordinate];
-    marker.title = newTrap.trapID;
     marker.snippet = @"Tap to Delete";
     marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
     marker.map = mapView;
@@ -357,7 +355,7 @@ NSMutableArray *scores;
              //process the JSON response
              //use the main queue so we can interact with the screen
              dispatch_async(dispatch_get_main_queue(), ^{
-                 [self parseResponse:data];
+                 //[self parseResponse:data];
              });
          } else if ([data length] == 0 && error == nil){
              NSLog(@"Problem posting trap trigger to backend:");
@@ -414,7 +412,8 @@ NSMutableArray *scores;
                                                           encoding:NSUTF8StringEncoding];
                  testUser.userID = myData;
                  
-                 [self postChangeAreaToBackend];
+                 // NOTE: postChangeAreaToBackend called!
+                 //[self postChangeAreaToBackend];
              });
          } else if ([data length] == 0 && error == nil){
              NSLog(@"Problem posting userID request to backend:");
@@ -505,7 +504,7 @@ NSMutableArray *scores;
     for (IATTrap *trap in self.myActiveTraps) {
         // Place a marker on the map for the new trap.
         GMSMarker *marker = [GMSMarker markerWithPosition:trap.coordinate];
-        marker.title = trap.trapID;
+        marker.position = trap.coordinate;
         marker.snippet = @"Tap to Delete";
         marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
         marker.map = mapView;
@@ -552,14 +551,13 @@ NSMutableArray *scores;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    //[self updateEnemyTraps];
     [self postChangeAreaToBackend];
     self.myLocation = [locations lastObject];
     
-    GMSCameraPosition *whereIAm = [GMSCameraPosition cameraWithLatitude:_myLocation.coordinate.latitude
-                                                            longitude:_myLocation.coordinate.longitude
-                                                                 zoom:16];
-    [mapView setCamera:whereIAm];
+    //GMSCameraPosition *whereIAm = [GMSCameraPosition cameraWithLatitude:_myLocation.coordinate.latitude
+    //                                                        longitude:_myLocation.coordinate.longitude
+    //                                                             zoom:16];
+    //[mapView setCamera:whereIAm];
     
     // Determine whether user has stumbled upon any traps
     for (IATTrap *trap in self.enemyTraps) {
@@ -617,13 +615,10 @@ NSMutableArray *scores;
     
     NSMutableArray* tmpNamesArray = [[NSMutableArray alloc] initWithObjects: nil];
     NSMutableArray* tmpScoresArray = [[NSMutableArray alloc] initWithObjects: nil];
-    
 
-    
-
-    for (int i = 0; i < [_highScores count]; i++){
-        NSString *tmpScore = [[_highScores objectAtIndex:i]  objectForKey:@"score"];
-        NSString *tmpName = [[_highScores objectAtIndex:i] objectForKey:@"name"];
+    for (int i = 0; i < [sortedArray count]; i++){
+        NSString *tmpScore = [[sortedArray objectAtIndex:i]  objectForKey:@"score"];
+        NSString *tmpName = [[sortedArray objectAtIndex:i] objectForKey:@"name"];
         [tmpNamesArray addObject: tmpName];
         [tmpScoresArray addObject: tmpScore];
     }
@@ -631,7 +626,27 @@ NSMutableArray *scores;
     theDataObject.names = tmpNamesArray;
     theDataObject.scores = tmpScoresArray;
     
+    [self.myActiveTraps removeAllObjects];
     //add mines to myActiveTraps and otherTraps
+    for (int i = 0; i < [_myTraps count]; i++){
+        NSDictionary *trapToAdd = [_myTraps objectAtIndex:i];
+        
+        IATTrap *addThisTrap = [[IATTrap alloc] init];
+        addThisTrap.trapID = [trapToAdd objectForKey:@"id"];
+        addThisTrap.ownerID = [trapToAdd objectForKey:@"owner"];
+        
+        NSDictionary *locationCoordinatesToAdd = [trapToAdd objectForKey:@"location"];
+        double tempLat = [[locationCoordinatesToAdd objectForKey:@"lat"] doubleValue];
+        double tempLong = [[locationCoordinatesToAdd objectForKey:@"lon"] doubleValue];
+        
+        CLLocationDegrees lat = tempLat;
+        CLLocationDegrees lon = tempLong;
+        addThisTrap.coordinate = CLLocationCoordinate2DMake(lat, lon);
+        
+        [self.myActiveTraps addObject:addThisTrap];
+    }
+    
+    [self setupMyTrapMarkers];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
