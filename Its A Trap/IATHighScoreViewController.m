@@ -60,11 +60,8 @@
     
     IATDataObject* theDataObject = [self theAppDataObject];
     
-    NSString *tmpPlayName = [theDataObject.names objectAtIndex:1];
-    NSString *tmpPlayScore = [theDataObject.scores objectAtIndex:1];
-    
-    cell.playerNameLabel.text = tmpPlayName;
-    cell.playerScoreLabel.text = tmpPlayScore;
+    cell.playerNameLabel.text = [theDataObject.names objectAtIndex:indexPath.row];
+    cell.playerScoreLabel.text = [NSString stringWithFormat:@"%@", [theDataObject.scores objectAtIndex:indexPath.row]];
     return cell;
 }
 
