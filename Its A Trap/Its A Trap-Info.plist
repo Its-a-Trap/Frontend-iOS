@@ -20,7 +20,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>Its-A-Trap.Its-A-Trap</string>
+	<string>edu.carleton.mad2014.itsatrap</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -36,10 +36,8 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string></string>
+				<string>fb549817945135117</string>
 			</array>
-			<key>Item 0 </key>
-			<string>fb549817945135117</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

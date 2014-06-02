@@ -11,7 +11,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "IATUser.h"
 
-static NSString * const kClientId = @"780610866037";
+static NSString * const kClientId = @"542509304002";
 
 @class GPPSignInButton;
 

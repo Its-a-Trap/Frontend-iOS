@@ -20,7 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [FBLoginView class];
-    [GMSServices provideAPIKey:@"AIzaSyBgvNtaz50QaZOCt4RdaH5gaKeWLn2aBrY"];
+    [GMSServices provideAPIKey:@"AIzaSyBbLe14wWwMF04uRidku2JJ7wdwDmI6P4Y"];
     
     [self.window addSubview:[navigationController view]];
     [self.window makeKeyAndVisible];
@@ -28,7 +28,9 @@
 }
 
 -(BOOL)application: (UIApplication*)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    return [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+    BOOL wasHandled = [FBAppCall handleOpenURL:url
+                             sourceApplication:sourceApplication];
+    return wasHandled,[GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
