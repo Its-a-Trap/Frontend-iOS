@@ -30,9 +30,10 @@
 @end
 
 @interface IATMapViewController : UIViewController <GMSMapViewDelegate, UIAlertViewDelegate, CLLocationManagerDelegate> {
-    CLLocationManager *locationManager;
+    //CLLocationManager *locationManager;
 }
 
+@property (nonatomic, strong) CLLocationManager *locationManager;
 @property NSMutableArray *myActiveTraps;
 @property NSMutableArray *enemyTraps;
 @property IBOutlet UIButton *sweepButton;

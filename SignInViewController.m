@@ -34,7 +34,7 @@
     
     GPPSignIn *signIn = [GPPSignIn sharedInstance];
     signIn.shouldFetchGooglePlusUser = YES;
-    signIn.shouldFetchGoogleUserEmail  =YES;
+    signIn.shouldFetchGoogleUserEmail = YES;
     
     signIn.clientID = kClientId;
     

@@ -19,6 +19,7 @@
 @implementation IATMapViewController
 
 //@synthesize mapView;
+@synthesize locationManager;
 GMSMapView *mapView;
 CLLocationCoordinate2D mostRecentCoordinate;
 GMSMarker *lastTouchedMarker;
@@ -51,9 +52,8 @@ NSMutableArray *scores;
     [self setupGoogleMap];
     [self setupTrapCountButton];
     [self setupSweepButton];
-    [self setupTestEnemyTraps];
+    //[self setupTestEnemyTraps];
     [self startStandardUpdates];
-    //[self setupMyTrapMarkers];
 }
 
 - (IBAction)manageSweepConfirmation:(id)sender {
@@ -538,18 +538,19 @@ NSMutableArray *scores;
 
 // LOCATION SERVICES ----------------------------------------------------------------
 - (void)startStandardUpdates {
-    if (nil == locationManager) {
-        locationManager = [[CLLocationManager alloc] init];
+    if (nil == self.locationManager) {
+        self.locationManager = [[CLLocationManager alloc] init];
     }
     
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    locationManager.distanceFilter = 1; // in meters
-    
-    [locationManager startUpdatingLocation];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = 0.0f;
+    self.locationManager.pausesLocationUpdatesAutomatically = NO;
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    NSLog(@"didUpdateLocations");
     [self postChangeAreaToBackend];
     self.myLocation = [locations lastObject];
     
@@ -566,9 +567,13 @@ NSMutableArray *scores;
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"failed to update locations");
+}
+
 - (BOOL)trapIsNear:(IATTrap *)trap location:(CLLocation *)location{
     CLLocation* testLocation = [[CLLocation alloc] initWithLatitude:trap.coordinate.latitude longitude:trap.coordinate.longitude];
-    if ([testLocation distanceFromLocation:location] <= 2) {
+    if ([testLocation distanceFromLocation:location] <= 5) {
         return YES;
     };
     return NO;
@@ -576,7 +581,9 @@ NSMutableArray *scores;
 
 - (void)triggerTrap:(IATTrap *)trap{
     // Let backend know something has happened.
-    BOOL triggerSucceeded = YES;//[self postTriggerTrapToBackend:trap.trapID];
+    NSLog(@"A trap has been triggered!");
+    [self postTriggerTrapToBackend:trap.trapID];
+    BOOL triggerSucceeded = YES;
     if (!triggerSucceeded) {
         NSLog(@"ERROR: Failed to trigger trap within triggering range.");
     } else {
@@ -585,16 +592,16 @@ NSMutableArray *scores;
         notif.alertBody = @"You've been trapped!";
         notif.alertAction = @"View Details";
         notif.soundName = UILocalNotificationDefaultSoundName;
-        notif.applicationIconBadgeNumber = 1;
+        //notif.applicationIconBadgeNumber = 1;
         
         [[UIApplication sharedApplication] presentLocalNotificationNow:notif];
     }
 }
 
 - (void)parseResponse:(NSData *) data {
-    NSString *myData = [[NSString alloc] initWithData:data
-                                             encoding:NSUTF8StringEncoding];
-    NSLog(@"JSON data: %@", myData);
+    //NSString *myData = [[NSString alloc] initWithData:data
+    //                                         encoding:NSUTF8StringEncoding];
+    //NSLog(@"JSON data: %@", myData);
     
     NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
