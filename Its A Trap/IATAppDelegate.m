@@ -10,8 +10,13 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlus/GooglePlus.h>
+#import "IATAppDelegateProtocol.h"
+#import "IATDataObject.h"
 
 @implementation IATAppDelegate
+
+@synthesize window;
+@synthesize theAppDataObject;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [FBLoginView class];
@@ -47,6 +52,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (id) init;
+{
+	self.theAppDataObject = [[IATDataObject alloc] init];
+	return [super init];
+}
+
 
 
 @end

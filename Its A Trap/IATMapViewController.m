@@ -9,6 +9,8 @@
 #import "IATMapViewController.h"
 #import "SWRevealViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "IATAppDelegateProtocol.h"
+#import "IATDataObject.h"
 
 @interface IATMapViewController ()
 
@@ -24,6 +26,14 @@ IATUser *testUser;
 int myMaxTrapCount = 5;
 NSMutableArray *names;
 NSMutableArray *scores;
+
+- (IATDataObject*) theAppDataObject;
+{
+	id<IATAppDelegateProtocol> theDelegate = (id<IATAppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	IATDataObject* theDataObject;
+	theDataObject = (IATDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -158,8 +168,8 @@ NSMutableArray *scores;
     NSString *stringData = [NSString stringWithFormat:
     @"{"
     @" \"location\": {"
-    @" \"lat\": 42.930943,"
-    @" \"lon\": 23.8293874983},"
+    @" \"lat\": 0.930943,"
+    @" \"lon\": 0.8293874983},"
     @" \"user\": "
     @" %@}", testUser.userID];
     
@@ -592,23 +602,21 @@ NSMutableArray *scores;
     _otherTraps = [jsonDictionary objectForKey:@"mines"];
     _highScores= [jsonDictionary objectForKey:@"scores"];
     
-    // myTraps
-    //for (NSDictionary *trapDict in _myTraps) {
-    //
-    //}
+    IATDataObject* theDataObject = [self theAppDataObject];
     
-    //NSLog(@"%@",[[_myTraps objectAtIndex:0] class]);
+    NSMutableArray* tmpNamesArray = [[NSMutableArray alloc] initWithObjects: nil];
+    NSMutableArray* tmpScoresArray = [[NSMutableArray alloc] initWithObjects: nil];
     
-    // Scores
-    names = [[NSMutableArray alloc] initWithArray:_names];
-    scores = [[NSMutableArray alloc] initWithArray:_scores];
-    
+
     for (int i = 0; i < [_highScores count]; i++){
         NSString *tmpScore = [[_highScores objectAtIndex:i]  objectForKey:@"score"];
         NSString *tmpName = [[_highScores objectAtIndex:i] objectForKey:@"name"];
-        [names addObject: tmpName];
-        [scores addObject: tmpScore];
+        [tmpNamesArray addObject: tmpName];
+        [tmpScoresArray addObject: tmpScore];
     }
+    
+    theDataObject.names = tmpNamesArray;
+    theDataObject.scores = tmpScoresArray;
     
     //add mines to myActiveTraps and otherTraps
 }

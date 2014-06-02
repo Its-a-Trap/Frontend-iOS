@@ -8,6 +8,8 @@
 
 #import "IATHighScoreViewController.h"
 #import "IATHighScoreCell.h"
+#import "IATAppDelegateProtocol.h"
+#import "IATDataObject.h"
 
 
 @interface IATHighScoreViewController ()
@@ -31,8 +33,12 @@
     [loginview sizeToFit];
 }
 
-- (void)methodName {
-    //[self.navigationController d]
+- (IATDataObject*)theAppDataObject;
+{
+	id<IATAppDelegateProtocol> theDelegate = (id<IATAppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	IATDataObject* theDataObject;
+	theDataObject = (IATDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -52,9 +58,13 @@
     cell.playerScoreLabel.text = highScoreRecord.playerScore;
      */
     
-    cell.playerNameLabel.text = [self.names objectAtIndex:indexPath.row];
+    IATDataObject* theDataObject = [self theAppDataObject];
     
-    cell.playerScoreLabel.text = [self.scores objectAtIndex:indexPath.row];
+    NSString *tmpPlayName = [theDataObject.names objectAtIndex:1];
+    NSString *tmpPlayScore = [theDataObject.scores objectAtIndex:1];
+    
+    cell.playerNameLabel.text = tmpPlayName;
+    cell.playerScoreLabel.text = tmpPlayScore;
     return cell;
 }
 
@@ -76,6 +86,5 @@
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
     [self performSegueWithIdentifier: @"loggedOut" sender: self];
 }
-
 
 @end

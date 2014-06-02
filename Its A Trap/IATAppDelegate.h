@@ -14,12 +14,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IATAppDelegateProtocol.h"
+#import "IATHighScoreViewController.h"
 
-@interface IATAppDelegate : UIResponder <UIApplicationDelegate> {
+
+@interface IATAppDelegate : UIResponder <UIApplicationDelegate, IATAppDelegateProtocol> {
     UIWindow *window;
     UINavigationController *navigationController;
+    IATAppDataObject* theAppDataObject;
 }
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, retain) IATAppDataObject* theAppDataObject;
 
 @end

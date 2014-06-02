@@ -20,6 +20,15 @@
 #import "IATTrapCountButton.h"
 #import <GoogleMaps/GoogleMaps.h>
 
+
+@class IATMapViewController;
+
+@protocol IATMapViewControllerDelegate <NSObject>
+
+- (void)addItemViewController:(IATMapViewController*)controller didFinishEnteringItem:(NSMutableArray *)item;
+
+@end
+
 @interface IATMapViewController : UIViewController <GMSMapViewDelegate, UIAlertViewDelegate, CLLocationManagerDelegate> {
     CLLocationManager *locationManager;
 }
@@ -33,8 +42,8 @@
 @property NSArray *playerList;
 @property NSDictionary *scoreList;
 @property NSArray *highScores;
-@property NSMutableArray *names;
-@property NSMutableArray *scores;
+//@property NSMutableArray *names;
+//@property NSMutableArray *scores;
 
 @property NSArray *myTraps;
 @property NSArray *otherTraps;

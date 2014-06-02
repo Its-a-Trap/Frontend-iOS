@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "IATMapViewController.h"
 
-@interface IATHighScoreViewController : UIViewController <FBLoginViewDelegate, UITableViewDelegate, UITableViewDataSource, NSURLConnectionDelegate>
+@interface IATHighScoreViewController : UIViewController <FBLoginViewDelegate, UITableViewDelegate, UITableViewDataSource, NSURLConnectionDelegate, IATMapViewControllerDelegate>
 
+@property (nonatomic, assign) id <IATMapViewControllerDelegate> delegate;
 @property (nonatomic, strong) id jsonObject;
 @property NSArray *highScoreRecords;
 @property (weak, nonatomic) IBOutlet FBLoginView *loginView;
@@ -20,8 +22,7 @@
 @property NSDictionary *scoreList;
 @property NSMutableArray *highScores;
 @property NSDictionary *ID;
-@property NSMutableArray *names;
-@property NSMutableArray *scores;
+
 
 
 @end
