@@ -139,38 +139,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
             endingLineNumber = "14"
-            landmarkName = "@interface IATHighScoreViewController"
-            landmarkType = "2">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[IATHighScoreViewController delegate]"
-                  moduleName = "Its A Trap"
-                  urlString = "file:///Users/AdamCanady/Desktop/My-Face-iOS/Its%20A%20Trap/IATHighScoreViewController.h"
-                  timestampString = "423384699.427762"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[IATHighScoreViewController setDelegate:]"
-                  moduleName = "Its A Trap"
-                  urlString = "file:///Users/AdamCanady/Desktop/My-Face-iOS/Its%20A%20Trap/IATHighScoreViewController.h"
-                  timestampString = "423384699.429141"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "31">
-               </Location>
-            </Locations>
+            landmarkName = "delegate"
+            landmarkType = "19">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -185,8 +155,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "593"
             endingLineNumber = "593"
-            landmarkName = "@implementation IATMapViewController"
-            landmarkType = "3">
+            landmarkName = "-triggerTrap:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -217,7 +187,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "599"
             endingLineNumber = "599"
-            landmarkName = "-parseResponse:"
+            landmarkName = "-triggerTrap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -249,7 +219,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "598"
             endingLineNumber = "598"
-            landmarkName = "-parseResponse:"
+            landmarkName = "-triggerTrap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -265,7 +235,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "597"
             endingLineNumber = "597"
-            landmarkName = "-parseResponse:"
+            landmarkName = "-triggerTrap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -281,14 +251,14 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "595"
             endingLineNumber = "595"
-            landmarkName = "-parseResponse:"
+            landmarkName = "-triggerTrap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Its A Trap/IATMapViewController.m"
@@ -372,11 +342,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SignInViewController.m"
-            timestampString = "423384699.095047"
+            timestampString = "423544425.989829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "-loginViewFetchedUserInfo:user:"
             landmarkType = "5">
          </BreakpointContent>
@@ -388,11 +358,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SignInViewController.m"
-            timestampString = "423384699.095047"
+            timestampString = "423544425.989829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "-loginViewFetchedUserInfo:user:"
             landmarkType = "5">
          </BreakpointContent>
@@ -404,11 +374,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SignInViewController.m"
-            timestampString = "423384699.095047"
+            timestampString = "423544425.989829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "-loginViewFetchedUserInfo:user:"
             landmarkType = "5">
          </BreakpointContent>
@@ -420,11 +390,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SignInViewController.m"
-            timestampString = "423384605.497089"
+            timestampString = "423544425.989829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-loginViewFetchedUserInfo:user:"
             landmarkType = "5">
          </BreakpointContent>

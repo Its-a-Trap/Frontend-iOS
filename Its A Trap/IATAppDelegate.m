@@ -30,7 +30,7 @@
 -(BOOL)application: (UIApplication*)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     BOOL wasHandled = [FBAppCall handleOpenURL:url
                              sourceApplication:sourceApplication];
-    return wasHandled,[GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+    return wasHandled;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

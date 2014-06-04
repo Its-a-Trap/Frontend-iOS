@@ -8,8 +8,7 @@
 
 #import "SignInViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import <GoogleOpenSource/GoogleOpenSource.h>
-#import <GooglePlus/GooglePlus.h>
+
 
 
 
@@ -32,15 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    GPPSignIn *signIn = [GPPSignIn sharedInstance];
-    signIn.shouldFetchGooglePlusUser = YES;
-    signIn.shouldFetchGoogleUserEmail = YES;
-    
-    signIn.scopes = @[ @"profile" ];
-    
-    signIn.clientID = kClientId;
-    
-    
     FBLoginView *loginview = [[FBLoginView alloc] init];
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     
@@ -49,7 +39,6 @@
     
     [self.view addSubview:loginview];
     [loginview sizeToFit];
-    [signIn trySilentAuthentication];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,21 +82,7 @@
     self.nameLabel.text = nil;
 }
 
--(void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error{
-    NSLog(@"Received error %@ and auth object %@", error, auth);
-    [self performSegueWithIdentifier: @"loggedIn" sender: self];
-}
 
--(void)refreshInterfaceBasedOnSignIn {
-    if ([[GPPSignIn sharedInstance] authentication]) {
-        // The user is signed in.
-        self.signInButton.hidden = YES;
-        // Perform other actions here, such as showing a sign-out button
-    } else {
-        self.signInButton.hidden = NO;
-        // Perform other actions here
-    }
-}
 
 
 @end
