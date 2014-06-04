@@ -44,8 +44,7 @@
 @property NSArray *playerList;
 @property NSDictionary *scoreList;
 @property NSArray *highScores;
-//@property NSMutableArray *names;
-//@property NSMutableArray *scores;
+
 
 @property NSArray *myTraps;
 @property NSArray *otherTraps;
