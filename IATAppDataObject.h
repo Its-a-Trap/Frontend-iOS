@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IATAppDataObject : NSObject{
+@interface IATAppDataObject: NSObject{
 }
 @end

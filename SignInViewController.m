@@ -8,15 +8,12 @@
 
 #import "SignInViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
-
-
-
-
+#import "IATAppDelegateProtocol.h"
+#import "IATDataObject.h"
 
 @interface SignInViewController ()
 
 @end
-
 
 @implementation SignInViewController 
 
@@ -28,16 +25,19 @@
     return self;
 }
 
+- (IATDataObject*) theAppDataObject;
+{
+    id<IATAppDelegateProtocol> theDelegate = (id<IATAppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+    IATDataObject* theDataObject;
+    theDataObject = (IATDataObject*) theDelegate.theAppDataObject;
+    return theDataObject;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     
     FBLoginView *loginview = [[FBLoginView alloc] initWithReadPermissions:@[@"public_profile", @"email"]];
-    loginview.frame=CGRectMake(60, 50, 200, 50);
-    loginview.delegate=self;
-    [loginview sizeToFit];
-    [self.view addSubview:loginview];
-    
     
     loginview.frame = CGRectMake(self.view.frame.size.width/2 - loginview.frame.size.width/2, self.view.frame.size.height/2 - loginview.frame.size.height/2, loginview.frame.size.width, loginview.frame.size.height);
     loginview.delegate = self;
@@ -71,17 +71,18 @@
            NSError *error) {
              if (!error) {
                  
+                 
+                 IATDataObject* theDataObject = [self theAppDataObject];
+                 
                  NSString *tmpUsername = [[NSString alloc] init];
                  tmpUsername = user.name;
                  
                  NSString *tmpEmail = [[NSString alloc] init];
                  tmpEmail = [user objectForKey:@"email"];
                  
-                 _mainUser = [[IATUser alloc] init];
-                 _mainUser.username = tmpUsername;
-                 _mainUser.emailAddr = tmpEmail;
-                
-
+                 theDataObject.userName = tmpUsername;
+                 theDataObject.userEmail = tmpEmail;
+                 
              }
          }];
     }

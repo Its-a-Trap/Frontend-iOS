@@ -11,11 +11,15 @@
 @implementation IATDataObject
 @synthesize names;
 @synthesize scores;
+@synthesize userEmail;
+@synthesize userName;
 
 -(void) dealloc
 {
     self.names = nil;
     self.scores = nil;
+    self.userEmail = nil;
+    self.userName = nil;
 }
 
 @end
