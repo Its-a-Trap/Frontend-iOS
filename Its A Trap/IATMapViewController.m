@@ -52,12 +52,24 @@ NSMutableArray *scores;
     self.myActiveTraps = [[NSMutableArray alloc] init];
     self.enemyTraps = [[NSMutableArray alloc] init];
     
+    [self setUpMainUser];
     [self setupGoogleMap];
     [self setupTrapCountButton];
     [self setupSweepButton];
     //[self setupTestEnemyTraps];
     [self startStandardUpdates];
     [self setupMyScoreLabel];
+}
+
+-(void)setUpMainUser{
+    IATDataObject* theDataObject = [self theAppDataObject];
+    
+    mainUser = [[IATUser alloc] init];
+    mainUser.username = theDataObject.userName;
+    mainUser.emailAddr = theDataObject.userEmail;
+    mainUser.score = @"Score\n0";
+    [self postGetUserIDToBackend];
+    
 }
 
 - (IBAction)manageSweepConfirmation:(id)sender {
