@@ -39,6 +39,14 @@ NSMutableArray *scores;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    IATDataObject* theDataObject = [self theAppDataObject];
+    
+    mainUser = [[IATUser alloc] init];
+    mainUser.username = @"jiataocheng";//theDataObject.userName;
+    mainUser.emailAddr = @"jiataocheng@yahoo.com";//theDataObject.userEmail;
+    mainUser.score = @"Score\n0";
+    [self postGetUserIDToBackend];
+    
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     self.myActiveTraps = [[NSMutableArray alloc] init];
@@ -83,11 +91,11 @@ NSMutableArray *scores;
             [alert show];
             return;
         }
-        title = @"Confirm Trap Placement";
+        title = @"Confirm Placement";
         message = @"Do you really wanna put a trap here?";
     } else if (typeCode == 1) {
         title = @"Confirm Sweep";
-        message = @"Are you sure you want to sweep?";
+        message = @"Are you sure you want to sweep? If so, you can't do it again for 5 minutes.";
     }
     
     UIAlertView *alert = [[UIAlertView alloc]
@@ -106,7 +114,7 @@ NSMutableArray *scores;
         if ([alertView.title isEqual:@"Confirm Sweep"]) {
             NSLog(@"Sweep confirmed.");
             [self manageSweep];
-        } else if ([alertView.title isEqual:@"Confirm Trap Placement"]){
+        } else if ([alertView.title isEqual:@"Confirm Placement"]){
             NSLog(@"Trap placement confirmed.");
             [self manageTrapPlacement];
         } else {
@@ -137,12 +145,21 @@ NSMutableArray *scores;
     
     // Remove markers after 10 seconds.
     [self performSelector:@selector(clearAllMarkers:) withObject:markers afterDelay:10 inModes:@[NSRunLoopCommonModes]];
+    
+    // disable sweep for 5 minutes
+    self.sweepButton.enabled = NO;
+    [self performSelector:@selector(enableSweep) withObject:nil afterDelay:300.0];
 }
 
 - (void)clearAllMarkers:(NSMutableArray*) markers {
     for (GMSMarker *marker in markers) {
         marker.map = nil;
     }
+}
+
+- (void)enableSweep {
+    self.sweepButton.enabled = YES;
+    // Notify user of re-enabling?
 }
 
 - (void)manageTrapPlacement {
@@ -160,6 +177,27 @@ NSMutableArray *scores;
     marker.map = mapView;
     
     [self postNewTrapToBackend:newTrap];
+}
+
+
+// Call Change Area when we load back into the app
+-(void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationDidBecomeActiveNotification:)
+     name:UIApplicationDidBecomeActiveNotification
+     object:[UIApplication sharedApplication]];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self
+     name:UIApplicationDidBecomeActiveNotification
+     object:[UIApplication sharedApplication]];
+}
+
+-(void)applicationDidBecomeActiveNotification:(NSNotification *)notification {
+    [self postChangeAreaToBackend];
 }
 
 - (void)postChangeAreaToBackend {
@@ -363,7 +401,7 @@ NSMutableArray *scores;
              //process the JSON response
              //use the main queue so we can interact with the screen
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self parseResponse:data];
+                 // "Nothing to be done." - Estragon, Waiting for Godot, by Samuell Beckett
              });
          } else if ([data length] == 0 && error == nil){
              NSLog(@"Problem posting trap trigger to backend:");
@@ -391,7 +429,6 @@ NSMutableArray *scores;
         "email":"maegereg@gmail.com",
         “name”:”<my_awesome_name>”
      } */
-    
     NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{\"email\":\""];
     [stringData appendString:mainUser.emailAddr];
     [stringData appendString:@"\",\"name\":\""];
@@ -444,7 +481,7 @@ NSMutableArray *scores;
     lastTouchedMarker = marker;
     if ([marker.snippet isEqual:@"Tap to Delete"]){
         UIAlertView *deleteAlert = [[UIAlertView alloc]
-                                    initWithTitle:@"Confirm Trap Removal"
+                                    initWithTitle:@"Confirm Removal"
                                     message:@"You really wanna remove this trap?"
                                     delegate:self
                                     cancelButtonTitle:@"No"
@@ -454,7 +491,8 @@ NSMutableArray *scores;
 }
 
 - (void)manageTrapRemoval {
-    for (IATTrap *trap in self.myActiveTraps){
+    for (int i = 0; i < [self.myActiveTraps count]; i++){
+        IATTrap *trap = [self.myActiveTraps objectAtIndex:i];
         if (trap.coordinate.latitude == lastTouchedMarker.position.latitude && trap.coordinate.longitude == lastTouchedMarker.position.longitude) {
             [self postRemoveTrapToBackend:trap.trapID];
             [self.myActiveTraps removeObject:trap];
@@ -478,6 +516,7 @@ NSMutableArray *scores;
             }
              */
         }
+        
     }
 }
 
@@ -519,20 +558,19 @@ NSMutableArray *scores;
 }
 
 - (void)setupSweepButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button addTarget:self
+    self.sweepButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.sweepButton addTarget:self
                action:@selector(manageSweepConfirmation:)
      forControlEvents:UIControlEventTouchUpInside];
     
-    button.frame = CGRectMake(self.view.frame.size.width - 75, self.view.frame.size.height - 50, 75, 50);
-    //button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    //button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.sweepButton.frame = CGRectMake(self.view.frame.size.width - 75, self.view.frame.size.height - 50, 75, 50);
+    [self.sweepButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    [self.sweepButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    self.sweepButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
-    [button setTitle:@"Detect\nTraps" forState:UIControlStateNormal];
+    [self.sweepButton setTitle:@"Detect\nTraps" forState:UIControlStateNormal];
     
-    [self.view addSubview:button];
+    [self.view addSubview:self.sweepButton];
 }
 
 - (void)setupMyScoreLabel {
@@ -642,6 +680,7 @@ NSMutableArray *scores;
         
         [[UIApplication sharedApplication] presentLocalNotificationNow:notif];
     }
+    [self postChangeAreaToBackend];
 }
 
 - (void)parseResponse:(NSData *) data {
@@ -668,10 +707,6 @@ NSMutableArray *scores;
     NSMutableArray* tmpScoresArray = [[NSMutableArray alloc] initWithObjects: nil];
 
     for (int i = 0; i < [sortedArray count]; i++){
-        
-        NSDictionary *foo = [sortedArray objectAtIndex:i];
-        NSLog(@"%@", foo);
-        
         NSNumber *tmpScore = [[sortedArray objectAtIndex:i] objectForKey:@"score"];
         NSString *tmpName = [[sortedArray objectAtIndex:i] objectForKey:@"name"];
         
