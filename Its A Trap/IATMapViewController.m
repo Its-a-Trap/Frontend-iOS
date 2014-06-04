@@ -421,7 +421,7 @@ NSMutableArray *scores;
                  mainUser.userID = myData;
                  
                  // NOTE: postChangeAreaToBackend called!
-                 //[self postChangeAreaToBackend];
+                    [self postChangeAreaToBackend];
              });
          } else if ([data length] == 0 && error == nil){
              NSLog(@"Problem posting userID request to backend:");
