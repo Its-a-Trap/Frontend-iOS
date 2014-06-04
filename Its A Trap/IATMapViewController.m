@@ -24,7 +24,7 @@ GMSMapView *mapView;
 CLLocationCoordinate2D mostRecentCoordinate;
 GMSMarker *lastTouchedMarker;
 IATUser *testUser;
-int myMaxTrapCount = 5;
+int myMaxTrapCount = 12;
 NSMutableArray *names;
 NSMutableArray *scores;
 
@@ -42,6 +42,7 @@ NSMutableArray *scores;
     testUser = [[IATUser alloc] init];
     testUser.username = @"jiataocheng";
     testUser.emailAddr = @"jiataocheng@yahoo.com";
+    testUser.score = @"Score\n0";
     [self postGetUserIDToBackend];
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
@@ -54,6 +55,7 @@ NSMutableArray *scores;
     [self setupSweepButton];
     //[self setupTestEnemyTraps];
     [self startStandardUpdates];
+    [self setupMyScoreLabel];
 }
 
 - (IBAction)manageSweepConfirmation:(id)sender {
@@ -483,11 +485,11 @@ NSMutableArray *scores;
 
 - (void)setupGoogleMap {
     GMSCameraPosition *camera = [GMSCameraPosition
-                                 cameraWithLatitude:44.4604636
-                                 longitude:-93.1535
+                                 cameraWithLatitude:_myLocation.coordinate.latitude //44.4604636
+                                 longitude:_myLocation.coordinate.longitude //-93.1535
                                  zoom:14];
     
-    mapView = [GMSMapView mapWithFrame:CGRectMake(10, 0, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
+    mapView = [GMSMapView mapWithFrame:CGRectMake(10, 20, self.view.frame.size.width, self.view.frame.size.height - 70) camera:camera];
     mapView.myLocationEnabled = YES;
     mapView.delegate = self;
     mapView.layer.zPosition = -1;
@@ -515,25 +517,63 @@ NSMutableArray *scores;
     [button addTarget:self
                action:@selector(manageSweepConfirmation:)
      forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Sweep" forState:UIControlStateNormal];
-    button.frame = CGRectMake(125, 30, self.view.frame.size.width, 30);
+    
+    button.frame = CGRectMake(self.view.frame.size.width - 75, self.view.frame.size.height - 50, 75, 50);
+    //button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    //button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    [button setTitle:@"Detect\nTraps" forState:UIControlStateNormal];
+    
     [self.view addSubview:button];
 }
 
+- (void)setupMyScoreLabel {
+    self.myScoreLabel = [[UILabel alloc] init];
+    self.myScoreLabel.frame = CGRectMake(((self.view.frame.size.width - 10) / 2) - 30, self.view.frame.size.height - 50, 80, 50);
+    
+    self.myScoreLabel.text = testUser.score;
+    self.myScoreLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.myScoreLabel.textAlignment = NSTextAlignmentCenter;
+    self.myScoreLabel.numberOfLines = 0;
+    
+    [self.view addSubview:self.myScoreLabel];
+}
+
+-(void)updateMyScoreLabel{
+    self.myScoreLabel.text = [@"Score\n" stringByAppendingString:testUser.score];
+}
+
 - (void)setupTrapCountButton {
+    self.trapCountLabel =[[UILabel alloc] init];
+    self.trapCountLabel.frame = CGRectMake(10, self.view.frame.size.height - 50, 75, 50);
+    self.trapCountLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.trapCountLabel.textAlignment = NSTextAlignmentCenter;
+    self.trapCountLabel.numberOfLines = 0;
+    
+    [self.trapCountLabel setFont: [UIFont fontWithName:@"System-Bold" size:15.0]];
+    
+    [self updateTrapCount];
+    [self.view addSubview:self.trapCountLabel];
+    
+    /*
     self.trapCountButton = [[IATTrapCountButton alloc] init];
-    self.trapCountButton.frame = CGRectMake(10, 30, 40, 40);
+    self.trapCountButton.frame = CGRectMake(10, self.view.frame.size.height - 50, 40, 40);
     
     [self updateTrapCount];
     
     [self.view addSubview:self.trapCountButton];
     [self.trapCountButton drawCircleButton:[UIColor redColor]];
+     */
 }
 
 - (void)updateTrapCount {
-    int trapCount = myMaxTrapCount - [self.myActiveTraps count];
+    long trapCount = myMaxTrapCount - [self.myActiveTraps count];
     NSString *trapCountString = [@(trapCount) stringValue];
-    [self.trapCountButton setTitle:trapCountString forState:UIControlStateNormal];
+    [self.trapCountLabel setText: [@"Traps\n" stringByAppendingString:trapCountString]];
+    
+    //[self.trapCountButton setTitle:trapCountString forState:UIControlStateNormal];
 }
 
 // LOCATION SERVICES ----------------------------------------------------------------
@@ -609,13 +649,12 @@ NSMutableArray *scores;
     _myTraps = [jsonDictionary objectForKey:@"myMines"];
     _otherTraps = [jsonDictionary objectForKey:@"mines"];
     _highScores= [jsonDictionary objectForKey:@"scores"];
-
+    
     //sort _highScores
     NSSortDescriptor *sortByScore = [NSSortDescriptor sortDescriptorWithKey:@"score"
                                                                   ascending:NO];
     NSArray *sortedHighScores = [NSArray arrayWithObject:sortByScore];
     NSArray *sortedArray = [_highScores sortedArrayUsingDescriptors:sortedHighScores];
- 
     
     IATDataObject* theDataObject = [self theAppDataObject];
     
@@ -623,8 +662,18 @@ NSMutableArray *scores;
     NSMutableArray* tmpScoresArray = [[NSMutableArray alloc] initWithObjects: nil];
 
     for (int i = 0; i < [sortedArray count]; i++){
-        NSString *tmpScore = [[sortedArray objectAtIndex:i]  objectForKey:@"score"];
+        
+        NSDictionary *foo = [sortedArray objectAtIndex:i];
+        NSLog(@"%@", foo);
+        
+        NSNumber *tmpScore = [[sortedArray objectAtIndex:i] objectForKey:@"score"];
         NSString *tmpName = [[sortedArray objectAtIndex:i] objectForKey:@"name"];
+        
+        if ([tmpName isEqualToString:testUser.username]){
+            testUser.score = [tmpScore stringValue];
+            [self updateMyScoreLabel];
+        }
+        
         [tmpNamesArray addObject: tmpName];
         [tmpScoresArray addObject: tmpScore];
     }
@@ -685,6 +734,10 @@ NSMutableArray *scores;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 @end

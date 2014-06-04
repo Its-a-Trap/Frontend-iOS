@@ -38,6 +38,8 @@
 @property NSMutableArray *enemyTraps;
 @property IBOutlet UIButton *sweepButton;
 @property IATTrapCountButton *trapCountButton;
+@property UILabel *trapCountLabel;
+@property UILabel *myScoreLabel;
 @property (nonatomic, strong) CLLocation *myLocation;
 @property NSMutableData *responseData;
 @property NSArray *playerList;

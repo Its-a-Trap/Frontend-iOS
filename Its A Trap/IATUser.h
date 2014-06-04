@@ -26,5 +26,7 @@
 // Email Address: string
 @property NSString *emailAddr;
 
+@property NSString *score;
+
 
 @end
