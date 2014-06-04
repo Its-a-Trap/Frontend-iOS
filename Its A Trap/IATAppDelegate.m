@@ -9,7 +9,6 @@
 #import "IATAppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <GoogleMaps/GoogleMaps.h>
-#import <GooglePlus/GooglePlus.h>
 #import "IATAppDelegateProtocol.h"
 #import "IATDataObject.h"
 

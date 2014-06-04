@@ -16,8 +16,8 @@
 		054BB1D9192671590040391F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1D8192671590040391F /* MediaPlayer.framework */; };
 		054BB1DB192671610040391F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DA192671610040391F /* Security.framework */; };
 		054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054BB1DC192671710040391F /* SystemConfiguration.framework */; };
-		056DC095193EC17400FB5B3C /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056DC094193EC17400FB5B3C /* GoogleMaps.framework */; };
-		056DC097193EC17D00FB5B3C /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 056DC096193EC17D00FB5B3C /* GoogleMaps.bundle */; };
+		056DC09D193ECB8800FB5B3C /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056DC09C193ECB8800FB5B3C /* GoogleMaps.framework */; };
+		056DC09F193ECB8F00FB5B3C /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 056DC09E193ECB8F00FB5B3C /* GoogleMaps.bundle */; };
 		05837005193A951C0000AF84 /* IATMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790D069A191F201100399F14 /* IATMapViewController.m */; };
 		05965B15193BD6B300E64C56 /* IATAppDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05965B14193BD6B200E64C56 /* IATAppDataObject.m */; };
 		05965B18193BD71800E64C56 /* IATDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05965B17193BD71800E64C56 /* IATDataObject.m */; };
@@ -94,8 +94,8 @@
 		054BB1D8192671590040391F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		054BB1DA192671610040391F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		054BB1DC192671710040391F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		056DC094193EC17400FB5B3C /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
-		056DC096193EC17D00FB5B3C /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		056DC09C193ECB8800FB5B3C /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Its A Trap/GoogleMaps.framework"; sourceTree = "<group>"; };
+		056DC09E193ECB8F00FB5B3C /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Its A Trap/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		05965B12193BD44A00E64C56 /* IATAppDelegateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IATAppDelegateProtocol.h; path = ../IATAppDelegateProtocol.h; sourceTree = "<group>"; };
 		05965B13193BD6B200E64C56 /* IATAppDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IATAppDataObject.h; path = ../IATAppDataObject.h; sourceTree = "<group>"; };
 		05965B14193BD6B200E64C56 /* IATAppDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IATAppDataObject.m; path = ../IATAppDataObject.m; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 			files = (
 				79B585E2191A97BC00FBC3DA /* UIKit.framework in Frameworks */,
 				054BB1DD192671710040391F /* SystemConfiguration.framework in Frameworks */,
-				056DC095193EC17400FB5B3C /* GoogleMaps.framework in Frameworks */,
 				054BB1DB192671610040391F /* Security.framework in Frameworks */,
 				054BB1D9192671590040391F /* MediaPlayer.framework in Frameworks */,
 				054BB1D7192671520040391F /* CoreText.framework in Frameworks */,
@@ -174,6 +173,7 @@
 				05E3508519312F8000ADF732 /* CoreData.framework in Frameworks */,
 				05E3508319312F7900ADF732 /* AVFoundation.framework in Frameworks */,
 				790D0698191F1B9C00399F14 /* MapKit.framework in Frameworks */,
+				056DC09D193ECB8800FB5B3C /* GoogleMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +212,8 @@
 		79B585DC191A97BC00FBC3DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				056DC096193EC17D00FB5B3C /* GoogleMaps.bundle */,
-				056DC094193EC17400FB5B3C /* GoogleMaps.framework */,
+				056DC09E193ECB8F00FB5B3C /* GoogleMaps.bundle */,
+				056DC09C193ECB8800FB5B3C /* GoogleMaps.framework */,
 				79246BE41931418E00235527 /* FacebookSDK.framework */,
 				05E3509219312FCF00ADF732 /* QuartzCore.framework */,
 				05E3509019312FC800ADF732 /* OpenGLES.framework */,
@@ -391,8 +391,8 @@
 			files = (
 				79B585E8191A97BC00FBC3DA /* InfoPlist.strings in Resources */,
 				79B585F0191A97BC00FBC3DA /* Images.xcassets in Resources */,
-				056DC097193EC17D00FB5B3C /* GoogleMaps.bundle in Resources */,
 				05E3507D1930F0F700ADF732 /* Storyboard.storyboard in Resources */,
+				056DC09F193ECB8F00FB5B3C /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +645,12 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Its A Trap/Its A Trap-Prefix.pch";
@@ -760,6 +766,12 @@
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap/GoogleSDK,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
+					"$(PROJECT_DIR)/Its",
+					A,
+					Trap,
 					"$(PROJECT_DIR)/Its",
 					A,
 					Trap,

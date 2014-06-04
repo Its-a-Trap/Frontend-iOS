@@ -20,7 +20,6 @@
 #import "IATTrapCountButton.h"
 #import <GoogleMaps/GoogleMaps.h>
 
-
 @class IATMapViewController;
 
 @protocol IATMapViewControllerDelegate <NSObject>

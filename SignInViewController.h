@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GooglePlus/GooglePLus.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "IATUser.h"
 
@@ -21,6 +20,7 @@ static NSString * const kClientId = @"542509304002";
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *statusLabel;
 @property (strong, nonatomic) IBOutlet IATUser *mainUser;
+
 
 
 @end

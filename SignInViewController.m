@@ -31,8 +31,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    FBLoginView *loginview = [[FBLoginView alloc] init];
-    self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    
+    FBLoginView *loginview = [[FBLoginView alloc] initWithReadPermissions:@[@"public_profile", @"email"]];
+    loginview.frame=CGRectMake(60, 50, 200, 50);xw
+    loginview.delegate=self;
+    [loginview sizeToFit];
+    [self.view addSubview:loginview];
+    
     
     loginview.frame = CGRectMake(self.view.frame.size.width/2 - loginview.frame.size.width/2, self.view.frame.size.height/2 - loginview.frame.size.height/2, loginview.frame.size.width, loginview.frame.size.height);
     loginview.delegate = self;
@@ -55,6 +60,9 @@
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
+    
+
+    
     if (FBSession.activeSession.isOpen) {
         
         [[FBRequest requestForMe] startWithCompletionHandler:
@@ -62,16 +70,18 @@
            NSDictionary<FBGraphUser> *user,
            NSError *error) {
              if (!error) {
-                
+                 
                  NSString *tmpUsername = [[NSString alloc] init];
-                 tmpUsername = user.first_name;
-
+                 tmpUsername = user.name;
+                 
                  NSString *tmpEmail = [[NSString alloc] init];
                  tmpEmail = [user objectForKey:@"email"];
                  
                  _mainUser = [[IATUser alloc] init];
                  _mainUser.username = tmpUsername;
                  _mainUser.emailAddr = tmpEmail;
+                
+
              }
          }];
     }
