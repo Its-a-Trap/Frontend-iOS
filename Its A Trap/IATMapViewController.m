@@ -39,6 +39,21 @@ NSMutableArray *scores;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    self.myActiveTraps = [[NSMutableArray alloc] init];
+    self.enemyTraps = [[NSMutableArray alloc] init];
+    
+    [self setUpMainUser];
+    [self setupGoogleMap];
+    [self setupTrapCountButton];
+    [self setupSweepButton];
+    //[self setupTestEnemyTraps];
+    [self startStandardUpdates];
+    [self setupMyScoreLabel];
+}
+
+-(void)setUpMainUser{
     IATDataObject* theDataObject = [self theAppDataObject];
     
     mainUser = [[IATUser alloc] init];
@@ -47,17 +62,6 @@ NSMutableArray *scores;
     mainUser.score = @"Score\n0";
     [self postGetUserIDToBackend];
     
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    
-    self.myActiveTraps = [[NSMutableArray alloc] init];
-    self.enemyTraps = [[NSMutableArray alloc] init];
-    
-    [self setupGoogleMap];
-    [self setupTrapCountButton];
-    [self setupSweepButton];
-    //[self setupTestEnemyTraps];
-    [self startStandardUpdates];
-    [self setupMyScoreLabel];
 }
 
 - (IBAction)manageSweepConfirmation:(id)sender {

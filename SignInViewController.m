@@ -36,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     FBLoginView *loginview = [[FBLoginView alloc] initWithReadPermissions:@[@"public_profile", @"email"]];
     
     loginview.frame = CGRectMake(self.view.frame.size.width/2 - loginview.frame.size.width/2, self.view.frame.size.height/2 - loginview.frame.size.height/2, loginview.frame.size.width, loginview.frame.size.height);
@@ -55,37 +54,25 @@
 #pragma mark - Navigation
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
 
-    [self performSegueWithIdentifier: @"loggedIn" sender: self];
+
 }
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
     
-
+    IATDataObject* theDataObject = [self theAppDataObject];
     
-    if (FBSession.activeSession.isOpen) {
-        
-        [[FBRequest requestForMe] startWithCompletionHandler:
-         ^(FBRequestConnection *connection,
-           NSDictionary<FBGraphUser> *user,
-           NSError *error) {
-             if (!error) {
-                 
-                 
-                 IATDataObject* theDataObject = [self theAppDataObject];
-                 
-                 NSString *tmpUsername = [[NSString alloc] init];
-                 tmpUsername = user.name;
-                 
-                 NSString *tmpEmail = [[NSString alloc] init];
-                 tmpEmail = [user objectForKey:@"email"];
-                 
-                 theDataObject.userName = tmpUsername;
-                 theDataObject.userEmail = tmpEmail;
-                 
-             }
-         }];
-    }
+    NSString *tmpUsername = [[NSString alloc] init];
+    tmpUsername = user.name;
+    
+    NSString *tmpEmail = [[NSString alloc] init];
+    tmpEmail = [user objectForKey:@"email"];
+    
+    theDataObject.userName = tmpUsername;
+    theDataObject.userEmail = tmpEmail;
+
+    [self performSegueWithIdentifier: @"loggedIn" sender: self];
+    
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
