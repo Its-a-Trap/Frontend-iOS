@@ -19,24 +19,24 @@ Getting Started
 
 
 
-TO-DO:
+TO-DO
 -----
-- test on and iPhone, if possible
-- fix crash-on-removing-trap-loaded-from-backend
+- test on an iPhone, if possible (meh)
 - tutorial/about page
-- clarify that the count is your mines
-- cool down for sweep
 - implement death
+- more interesting countdown to renewed sweep availability
 - eliminate the need to add frameworks each time
 - all we can show is that score has gone up due to trapping an enemy
 - why does login via Facebook send us to a web view?
   (P.S. Jiatao, can you show Carlton how Facebook authentication works?)
 
-DONE:
+DONE
 ------
 - display user's score at top of screen
 - make sweep button look better
-
+- fix crash-on-removing-trap-loaded-from-backend
+- clarify that the count is your mines
+- cool down for sweep
 
 DELIVERY
 Make sure Jeff has access to the repo, and that the main branch's latest commit is the version you want to submit. I want to do "git clone your-url", read readme.txt, open the project in Xcode, and run it.

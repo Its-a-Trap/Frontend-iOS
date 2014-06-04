@@ -35,7 +35,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property NSMutableArray *myActiveTraps;
 @property NSMutableArray *enemyTraps;
-@property IBOutlet UIButton *sweepButton;
+@property UIButton *sweepButton;
 @property IATTrapCountButton *trapCountButton;
 @property UILabel *trapCountLabel;
 @property UILabel *myScoreLabel;
