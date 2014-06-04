@@ -23,7 +23,7 @@
 GMSMapView *mapView;
 CLLocationCoordinate2D mostRecentCoordinate;
 GMSMarker *lastTouchedMarker;
-IATUser *testUser;
+IATUser *mainUser;
 int myMaxTrapCount = 12;
 NSMutableArray *names;
 NSMutableArray *scores;
@@ -39,10 +39,12 @@ NSMutableArray *scores;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    testUser = [[IATUser alloc] init];
-    testUser.username = @"jiataocheng";
-    testUser.emailAddr = @"jiataocheng@yahoo.com";
-    testUser.score = @"Score\n0";
+    IATDataObject* theDataObject = [self theAppDataObject];
+    
+    mainUser = [[IATUser alloc] init];
+    mainUser.username = theDataObject.userName;
+    mainUser.emailAddr = theDataObject.userEmail;
+    mainUser.score = @"Score\n0";
     [self postGetUserIDToBackend];
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
@@ -172,7 +174,7 @@ NSMutableArray *scores;
     @" \"lat\": 0.930943,"
     @" \"lon\": 0.8293874983},"
     @" \"user\": "
-    @" %@}", testUser.userID];
+    @" %@}", mainUser.userID];
     
     // set the receiver’s request body, timeout interval (seconds), and HTTP request method
     NSData *requestBodyData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
@@ -227,7 +229,7 @@ NSMutableArray *scores;
     [stringData appendString:@", \"lon\":"];
     [stringData appendString:lonStr];
     [stringData appendString:@"}, \"user\":"];
-    [stringData appendString:testUser.userID];
+    [stringData appendString:mainUser.userID];
     [stringData appendString:@"}"];
     
     // set the receiver’s request body, timeout interval (seconds), and HTTP request method
@@ -334,7 +336,7 @@ NSMutableArray *scores;
     NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{\"id\":\""];
     [stringData appendString:trapID];
     [stringData appendString:@"\",\"user\":\""];
-    [stringData appendString:testUser.username];
+    [stringData appendString:mainUser.username];
     [stringData appendString:@"\"}"];
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
@@ -387,9 +389,9 @@ NSMutableArray *scores;
      } */
     
     NSMutableString *stringData = [[NSMutableString alloc] initWithString:@"{\"email\":\""];
-    [stringData appendString:testUser.emailAddr];
+    [stringData appendString:mainUser.emailAddr];
     [stringData appendString:@"\",\"name\":\""];
-    [stringData appendString:testUser.username];
+    [stringData appendString:mainUser.username];
     [stringData appendString:@"\"}"];
     
     // set the receiver’s request body, timeout interval (seconds), and HTTP request method
@@ -412,7 +414,7 @@ NSMutableArray *scores;
              dispatch_async(dispatch_get_main_queue(), ^{
                  NSString *myData = [[NSString alloc] initWithData:data
                                                           encoding:NSUTF8StringEncoding];
-                 testUser.userID = myData;
+                 mainUser.userID = myData;
                  
                  // NOTE: postChangeAreaToBackend called!
                  //[self postChangeAreaToBackend];
@@ -533,7 +535,7 @@ NSMutableArray *scores;
     self.myScoreLabel = [[UILabel alloc] init];
     self.myScoreLabel.frame = CGRectMake(((self.view.frame.size.width - 10) / 2) - 30, self.view.frame.size.height - 50, 80, 50);
     
-    self.myScoreLabel.text = testUser.score;
+    self.myScoreLabel.text = mainUser.score;
     self.myScoreLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.myScoreLabel.textAlignment = NSTextAlignmentCenter;
     self.myScoreLabel.numberOfLines = 0;
@@ -542,7 +544,7 @@ NSMutableArray *scores;
 }
 
 -(void)updateMyScoreLabel{
-    self.myScoreLabel.text = [@"Score\n" stringByAppendingString:testUser.score];
+    self.myScoreLabel.text = [@"Score\n" stringByAppendingString:mainUser.score];
 }
 
 - (void)setupTrapCountButton {
@@ -669,8 +671,8 @@ NSMutableArray *scores;
         NSNumber *tmpScore = [[sortedArray objectAtIndex:i] objectForKey:@"score"];
         NSString *tmpName = [[sortedArray objectAtIndex:i] objectForKey:@"name"];
         
-        if ([tmpName isEqualToString:testUser.username]){
-            testUser.score = [tmpScore stringValue];
+        if ([tmpName isEqualToString:mainUser.username]){
+            mainUser.score = [tmpScore stringValue];
             [self updateMyScoreLabel];
         }
         
