@@ -26,7 +26,7 @@ Future Work:
 
 Getting Started
 ---------------
-The app should build straight from the project, EXCEPT if it cannot find the GooglePlus files. To fix this problem, simply
-remove the references under Frameworks in the left most panel, and then drag and drop the files in the GoogleSDK 
-folder (My-Face-iOS/It's A Trap/GoogleSDK) into the project and re-build the project. Then log-in with Facebook and continue. 
+The app should build straight from the project, EXCEPT if it cannot find the GoogleMaps files. To fix this problem, simply
+remove the references under Frameworks in the left most panel, and then drag and drop GoogleMaps Framework (My-Face-iOS/It's A Trap) as well as the GoogleMaps
+Bundle (GoogleMapsFramework/Resources) into the project and re-build the project. Then log-in with Facebook and continue. 
 
