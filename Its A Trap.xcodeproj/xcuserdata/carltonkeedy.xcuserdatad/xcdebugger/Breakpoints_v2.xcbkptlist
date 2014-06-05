@@ -54,11 +54,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Its A Trap/IATMapViewController.m"
-            timestampString = "423562031.188594"
+            timestampString = "423635587.009793"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
+            startingLineNumber = "735"
+            endingLineNumber = "735"
             landmarkName = "-parseResponse:"
             landmarkType = "5">
          </BreakpointContent>

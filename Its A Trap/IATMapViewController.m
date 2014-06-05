@@ -27,6 +27,9 @@ IATUser *mainUser;
 int myMaxTrapCount = 12;
 NSMutableArray *names;
 NSMutableArray *scores;
+NSString *currentScore;
+UILabel *leftSign;
+UILabel *rightSign;
 
 - (IATDataObject*) theAppDataObject;
 {
@@ -57,11 +60,11 @@ NSMutableArray *scores;
     
     [self setUpMainUser];
     [self setupGoogleMap];
-    [self setupTrapCountButton];
+    [self setupTrapCountLabel];
     [self setupSweepButton];
-    //[self setupTestEnemyTraps];
     [self startStandardUpdates];
     [self setupMyScoreLabel];
+    [self setupScoreChangeLabels];
 }
 
 -(void)setUpMainUser{
@@ -174,7 +177,6 @@ NSMutableArray *scores;
     IATTrap *newTrap = [[IATTrap alloc] init];
     newTrap.coordinate = mostRecentCoordinate;
     newTrap.isActive = YES;
-    //newTrap.radius = 10;
     
     // Place a marker on the map for the new trap.
     GMSMarker *marker = [GMSMarker markerWithPosition:mostRecentCoordinate];
@@ -497,13 +499,14 @@ NSMutableArray *scores;
 }
 
 - (void)manageTrapRemoval {
+    IATTrap *trapToRemove;
     for (int i = 0; i < [self.myActiveTraps count]; i++){
         IATTrap *trap = [self.myActiveTraps objectAtIndex:i];
-        if (trap.coordinate.latitude == lastTouchedMarker.position.latitude && trap.coordinate.longitude == lastTouchedMarker.position.longitude) {
+        if ((trap.coordinate.latitude - lastTouchedMarker.position.latitude) < 0.0001 && (trap.coordinate.longitude - lastTouchedMarker.position.longitude) < .0001) {
             [self postRemoveTrapToBackend:trap.trapID];
             [self.myActiveTraps removeObject:trap];
             [self updateTrapCount];
-            lastTouchedMarker.map = nil;
+            trapToRemove = trap;
             
             // ********************************************************************************
             // "Let's just assume it always works." - Jiatao, on why we're not using this code:
@@ -522,16 +525,9 @@ NSMutableArray *scores;
             }
              */
         }
-        
     }
-}
-
-- (void)setupTestEnemyTraps {
-    IATTrap *testEnemy = [[IATTrap alloc] init];
-    CLLocationDegrees latitude = 44.4604636;
-    CLLocationDegrees longitude = -93.1535;
-    testEnemy.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-    [self.enemyTraps addObject:testEnemy];
+    [self.myActiveTraps removeObjectIdenticalTo:trapToRemove];
+    lastTouchedMarker.map = nil;
 }
 
 - (void)setupGoogleMap {
@@ -591,11 +587,67 @@ NSMutableArray *scores;
     [self.view addSubview:self.myScoreLabel];
 }
 
--(void)updateMyScoreLabel{
+-(void)updateMyScoreLabel:(int)difference {
+    [self animateScoreChange:difference];
     self.myScoreLabel.text = [@"Score\n" stringByAppendingString:mainUser.score];
 }
 
-- (void)setupTrapCountButton {
+- (void)setupScoreChangeLabels {
+    leftSign = [[UILabel alloc] init];
+    rightSign = [[UILabel alloc] init];
+    
+    leftSign.frame = CGRectMake(((self.view.frame.size.width - 10) / 4) + 10,self.view.frame.size.height - 55,50,50);
+    rightSign.frame = CGRectMake(((self.view.frame.size.width - 10) / 4)*3 - 20,self.view.frame.size.height - 55,50,50);
+    
+    [leftSign setFont:[UIFont systemFontOfSize:50.0]];
+    [rightSign setFont:[UIFont systemFontOfSize:50.0]];
+    
+    [leftSign setAlpha:0.0];
+    [rightSign setAlpha:0.0];
+    
+    [self.view addSubview:leftSign];
+    [self.view addSubview:rightSign];
+}
+
+- (void)animateScoreChange:(int)difference {
+    if (difference > 0) {
+        [leftSign setText:@"+"];
+        [rightSign setText:@"+"];
+        [leftSign setTextColor:[UIColor greenColor]];
+        [rightSign setTextColor:[UIColor greenColor]];
+    } else if (difference < 0){
+        [leftSign setText:@"-"];
+        [rightSign setText:@"-"];
+        [leftSign setTextColor:[UIColor redColor]];
+        [rightSign setTextColor:[UIColor redColor]];
+    } else {
+        return;
+    }
+    
+    // Animation stuff
+    [UIView animateWithDuration:0.5
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction
+                     animations:^(void) {
+         [leftSign setAlpha:1.0];
+         [rightSign setAlpha:1.0];
+     }
+       completion:^(BOOL finished) {
+         if (finished) {
+             [UIView animateWithDuration:2.0
+                                   delay:1
+                                 options:UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction
+                              animations:^(void) {
+                        [leftSign setAlpha:0.0];
+                        [rightSign setAlpha:0.0];
+              }
+                              completion:nil];
+         }
+     }];
+    return;
+}
+
+- (void)setupTrapCountLabel {
     self.trapCountLabel =[[UILabel alloc] init];
     self.trapCountLabel.frame = CGRectMake(10, self.view.frame.size.height - 50, 75, 50);
     self.trapCountLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -606,16 +658,6 @@ NSMutableArray *scores;
     
     [self updateTrapCount];
     [self.view addSubview:self.trapCountLabel];
-    
-    /*
-    self.trapCountButton = [[IATTrapCountButton alloc] init];
-    self.trapCountButton.frame = CGRectMake(10, self.view.frame.size.height - 50, 40, 40);
-    
-    [self updateTrapCount];
-    
-    [self.view addSubview:self.trapCountButton];
-    [self.trapCountButton drawCircleButton:[UIColor redColor]];
-     */
 }
 
 - (void)updateTrapCount {
@@ -716,9 +758,18 @@ NSMutableArray *scores;
         NSNumber *tmpScore = [[sortedArray objectAtIndex:i] objectForKey:@"score"];
         NSString *tmpName = [[sortedArray objectAtIndex:i] objectForKey:@"name"];
         
+        // NOTE: Using username here may not be the best idea.
+        //       Certainly not if two users share a username.
         if ([tmpName isEqualToString:mainUser.username]){
-            mainUser.score = [tmpScore stringValue];
-            [self updateMyScoreLabel];
+            NSNumber *oldScore = [NSNumber numberWithInteger:[mainUser.score integerValue]];
+            int oldInt = [oldScore intValue];
+            int newInt = [tmpScore intValue];
+            
+            if (newInt != oldInt) {
+                mainUser.score = [tmpScore stringValue];
+                int difference = newInt - oldInt;
+                [self updateMyScoreLabel:difference];
+            }
         }
         
         [tmpNamesArray addObject: tmpName];
