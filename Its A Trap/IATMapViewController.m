@@ -41,16 +41,19 @@ NSMutableArray *scores;
     
     IATDataObject* theDataObject = [self theAppDataObject];
     
+    //Instantiate a user class
     mainUser = [[IATUser alloc] init];
-    mainUser.username = @"jiataocheng";//theDataObject.userName;
-    mainUser.emailAddr = @"jiataocheng@yahoo.com";//theDataObject.userEmail;
+    mainUser.username = theDataObject.userName;
+    mainUser.emailAddr = theDataObject.userEmail;
     mainUser.score = @"Score\n0";
     [self postGetUserIDToBackend];
     
+    //Add swipe gesture for slideout drawer.
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     self.myActiveTraps = [[NSMutableArray alloc] init];
     self.enemyTraps = [[NSMutableArray alloc] init];
+    
     
     [self setUpMainUser];
     [self setupGoogleMap];
@@ -65,8 +68,11 @@ NSMutableArray *scores;
     IATDataObject* theDataObject = [self theAppDataObject];
     
     mainUser = [[IATUser alloc] init];
+    //set userName
     mainUser.username = theDataObject.userName;
+    //set email
     mainUser.emailAddr = theDataObject.userEmail;
+    //set score
     mainUser.score = @"Score\n0";
     [self postGetUserIDToBackend];
     

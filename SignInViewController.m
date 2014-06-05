@@ -35,9 +35,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //instantiate Facebook LoginView
     FBLoginView *loginview = [[FBLoginView alloc] initWithReadPermissions:@[@"public_profile", @"email"]];
     
+    //Sets Login Button Size
     loginview.frame = CGRectMake(self.view.frame.size.width/2 - loginview.frame.size.width/2, self.view.frame.size.height - 60, loginview.frame.size.width, loginview.frame.size.height);
     loginview.delegate = self;
     
@@ -59,7 +60,7 @@
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
-    
+    //Instantiate DataObject
     IATDataObject* theDataObject = [self theAppDataObject];
     
     NSString *tmpUsername = [[NSString alloc] init];
@@ -68,9 +69,11 @@
     NSString *tmpEmail = [[NSString alloc] init];
     tmpEmail = [user objectForKey:@"email"];
     
+    //Add username and userEmail to dataobject
     theDataObject.userName = tmpUsername;
     theDataObject.userEmail = tmpEmail;
 
+    //Push mapview controller to navigation controller
     [self performSegueWithIdentifier: @"loggedIn" sender: self];
     
 }

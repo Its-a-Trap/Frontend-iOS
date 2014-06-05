@@ -55,6 +55,7 @@
     
     IATDataObject* theDataObject = [self theAppDataObject];
     
+    //set cell data 
     cell.playerNameLabel.text = [theDataObject.names objectAtIndex:indexPath.row];
     cell.playerScoreLabel.text = [NSString stringWithFormat:@"%@", [theDataObject.scores objectAtIndex:indexPath.row]];
     return cell;
